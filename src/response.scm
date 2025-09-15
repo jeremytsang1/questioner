@@ -1,5 +1,5 @@
 (define-module (src response)
-  #:export (format-response))
+  #:export (qnr-format-response))
 
-(define (format-response response)
+(define (qnr-format-response response)
   "")

@@ -6,6 +6,6 @@
 (test-assert "Empty Response"
   (string=?
    ""
-   (format-response "")))
+   (qnr-format-response "")))
 
 (test-end "harness-response")
