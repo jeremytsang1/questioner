@@ -8,4 +8,9 @@
    ""
    (qnr-format-response "")))
 
+(test-assert "Single word response"
+  (string=?
+   "foo"
+   (qnr-format-response "foo")))
+
 (test-end "harness-response")
