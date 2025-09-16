@@ -7,13 +7,14 @@
 (define SINGLE-SPACE " ")
 
 (define (qnr-format-response response)
-  (let* ((tokens
-          (filter
-           ;; Filter on empty strings because splitting on whitespace generates
-           ;; empty strings in the resulting list of delimited substrings.
-           (lambda (str) (not (string-null? str)))
-           (string-split response char-whitespace?))))
-    (string-join tokens SINGLE-SPACE)))
+  (string-join
+   ;; Filter on empty strings because splitting on whitespace generates empty
+   ;; strings in the resulting list of delimited substrings.
+   (filter string-non-null? (string-split response char-whitespace?))
+   SINGLE-SPACE))
 
 (define (char-whitespace? char)
   (char-set-contains? char-set:whitespace char))
+
+(define (string-non-null? str)
+  (not (string-null? str)))
