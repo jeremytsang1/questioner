@@ -3,7 +3,6 @@
 
 (define TEST-SUITE-NAME "harness-response")
 (define EMPTY-RESPONSE "")
-(define SINGLE-SPACE " ")
 (define EXCLUSIVELY-WHITESPACE "  \n   \t ")
 (define SPACES "   ")
 (define SINGLE-WORD-RESPONSE "foo")
