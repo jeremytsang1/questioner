@@ -7,7 +7,13 @@
 (define SINGLE-SPACE " ")
 
 (define (qnr-format-answer answer)
-  "Remove any internal or external excess whitespace from ANSWER."
+  "Format ANSWER to be in a more comparable form.
+
+Remove excess internal/external whitespace from ANSWER and convert it entirely
+to lowercase."
+  (string-downcase (remove-excess-whitespace answer)))
+
+(define (remove-excess-whitespace answer)
   (string-join
    ;; Filter on empty strings because splitting on whitespace generates empty
    ;; strings in the resulting list of delimited substrings.
