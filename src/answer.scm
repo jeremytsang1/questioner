@@ -1,17 +1,17 @@
-(define-module (src response)
-  #:export (qnr-format-response
+(define-module (src answer)
+  #:export (qnr-format-answer
             EMPTY-STRING
             SINGLE-SPACE))
 
 (define EMPTY-STRING "")
 (define SINGLE-SPACE " ")
 
-(define (qnr-format-response response)
-  "Remove any internal or external excess whitespace from RESPONSE."
+(define (qnr-format-answer answer)
+  "Remove any internal or external excess whitespace from ANSWER."
   (string-join
    ;; Filter on empty strings because splitting on whitespace generates empty
    ;; strings in the resulting list of delimited substrings.
-   (filter string-non-null? (string-split response char-whitespace?))
+   (filter string-non-null? (string-split answer char-whitespace?))
    SINGLE-SPACE))
 
 (define (char-whitespace? char)
