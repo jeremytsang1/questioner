@@ -1,13 +1,13 @@
 (define-module (src answer)
-  #:export (qnr-format-answer
+  #:export (qnr-remove-excess-whitespace
             EMPTY-STRING
             SINGLE-SPACE))
 
 (define EMPTY-STRING "")
 (define SINGLE-SPACE " ")
 
-(define (qnr-format-answer answer)
-  "Remove any internal or external excess whitespace from ANSWER."
+(define (qnr-remove-excess-whitespace answer)
+  "Remove any excess internal/external whitespace from ANSWER."
   (string-join
    ;; Filter on empty strings because splitting on whitespace generates empty
    ;; strings in the resulting list of delimited substrings.

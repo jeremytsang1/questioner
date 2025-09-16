@@ -13,34 +13,34 @@
 (test-assert "empty answer"
   (string=?
    EMPTY-STRING
-   (qnr-format-answer EMPTY-ANSWER)))
+   (qnr-remove-excess-whitespace EMPTY-ANSWER)))
 
 (test-assert "only whitespace"
   (string=?
    EMPTY-STRING
-   (qnr-format-answer EXCLUSIVELY-WHITESPACE)))
+   (qnr-remove-excess-whitespace EXCLUSIVELY-WHITESPACE)))
 
 (test-assert "single word answer"
   (string=?
    SINGLE-WORD-ANSWER
-   (qnr-format-answer SINGLE-WORD-ANSWER)))
+   (qnr-remove-excess-whitespace SINGLE-WORD-ANSWER)))
 
 (test-assert "single word with leading spaces"
   (string=?
    SINGLE-WORD-ANSWER
-   (qnr-format-answer
+   (qnr-remove-excess-whitespace
     (string-concatenate (list SPACES SINGLE-WORD-ANSWER)))))
 
 (test-assert "single word with trailing spaces"
   (string=?
    SINGLE-WORD-ANSWER
-   (qnr-format-answer
+   (qnr-remove-excess-whitespace
     (string-concatenate (list SINGLE-WORD-ANSWER SPACES)))))
 
 (test-assert "two word answer with multiple spaces between"
   (string=?
    (string-concatenate (list SINGLE-WORD-ANSWER SINGLE-SPACE SECOND-WORD))
-   (qnr-format-answer
+   (qnr-remove-excess-whitespace
     (string-concatenate (list SINGLE-WORD-ANSWER SPACES SECOND-WORD)))))
 
 (test-end TEST-SUITE-NAME)
