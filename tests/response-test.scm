@@ -36,4 +36,10 @@
    (qnr-format-response
     (string-concatenate (list SINGLE-WORD-RESPONSE SPACES)))))
 
+(test-assert "two word response with multiple spaces between"
+  (string=?
+   "foo bar"
+   (qnr-format-response
+    "foo   bar")))
+
 (test-end TEST-SUITE-NAME)
