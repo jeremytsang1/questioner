@@ -7,6 +7,7 @@
 (define SINGLE-SPACE " ")
 
 (define (qnr-format-response response)
+  "Remove any internal or external excess whitespace from RESPONSE."
   (string-join
    ;; Filter on empty strings because splitting on whitespace generates empty
    ;; strings in the resulting list of delimited substrings.
