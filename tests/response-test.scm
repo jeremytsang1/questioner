@@ -2,8 +2,8 @@
              (src response))
 
 (define TEST-SUITE-NAME "harness-response")
-(define EMPTY-STRING "")
 (define EMPTY-RESPONSE "")
+(define EXCLUSIVELY-WHITESPACE "  \n   \t ")
 (define SINGLE-WORD-RESPONSE "foo")
 
 (test-begin TEST-SUITE-NAME)
@@ -13,10 +13,10 @@
    EMPTY-STRING
    (qnr-format-response EMPTY-RESPONSE)))
 
-(test-assert "Only whitespace"
+(test-assert "only whitespace"
   (string=?
    EMPTY-STRING
-   (qnr-format-response "  \n   \t ")))
+   (qnr-format-response EXCLUSIVELY-WHITESPACE)))
 
 (test-assert "single word response"
   (string=?
