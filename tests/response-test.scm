@@ -8,12 +8,12 @@
 
 (test-begin TEST-SUITE-NAME)
 
-(test-assert "Empty Response"
+(test-assert "empty response"
   (string=?
    EMPTY-STRING
    (qnr-format-response EMPTY-RESPONSE)))
 
-(test-assert "Single word response"
+(test-assert "single word response"
   (string=?
    SINGLE-WORD-RESPONSE
    (qnr-format-response SINGLE-WORD-RESPONSE)))
