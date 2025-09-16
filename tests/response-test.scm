@@ -13,6 +13,11 @@
    EMPTY-STRING
    (qnr-format-response EMPTY-RESPONSE)))
 
+(test-assert "Only whitespace"
+  (string=?
+   EMPTY-STRING
+   (qnr-format-response "  \n   \t ")))
+
 (test-assert "single word response"
   (string=?
    SINGLE-WORD-RESPONSE
