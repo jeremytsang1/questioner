@@ -4,6 +4,7 @@
 (define TEST-SUITE-NAME "harness-response")
 (define EMPTY-RESPONSE "")
 (define EXCLUSIVELY-WHITESPACE "  \n   \t ")
+(define SPACES "   ")
 (define SINGLE-WORD-RESPONSE "foo")
 
 (test-begin TEST-SUITE-NAME)
@@ -25,7 +26,8 @@
 
 (test-assert "single word with leading spaces"
   (string=?
-   "foo"
-   (qnr-format-response "    foo")))
+   SINGLE-WORD-RESPONSE
+   (qnr-format-response
+    (string-concatenate (list SPACES SINGLE-WORD-RESPONSE)))))
 
 (test-end TEST-SUITE-NAME)
