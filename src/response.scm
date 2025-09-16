@@ -12,9 +12,8 @@
            ;; Filter on empty strings because splitting on whitespace generates
            ;; empty strings in the resulting list of delimited substrings.
            (lambda (str) (not (string-null? str)))
-           (string-split response char-whitespace?)))
-         (formatted (string-join tokens SINGLE-SPACE)))
-    (string-trim-both formatted)))
+           (string-split response char-whitespace?))))
+    (string-join tokens SINGLE-SPACE)))
 
 (define (char-whitespace? char)
   (char-set-contains? char-set:whitespace char))
