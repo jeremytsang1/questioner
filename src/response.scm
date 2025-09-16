@@ -5,7 +5,7 @@
 (define EMPTY-STRING "")
 
 (define (qnr-format-response response)
-  (if (white-space? response) EMPTY-STRING response))
+  (if (white-space? response) EMPTY-STRING (string-trim response)))
 
 (define (white-space? response)
   (char-set-every
