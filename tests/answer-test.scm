@@ -43,4 +43,9 @@
    (qnr-format-answer
     (string-concatenate (list SINGLE-WORD-ANSWER SPACES SECOND-WORD)))))
 
+(test-assert "answer with upper case to lower case"
+  (string=?
+   "foo bar baz bop"
+   (qnr-format-answer "Foo BAR baz\t\tbOp")))
+
 (test-end TEST-SUITE-NAME)
