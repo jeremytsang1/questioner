@@ -8,15 +8,18 @@
 
 (define (qnr-format-response response)
   (let* ((tokens
-          (filter (lambda (str) (not (white-space? str)))
-                  (string-split
-                   response
-                   (lambda (char)
-                     (char-set-contains? char-set:whitespace char)))))
+          (filter
+           ;; Filter on empty strings because splitting on whitespace generates
+           ;; empty strings in the resulting list of delimited substrings.
+           (lambda (str) (not (string-null? str)))
+           (string-split response char-whitespace?)))
          (formatted (string-join tokens SINGLE-SPACE)))
-    (if (white-space? formatted) EMPTY-STRING (string-trim-both formatted))))
+    (if (string-whitespace? formatted) EMPTY-STRING (string-trim-both formatted))))
 
-(define (white-space? response)
+(define (string-whitespace? response)
   (char-set-every
-   (lambda (char) (char-set-contains? char-set:whitespace char))
+   char-whitespace?
    (->char-set response)))
+
+(define (char-whitespace? char)
+  (char-set-contains? char-set:whitespace char))
