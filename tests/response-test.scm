@@ -30,4 +30,10 @@
    (qnr-format-response
     (string-concatenate (list SPACES SINGLE-WORD-RESPONSE)))))
 
+(test-assert "single word with trailing spaces"
+  (string=?
+   SINGLE-WORD-RESPONSE
+   (qnr-format-response
+    (string-concatenate (list SINGLE-WORD-RESPONSE SPACES)))))
+
 (test-end TEST-SUITE-NAME)
