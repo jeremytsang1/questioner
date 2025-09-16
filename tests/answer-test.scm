@@ -7,6 +7,8 @@
 (define SPACES "   ")
 (define SINGLE-WORD-ANSWER "foo")
 (define SECOND-WORD "bar")
+(define LOWERCASE-CONVERTED-ANSWER "foo bar baz bop")
+(define MIXED-CASE-ANSWER "Foo BAR baz\t\tbOp")
 
 (test-begin TEST-SUITE-NAME)
 
@@ -45,7 +47,7 @@
 
 (test-assert "answer with upper case to lower case"
   (string=?
-   "foo bar baz bop"
-   (qnr-format-answer "Foo BAR baz\t\tbOp")))
+   LOWERCASE-CONVERTED-ANSWER
+   (qnr-format-answer MIXED-CASE-ANSWER)))
 
 (test-end TEST-SUITE-NAME)
