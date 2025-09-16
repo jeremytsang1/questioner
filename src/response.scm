@@ -7,12 +7,11 @@
 (define SINGLE-SPACE " ")
 
 (define (qnr-format-response response)
-  (string-downcase
-   (string-join
-    ;; Filter on empty strings because splitting on whitespace generates empty
-                             ;; strings in the resulting list of delimited substrings.
-    (filter string-non-null? (string-split response char-whitespace?))
-    SINGLE-SPACE)))
+  (string-join
+   ;; Filter on empty strings because splitting on whitespace generates empty
+   ;; strings in the resulting list of delimited substrings.
+   (filter string-non-null? (string-split response char-whitespace?))
+   SINGLE-SPACE))
 
 (define (char-whitespace? char)
   (char-set-contains? char-set:whitespace char))
