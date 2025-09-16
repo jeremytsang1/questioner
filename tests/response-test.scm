@@ -23,4 +23,9 @@
    SINGLE-WORD-RESPONSE
    (qnr-format-response SINGLE-WORD-RESPONSE)))
 
+(test-assert "single word with leading spaces"
+  (string=?
+   "foo"
+   (qnr-format-response "    foo")))
+
 (test-end TEST-SUITE-NAME)
