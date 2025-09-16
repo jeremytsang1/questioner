@@ -3,9 +3,11 @@
 
 (define TEST-SUITE-NAME "harness-response")
 (define EMPTY-RESPONSE "")
+(define SINGLE-SPACE " ")
 (define EXCLUSIVELY-WHITESPACE "  \n   \t ")
 (define SPACES "   ")
 (define SINGLE-WORD-RESPONSE "foo")
+(define SECOND-WORD "bar")
 
 (test-begin TEST-SUITE-NAME)
 
@@ -38,8 +40,8 @@
 
 (test-assert "two word response with multiple spaces between"
   (string=?
-   "foo bar"
+   (string-concatenate (list SINGLE-WORD-RESPONSE SINGLE-SPACE SECOND-WORD))
    (qnr-format-response
-    "foo   bar")))
+    (string-concatenate (list SINGLE-WORD-RESPONSE SPACES SECOND-WORD)))))
 
 (test-end TEST-SUITE-NAME)
