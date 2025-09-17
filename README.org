@@ -1,3 +1,16 @@
 #+TITLE: Questioner
 * Description
 Questioner is an application that reads a list of questions and answers and then quizzes a user over a text prompt.
+* Dependencies
+- GNU ~make~ >= 4.3
+* Running
+** App
+- From the project root run
+  #+begin_src shell
+make
+  #+end_src
+** Tests
+- From the project root.
+  #+begin_src shell
+make tests
+  #+end_src
