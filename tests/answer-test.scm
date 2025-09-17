@@ -1,12 +1,18 @@
+;;; (tests answer-test) --- Test for module (src answer).
+;; Usage: guile -L . tests/answer-test.scm LOG-DIRECTORY # From project root.
+#!/usr/local/bin/guile -s
+!#
+
 (use-modules (srfi srfi-64)
-             (src answer))
+             (src answer)
+             (util test))
 
 (define TEST-SUITE-NAME
   ;; Note that this must have the same stem as corresponding `.log` file used
   ;; as a target in the makefile. In this case "answer-test" is the stem where
   ;; the target will be "answer-test.log" and the prerequisite is
   ;; "answer-test.scm".
-  "logs/answer-test")
+  (qnr-generate-log-file-name))
 (define EMPTY-ANSWER "")
 (define EXCLUSIVELY-WHITESPACE "  \n   \t ")
 (define SPACES "   ")

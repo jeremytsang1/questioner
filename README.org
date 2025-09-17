@@ -10,7 +10,14 @@ Questioner is an application that reads a list of questions and answers and then
 make
   #+end_src
 ** Tests
+*** All Tests
 - From the project root.
   #+begin_src shell
 make test
   #+end_src
+*** Individual Test
+#+begin_src shell
+# From project root.
+guile -L . tests/TEST-FILE LOG-DIRECTORY
+#+end_src
+

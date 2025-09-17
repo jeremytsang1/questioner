@@ -32,7 +32,7 @@ test: $(LOGS)
 
 $(LOGS): $(DIR_LOGS)/%.log: $(DIR_TESTS)/%.scm $(SRCS)
 	mkdir --parents $(DIR_LOGS)
-	$(CC) -L $(DIR_PROJECT_ROOT) $<
+	$(CC) -L $(DIR_PROJECT_ROOT) $< $(DIR_LOGS)
 
 #  ############################################################################
 
