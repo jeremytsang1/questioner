@@ -22,3 +22,8 @@ test: $(LOGS)
 $(LOGS): $(DIR_LOGS)/%.log: $(DIR_TESTS)/%.scm
 	mkdir --parents $(DIR_LOGS)
 	$(CC) -L $(DIR_PROJECT_ROOT) $<
+
+.PHONY: clean
+clean:
+	rm -r $(DIR_LOGS)
+
