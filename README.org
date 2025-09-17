@@ -12,5 +12,5 @@ make
 ** Tests
 - From the project root.
   #+begin_src shell
-make tests
+make test
   #+end_src

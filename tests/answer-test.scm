@@ -6,7 +6,7 @@
   ;; as a target in the makefile. In this case "answer-test" is the stem where
   ;; the target will be "answer-test.log" and the prerequisite is
   ;; "answer-test.scm".
-  "answer-test")
+  "logs/answer-test")
 (define EMPTY-ANSWER "")
 (define EXCLUSIVELY-WHITESPACE "  \n   \t ")
 (define SPACES "   ")
