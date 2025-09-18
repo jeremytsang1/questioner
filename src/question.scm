@@ -42,8 +42,4 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
-  (let ((error-message
-         (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION))))
-    (if (string-null? error-message)
-        ""
-        (string-concatenate (list error-prefix error-message)))))
+  (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION)))
