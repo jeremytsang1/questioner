@@ -13,6 +13,9 @@ TESTS := $(wildcard $(DIR_TESTS)/*.scm)
 # ASSUME: There is exactly one log file generated for each test file.
 LOGS := $(patsubst $(DIR_TESTS)/%.scm,$(DIR_LOGS)/%.log,$(TESTS))
 
+HORIZONTAL_RULE := \
+"--------------------------------------------------------------------------------"
+
 all:
 	$(CC) -L  $(DIR_PROJECT_ROOT) main.scm
 
@@ -34,6 +37,7 @@ test: $(LOGS)
 # file).
 
 $(LOGS): $(DIR_LOGS)/%.log: $(DIR_TESTS)/%.scm $(SRCS)
+	@echo $(HORIZONTAL_RULE)
 	mkdir --parents $(DIR_LOGS)
 	$(CC) -L $(DIR_PROJECT_ROOT) \
 	$< \
