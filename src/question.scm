@@ -3,7 +3,8 @@
   #:export (qnr-make-question
             qnr-query
             qnr-solutions
-            qnr-expected-response-count))
+            qnr-expected-response-count
+            qnr-question-number))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define DOC-QNR-MAKE-QUESTION
@@ -22,11 +23,12 @@ users must guess from SOLUTIONS to have been considered answering the question."
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-record-type <question>
-  (qnr-make-question query solutions expected-response-count)
+  (qnr-make-question query solutions expected-response-count question-number)
   qnr-question?
   (query qnr-query)
   (solutions qnr-solutions)
-  (expected-response-count qnr-expected-response-count))
+  (expected-response-count qnr-expected-response-count)
+  (question-number qnr-question-number))
 
 (set-procedure-property!
  qnr-make-question
