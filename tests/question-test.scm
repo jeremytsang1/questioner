@@ -18,4 +18,7 @@
          (string=? (qnr-solutions question) "b")
          (string=? (qnr-expected-response-count question) "c"))))
 
+(test-assert
+    (not (qnr-validate-question (qnr-make-question 123 (list "blue") 1))))
+
 (test-end TEST-SUITE-NAME)
