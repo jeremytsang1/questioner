@@ -20,9 +20,9 @@ all:
 # Goal of test compilation is to generate test log files.
 test: $(LOGS)
 
-# Match test log files using "Static Pattern Rule". The prerequisite for each
-# log file is its corresponding test file used to generate it as well as all
-# source files.
+# Match test log files using "Static Pattern Rule". The first (which can be
+# referenced by `$<`) prerequisite for each log file is its corresponding test
+# file used to generate it as well as all source files.
 
 # ASSUME: Test files are independent from each other. Editing one will not
 # force a recompile of any of the others.
@@ -30,13 +30,17 @@ test: $(LOGS)
 # ASSSUME: Each test is dependent on ALL of the source files. Changing any
 # source file will force rerunning all test files.
 
+# ASSUME: Test scripts read 1 mandatory argument (directory which to write log
+# file).
+
 $(LOGS): $(DIR_LOGS)/%.log: $(DIR_TESTS)/%.scm $(SRCS)
 	mkdir --parents $(DIR_LOGS)
-	$(CC) -L $(DIR_PROJECT_ROOT) $< $(DIR_LOGS)
+	$(CC) -L $(DIR_PROJECT_ROOT) \
+	$< \
+	$(DIR_LOGS)
 
 #  ############################################################################
 
 .PHONY: clean
 clean:
 	rm -r $(DIR_LOGS)
-
