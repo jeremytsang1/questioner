@@ -19,4 +19,8 @@
          (string=? (qnr-expected-response-count question) "c")
          (string=? (qnr-question-number question) "d"))))
 
+(test-equal "validate an object that is not a <question>"
+  "qnr-validate-question: passed object is not a <question>"
+  (qnr-validate-question '(foo bar baz bop)))
+
 (test-end TEST-SUITE-NAME)
