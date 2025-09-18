@@ -23,4 +23,9 @@
   "passed object is not a <question>"
   (qnr-validate-question '(foo bar baz bop)))
 
+(test-equal "validate <question> with field number that is non-integer"
+  "<question> has non-integer value"
+  (qnr-validate-question
+   (qnr-make-question "foo" '(("bar")) 1 "3")))
+
 (test-end TEST-SUITE-NAME)
