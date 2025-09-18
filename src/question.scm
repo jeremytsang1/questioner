@@ -21,6 +21,10 @@ represent equivalent versions of a particular answer.
 EXPECTED-RESPONSE-COUNT is a positive integer representing how many answers
 users must guess from SOLUTIONS to have been considered answering the question.")
 
+
+(define error-prefix "qnr-validate-question: ")
+(define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
+
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-record-type <question>
@@ -38,6 +42,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
-  (cond
-   ((not (qnr-question? question))
-    "qnr-validate-question: passed object is not a <question>")))
+  (let ((error-message
+         (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION))))
+    (if (string-null? error-message)
+        ""
+        (string-concatenate (list error-prefix error-message)))))
