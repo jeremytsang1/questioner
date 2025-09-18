@@ -4,7 +4,8 @@
             qnr-query
             qnr-solutions
             qnr-expected-response-count
-            qnr-question-number))
+            qnr-question-number
+            qnr-validate-question))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define DOC-QNR-MAKE-QUESTION
@@ -34,3 +35,9 @@ users must guess from SOLUTIONS to have been considered answering the question."
  qnr-make-question
  'documentation
  DOC-QNR-MAKE-QUESTION)
+
+;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (qnr-validate-question question)
+  (cond
+   ((not (qnr-question? question))
+    "qnr-validate-question: passed object is not a <question>")))
