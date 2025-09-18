@@ -28,10 +28,26 @@ log file."
     (when (not (= (length coli-args) (1+ EXPECTED_TEST_SCRIPT_ARGUMENT_COUNT)))
       (throw EXCEPTION-INCORRECT-ARG-COUNT
              EXCEPTION-INCORRECT-ARG-COUNT-MESSAGE))
-    (let ((test-script-base-name-sans-extension
-           (basename (car coli-args) EXPECTED_TEST_SCRIPT_SUFFIX))
-          (dir-logs (match coli-args ((script-name dir-logs) dir-logs))))
-      (string-concatenate
-       (list dir-logs
-             file-name-separator-string
-             test-script-base-name-sans-extension)))))
+    (let ((dir-logs (match coli-args ((script-name dir-logs) dir-logs)))
+          ;; Find basename without extension becuase srfi-64 writes the
+          ;; extension as ".log".
+          (test-script-base-name-sans-extension
+           (basename (car coli-args) EXPECTED_TEST_SCRIPT_SUFFIX)))
+      (construct-path dir-logs test-script-base-name-sans-extension))))
+
+(define (construct-path directory-name file-basename)
+  (string-concatenate
+   (list
+    directory-name
+    ;; Only append the separator if there is not one already present.
+    (if (string=? (get-last-char-as-string directory-name)
+                  file-name-separator-string)
+        ""
+        file-name-separator-string)
+    file-basename)))
+
+(define (get-last-char-as-string str)
+  "Return substring containing the last character of STR.
+
+Assumes STR is not empty."
+  (string-take-right str 1))
