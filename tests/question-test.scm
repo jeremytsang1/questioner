@@ -13,9 +13,10 @@
 (test-begin TEST-SUITE-NAME)
 
 (test-assert "question fieldname access"
-  (let ((question (qnr-make-question "a" "b" "c")))
+  (let ((question (qnr-make-question "a" "b" "c" "d")))
     (and (string=? (qnr-query question) "a")
          (string=? (qnr-solutions question) "b")
-         (string=? (qnr-expected-response-count question) "c"))))
+         (string=? (qnr-expected-response-count question) "c")
+         (string=? (qnr-question-number question) "d"))))
 
 (test-end TEST-SUITE-NAME)
