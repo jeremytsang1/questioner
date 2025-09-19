@@ -130,23 +130,11 @@ Assumes LST is a list of lists (i.e. each member is a list)."
         ((and (list? (car lst)) (null? (car lst))) #t)
         (else (contains-empty-sublist? (cdr lst)))))
 
-(define* (members-contain-non-string? lst #:optional (min-depth 1))
-  "Search for non-string members of list of lists LST at least MIN-DEPTH deep.
-
-The top level of the list is considered depth 0."
-
-  (define (search at depth)
-    (cond ((null? at) #f)
-          ((and (not (string? (car at))) (>= depth min-depth)) #t)
-          ;; Note that lists at depth >= min-depth have been ruled about above
-          ;; because lists are not strings. So any list considered in the
-          ;; following branch has depth < min-depth.
-          ((list? (car at))
-           (or (search (car at) (1+ depth))
-               (search (cdr at) depth)))
-          (else (search (cdr at) (1+ depth)))))
-
-  (search lst 0))
+(define (members-contain-non-string? lst)
+  (search-sublists?
+   (lambda (sublist)
+     (not (null? (filter (lambda (elt) (not (string? elt))) sublist))))
+   lst))
 
 (define (list-of-lists-contains-string? lst key)
   "Return #t if any sublist of LST contains KEY.
@@ -155,6 +143,11 @@ LST must be a list of lists of strings."
   (cond ((null? lst) #f)
         ((and (list? (car lst)) (member key (car lst)) #t))
         (else (list-of-lists-contains-string? (cdr lst) key))))
+
+(define (search-sublists? pred lst)
+  (cond ((null? lst) #f)
+        ((and (list? (car lst)) (pred (car lst)) #t))
+        (else (search-sublists? pred (cdr lst)))))
 
 (define (validate-question-number question)
   (let ((question-number (qnr-question-number question)))
