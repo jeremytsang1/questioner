@@ -11,6 +11,7 @@
 (define QUERY-VALID "foo")
 (define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
+(define QUESTION-NUMBER-VALID-POSITIVE-INTEGER 123)
 (define QUESTION-NUMBER-INVALID-TYPE "hello") ;; Not an integer.
 (define QUESTION-NUMBER-INVALID-ZERO 0)
 (define QUESTION-NUMBER-INVALID-NEGATIVE -43)
@@ -24,7 +25,7 @@
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-VALID-SINGLE-RESPONSE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
-                      123)))
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-assert "<question> fieldname access"
   (let ((question (qnr-make-question "a" "b" "c" "d")))
