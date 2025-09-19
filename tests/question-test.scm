@@ -98,6 +98,14 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
+(test-equal "validate <question> with `solution` that has a sublist containing a non-string"
+  "<question> `solutions` contains a sublist with a non-string element."
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      '((("abc")) ("1" "2" "3"))
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-equal "validate <question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   (qnr-validate-question
