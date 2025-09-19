@@ -78,6 +78,14 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
+(test-equal "validate <question> with `solution` has non-list members"
+  "<question> has list with non-list members for `solutions`"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      '(("foo") "bar" "bop")
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-equal "validate <question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   (qnr-validate-question
