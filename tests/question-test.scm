@@ -54,7 +54,7 @@
                       QUESTION-NUMBER-INVALID-ZERO)))
 
 (test-equal "validate <question> with field `question-number` that is negative"
-  QNR-ERROR-QUESTION-NUMBER-NEGATIVE
+  QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-VALID-SINGLE-RESPONSE

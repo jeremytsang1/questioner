@@ -73,5 +73,5 @@ users must guess from SOLUTIONS to have been considered answering the question."
         ((= (qnr-question-number question) 0)
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
         ((< (qnr-question-number question) 0)
-         QNR-ERROR-QUESTION-NUMBER-NEGATIVE)
+         QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
         (else QNR-VALID-QUESTION-NO-ERROR)))
