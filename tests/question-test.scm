@@ -84,4 +84,12 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
+(test-equal "validate <question> with string for solutions instead of list"
+  "<question> has `solutions` that is not a list"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      "not a list"
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-end TEST-SUITE-NAME)
