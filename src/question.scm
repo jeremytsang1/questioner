@@ -111,9 +111,9 @@ users must guess from SOLUTIONS to have been considered answering the question."
   (let ((solutions (qnr-solutions question)))
     (cond ((not (list? solutions)) QNR-ERROR-SOLUTIONS-NON-LIST)
           ((null? solutions) QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL)
-          ((contains-non-list? solutions)
+          ((contains-non-list solutions)
            QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER)
-          ((contains-empty-sublist? solutions)
+          ((contains-empty-sublist solutions)
            QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
           ((members-contain-non-string? solutions)
            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
@@ -121,21 +121,11 @@ users must guess from SOLUTIONS to have been considered answering the question."
            QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST)
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
-(define (contains-non-list? lst)
-  "Returns #t if at least one of the members LST is not a list, otherwise #f.
+(define (contains-non-list lst)
+  (find (lambda (element) (not (list? element))) lst))
 
-Assumes LST is a list."
-  (cond ((null? lst) #f)
-        ((list? (car lst)) (contains-non-list? (cdr lst)))
-        (else #t)))
-
-(define (contains-empty-sublist? lst)
-  "Returns #t if one of the members of LST is an empty list, otherwise #f.
-
-Assumes LST is a list of lists (i.e. each member is a list)."
-  (cond ((null? lst) #f)
-        ((and (list? (car lst)) (null? (car lst))) #t)
-        (else (contains-empty-sublist? (cdr lst)))))
+(define (contains-empty-sublist lst)
+  (find (lambda (element) (null? element)) lst))
 
 (define (members-contain-non-string? lst)
   (search-sublists?
