@@ -3,6 +3,7 @@
   #:export (QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-NON-INTEGER-QUESTION-NUMBER
+            QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             qnr-make-question
             qnr-query
             qnr-solutions
@@ -28,6 +29,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
 (define QNR-ERROR-NON-INTEGER-QUESTION-NUMBER
   "<question> has non-integer question number")
+(define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
+  "<question> has non-positive question number")
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -50,5 +53,5 @@ users must guess from SOLUTIONS to have been considered answering the question."
         ((not (integer? (qnr-question-number question)))
          QNR-ERROR-NON-INTEGER-QUESTION-NUMBER)
         ((= (qnr-question-number question) 0)
-         "<question> has non-positive question-number")
+         QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
         (else QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE)))
