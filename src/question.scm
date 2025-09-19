@@ -7,6 +7,7 @@
             QNR-ERROR-QUERY-EMPTY-STRING
             QNR-ERROR-SOLUTIONS-NON-LIST
             QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
+            QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
@@ -41,6 +42,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> has a non-list for `solutions`")
 (define QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
   "<question> has an empty list for `solutions`")
+(define QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
+  "<question> `solutions` has a non-list top-level member")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -91,7 +94,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
   (cond ((not (list? (qnr-solutions question))) QNR-ERROR-SOLUTIONS-NON-LIST)
         ((null? (qnr-solutions question)) QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL)
         ((not (each-element-list? (qnr-solutions question)))
-         "<question> has list with non-list members for `solutions`")
+         QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER)
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (each-element-list? lst)

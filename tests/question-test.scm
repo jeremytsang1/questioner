@@ -16,6 +16,8 @@
 (define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
 (define SOLUTIONS-INVALID-NON-LIST "not a list")
 (define SOLUTIONS-INVALID-EMPTY-TOP-LEVEL '())
+(define SOLUTIONS-INVALID-CONTAINS-NON-LIST-TOP-LEVEL-MEMBER
+  '(("foo") "bar" "bop"))
 
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 
@@ -79,10 +81,10 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solution` has non-list members"
-  "<question> has list with non-list members for `solutions`"
+  QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '(("foo") "bar" "bop")
+                      SOLUTIONS-INVALID-CONTAINS-NON-LIST-TOP-LEVEL-MEMBER
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
