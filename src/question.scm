@@ -70,7 +70,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
    QNR-VALID-QUESTION-NO-ERROR ;; Begin assuming question is valid
    (list validate-question-is-<record>
          validate-query
-         validate-question-number)))
+         validate-question-number
+         validate-solutions)))
 
 (define (validate-query question)
   (cond ((not (string? (qnr-query question))) QNR-ERROR-QUERY-NON-STRING)
@@ -87,4 +88,9 @@ users must guess from SOLUTIONS to have been considered answering the question."
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
         ((< (qnr-question-number question) 0)
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
+        (else QNR-VALID-QUESTION-NO-ERROR)))
+
+(define (validate-solutions question)
+  (cond ((not (list? (qnr-solutions question)))
+         "<question> has `solutions` that is not a list")
         (else QNR-VALID-QUESTION-NO-ERROR)))
