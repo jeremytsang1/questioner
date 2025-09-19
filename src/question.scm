@@ -70,4 +70,6 @@ users must guess from SOLUTIONS to have been considered answering the question."
          QNR-ERROR-QUESTION-NUMBER-NON-INTEGER)
         ((= (qnr-question-number question) 0)
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
+        ((< (qnr-question-number question) 0)
+         "<question> has negative question number")
         (else QNR-VALID-QUESTION-NO-ERROR)))
