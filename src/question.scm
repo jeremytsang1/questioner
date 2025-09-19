@@ -120,19 +120,23 @@ Assumes LST is a list of lists (i.e. each member is a list)."
         ((and (list? (car lst)) (null? (car lst))) #t)
         (else (contains-empty-sublist? (cdr lst)))))
 
-(define* (members-contain-non-string? lst #:optional (depth 0) (min-depth 1))
+(define* (members-contain-non-string? lst #:optional (min-depth 1))
   "Search for non-string members of list of lists LST at least MIN-DEPTH deep.
 
 The top level of the list is considered depth 0."
-  (cond ((null? lst) #f)
-        ((and (not (string? (car lst))) (>= depth min-depth)) #t)
-        ;; Note that lists at depth >= min-depth have been ruled about above
-        ;; because lists are not strings. So any list considered in the
-        ;; following branch has depth < min-depth.
-        ((list? (car lst))
-         (or (members-contain-non-string? (car lst) (1+ depth))
-             (members-contain-non-string? (cdr lst) depth)))
-        (else (members-contain-non-string? (cdr lst) (1+ depth)))))
+
+  (define (search at depth)
+    (cond ((null? at) #f)
+          ((and (not (string? (car at))) (>= depth min-depth)) #t)
+          ;; Note that lists at depth >= min-depth have been ruled about above
+          ;; because lists are not strings. So any list considered in the
+          ;; following branch has depth < min-depth.
+          ((list? (car at))
+           (or (search (car at) (1+ depth))
+               (search (cdr at) depth)))
+          (else (search (cdr at) (1+ depth)))))
+
+  (search lst 0))
 
 (define (validate-question-number question)
   (cond ((not (integer? (qnr-question-number question)))
