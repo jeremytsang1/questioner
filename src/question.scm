@@ -10,6 +10,7 @@
             QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
             QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
             QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
+            QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
@@ -50,6 +51,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> `solutions` contains an empty sublist")
 (define QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
   "<question> `solutions` contains a sublist with a non-string element.")
+(define QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
+  "<question> `solutions` contains empty string in a sublist")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -108,7 +111,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
           ((members-contain-non-string? solutions)
            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
           ((list-of-lists-contains-string? solutions "")
-           "<question> `solutions` contains empty string in a sublist")
+           QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST)
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
 (define (contains-non-list? lst)

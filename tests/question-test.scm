@@ -22,6 +22,8 @@
   '(("foo" "bar") () '("baz" "bop")))
 (define SOLUTIONS-INVALID-SUBLIST-CONTAINS-NON-STRING
   '((("abc")) ("1" "2" "3")))
+(define SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
+  '(("foo" "baz" "bop") ("baz") ("alpha" "" "beta")))
 
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 
@@ -109,10 +111,10 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` with empty string in sublist"
-  "<question> `solutions` contains empty string in a sublist"
+  QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '(("foo" "baz" "bop") ("baz") ("alpha" "" "beta"))
+                      SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
