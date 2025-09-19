@@ -105,6 +105,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
          QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
         ((members-contain-non-string? (qnr-solutions question))
          QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
+        ((list-of-lists-contains-string? (qnr-solutions question) "")
+         "<question> `solutions` contains empty string in a sublist")
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (contains-non-list? lst)
@@ -140,6 +142,15 @@ The top level of the list is considered depth 0."
           (else (search (cdr at) (1+ depth)))))
 
   (search lst 0))
+
+
+(define (list-of-lists-contains-string? lst key)
+  "Return #t if any sublist of LST contains KEY.
+
+LST must be a list of lists of strings."
+  (cond ((null? lst) #f)
+        ((and (list? (car lst)) (member key (car lst)) #t))
+        (else (list-of-lists-contains-string? (cdr lst) key))))
 
 (define (validate-question-number question)
   (cond ((not (integer? (qnr-question-number question)))
