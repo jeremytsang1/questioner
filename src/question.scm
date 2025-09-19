@@ -1,4 +1,5 @@
 (define-module (src question)
+  #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:export (QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE
             QNR-ERROR-NON-QUESTION
@@ -49,8 +50,23 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
-  (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION)
-        ((not (integer? (qnr-question-number question)))
+  (fold
+   (lambda (validator prev-error-message)
+     ;; Return early when already have a previous error message. Don't bother
+     ;; doing any more checks once a validation error is found becuase later
+     ;; validators may assume the earlier validators pass (e.g. can't check
+     ;; expected-response-count if solutions is not a list).
+     (if (not (string-null? prev-error-message))
+         prev-error-message
+         (validator question)))
+   QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE ;; Begin assuming question is valid
+   (list validate-question-is-<record> validate-question-number)))
+
+(define (validate-question-is-<record> question)
+  (if (not (qnr-question? question)) QNR-ERROR-NON-QUESTION ""))
+
+(define (validate-question-number question)
+  (cond ((not (integer? (qnr-question-number question)))
          QNR-ERROR-QUESTION-NUMBER-NON-INTEGER)
         ((= (qnr-question-number question) 0)
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
