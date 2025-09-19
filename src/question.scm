@@ -128,15 +128,14 @@ users must guess from SOLUTIONS to have been considered answering the question."
   (find (lambda (element) (null? element)) lst))
 
 (define (members-contain-non-string lst)
+  "LST must be a list of lists"
   (find (lambda (sublist)
           (find (lambda (alternative) (not (string? alternative)))
                 sublist))
         lst))
 
 (define (members-contain-empty-string lst)
-  "Return #t if any sublist of LST contains KEY.
-
-LST must be a list of lists of strings."
+  "LST must be a list of lists."
   (find (lambda (sublist)
           (find (lambda (alternative) (string-null? alternative))
                 sublist))
