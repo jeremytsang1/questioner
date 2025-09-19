@@ -5,6 +5,7 @@
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-QUERY-NON-STRING
             QNR-ERROR-QUERY-EMPTY-STRING
+            QNR-ERROR-SOLUTIONS-NON-LIST
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
@@ -41,6 +42,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> has non-positive `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NEGATIVE
   "<question> has negative `question-number`")
+(define QNR-ERROR-SOLUTIONS-NON-LIST
+  "<question> has a non-list for `solutions`")
 
 ;; Record Definition ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <question>
@@ -92,5 +95,5 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 (define (validate-solutions question)
   (cond ((not (list? (qnr-solutions question)))
-         "<question> has `solutions` that is not a list")
+         QNR-ERROR-SOLUTIONS-NON-LIST)
         (else QNR-VALID-QUESTION-NO-ERROR)))

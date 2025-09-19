@@ -14,6 +14,7 @@
 (define QUERY-INVALID-EMPTY-STRING "")
 
 (define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
+(define SOLUTIONS-INVALID-NON-LIST "not a list")
 
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 
@@ -85,10 +86,10 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with string for solutions instead of list"
-  "<question> has `solutions` that is not a list"
+  QNR-ERROR-SOLUTIONS-NON-LIST
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      "not a list"
+                      SOLUTIONS-INVALID-NON-LIST
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
