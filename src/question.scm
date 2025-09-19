@@ -5,6 +5,7 @@
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
+            QNR-ERROR-QUESTION-NUMBER-NEGATIVE
             qnr-make-question
             qnr-query
             qnr-solutions
@@ -32,6 +33,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> has non-integer question number")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   "<question> has non-positive question number")
+(define QNR-ERROR-QUESTION-NUMBER-NEGATIVE
+  "<question> has negative question number")
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -71,5 +74,5 @@ users must guess from SOLUTIONS to have been considered answering the question."
         ((= (qnr-question-number question) 0)
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
         ((< (qnr-question-number question) 0)
-         "<question> has negative question number")
+         QNR-ERROR-QUESTION-NUMBER-NEGATIVE)
         (else QNR-VALID-QUESTION-NO-ERROR)))

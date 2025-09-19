@@ -13,6 +13,7 @@
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 (define QUESTION-NUMBER-INVALID-TYPE "hello") ;; Not an integer.
 (define QUESTION-NUMBER-INVALID-ZERO 0)
+(define QUESTION-NUMBER-INVALID-NEGATIVE -43)
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
@@ -53,11 +54,11 @@
                       QUESTION-NUMBER-INVALID-ZERO)))
 
 (test-equal "validate <question> with field number that is negative"
-  "<question> has negative question number"
+  QNR-ERROR-QUESTION-NUMBER-NEGATIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-VALID-SINGLE-RESPONSE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
-                      -43)))
+                      QUESTION-NUMBER-INVALID-NEGATIVE)))
 
 (test-end TEST-SUITE-NAME)
