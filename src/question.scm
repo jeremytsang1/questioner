@@ -49,4 +49,6 @@ users must guess from SOLUTIONS to have been considered answering the question."
   (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION)
         ((not (integer? (qnr-question-number question)))
          QNR-ERROR-NON-INTEGER-QUESTION-NUMBER)
+        ((= (qnr-question-number question) 0)
+         "<question> has non-positive question-number")
         (else QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE)))
