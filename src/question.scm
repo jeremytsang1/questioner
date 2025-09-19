@@ -1,6 +1,8 @@
 (define-module (src question)
   #:use-module (srfi srfi-9)
-  #:export (qnr-make-question
+  #:export (QNR-ERROR-NON-QUESTION
+            QNR-ERROR-NON-INTEGER-QUESTION-NUMBER
+            qnr-make-question
             qnr-query
             qnr-solutions
             qnr-expected-response-count
@@ -22,8 +24,9 @@ EXPECTED-RESPONSE-COUNT is a positive integer representing how many answers
 users must guess from SOLUTIONS to have been considered answering the question.")
 
 
-(define error-prefix "qnr-validate-question: ")
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
+(define QNR-ERROR-NON-INTEGER-QUESTION-NUMBER
+  "<question> has non-integer value")
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -44,4 +47,4 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define (qnr-validate-question question)
   (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION)
         ((not (integer? (qnr-question-number question)))
-         "<question> has non-integer value")))
+         QNR-ERROR-NON-INTEGER-QUESTION-NUMBER)))

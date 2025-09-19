@@ -8,6 +8,10 @@
              (src question))
 
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))
+(define QUERY-VALID "foo")
+(define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
+(define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
+(define QUESTION-NUMBER-INVALID-TYPE "hello") ;; Not an integer.
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
@@ -20,12 +24,15 @@
          (string=? (qnr-question-number question) "d"))))
 
 (test-equal "validate an object that is not a <question>"
-  "passed object is not a <question>"
+  QNR-ERROR-NON-QUESTION
   (qnr-validate-question '(foo bar baz bop)))
 
 (test-equal "validate <question> with field number that is non-integer"
-  "<question> has non-integer value"
+  QNR-ERROR-NON-INTEGER-QUESTION-NUMBER
   (qnr-validate-question
-   (qnr-make-question "foo" '(("bar")) 1 "3")))
+   (qnr-make-question QUERY-VALID
+                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-INVALID-TYPE)))
 
 (test-end TEST-SUITE-NAME)
