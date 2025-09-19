@@ -32,6 +32,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
 (define QNR-ERROR-QUERY-NON-STRING
   "<question> has non-string `query`")
+(define QNR-ERROR-QUERY-EMPTY-STRING
+  "<question> has `query` that is an empty string")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -71,6 +73,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 (define (validate-query question)
   (cond ((not (string? (qnr-query question))) QNR-ERROR-QUERY-NON-STRING)
+        ((string-null? (qnr-query question)) QNR-ERROR-QUERY-EMPTY-STRING)
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (validate-question-is-<record> question)
