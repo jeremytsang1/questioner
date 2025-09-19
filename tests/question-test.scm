@@ -52,4 +52,12 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-ZERO)))
 
+(test-equal "validate <question> with field number that is negative"
+  "<question> has negative question number"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      -43)))
+
 (test-end TEST-SUITE-NAME)
