@@ -108,6 +108,14 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
+(test-equal "validate <question> with `solutions` with empty string in sublist"
+  "<question> `solutions` contains empty string in a sublist"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      '(("foo" "baz" "bop") ("baz") ("alpha" "" "beta"))
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-equal "validate <question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   (qnr-validate-question
