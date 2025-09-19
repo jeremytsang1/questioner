@@ -18,6 +18,8 @@
 (define SOLUTIONS-INVALID-EMPTY-TOP-LEVEL '())
 (define SOLUTIONS-INVALID-CONTAINS-NON-LIST-TOP-LEVEL-MEMBER
   '(("foo") "bar" "bop"))
+(define SOLUTIONS-INVALID-CONTAINS-EMPTY-SUBLIST
+  '(("foo" "bar") () '("baz" "bop")))
 
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 
@@ -89,10 +91,10 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solution` that has an empty sublist"
-  "<question> `solutions` contains an empty sublist"
+  QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '(("foo" "bar") () '("baz" "bop"))
+                      SOLUTIONS-INVALID-CONTAINS-EMPTY-SUBLIST
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
