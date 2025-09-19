@@ -42,4 +42,6 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
-  (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION)))
+  (cond ((not (qnr-question? question)) QNR-ERROR-NON-QUESTION)
+        ((not (integer? (qnr-question-number question)))
+         "<question> has non-integer value")))
