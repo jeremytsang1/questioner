@@ -82,7 +82,7 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
-(test-equal "validate <question> with `solution` has non-list members"
+(test-equal "validate <question> with `solutions` has non-list members"
   QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
@@ -90,7 +90,7 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
-(test-equal "validate <question> with `solution` that has an empty sublist"
+(test-equal "validate <question> with `solutions` that has an empty sublist"
   QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
@@ -98,7 +98,7 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
-(test-equal "validate <question> with `solution` that has a sublist containing a non-string"
+(test-equal "validate <question> with `solutions` that has a sublist containing a non-string"
   "<question> `solutions` contains a sublist with a non-string element."
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
