@@ -145,6 +145,12 @@ LST must be a list of lists of strings."
         (else (list-of-lists-contains-string? (cdr lst) key))))
 
 (define (search-sublists? pred lst)
+  "Traverse LST and return #t if PRED returns #t when called on any
+given sublist.
+
+LST is a list of lists.
+
+Each PRED call is (PRED SUBLIST) where SUBLIST is an element of LST."
   (cond ((null? lst) #f)
         ((and (list? (car lst)) (pred (car lst)) #t))
         (else (search-sublists? pred (cdr lst)))))
