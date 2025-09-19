@@ -100,6 +100,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
          QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER)
         ((contains-empty-sublist? (qnr-solutions question))
          QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
+        ((members-contain-non-string? (qnr-solutions question))
+         "<question> `solutions` contains a sublist with a non-string element.")
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (contains-non-list? lst)
@@ -117,6 +119,20 @@ Assumes LST is a list of lists (i.e. each member is a list)."
   (cond ((null? lst) #f)
         ((and (list? (car lst)) (null? (car lst))) #t)
         (else (contains-empty-sublist? (cdr lst)))))
+
+(define* (members-contain-non-string? lst #:optional (depth 0) (min-depth 1))
+  "Search for non-string members of list of lists LST at least MIN-DEPTH deep.
+
+The top level of the list is considered depth 0."
+  (cond ((null? lst) #f)
+        ((and (not (string? (car lst))) (>= depth min-depth)) #t)
+        ;; Note that lists at depth >= min-depth have been ruled about above
+        ;; because lists are not strings. So any list considered in the
+        ;; following branch has depth < min-depth.
+        ((list? (car lst))
+         (or (members-contain-non-string? (car lst) (1+ depth))
+             (members-contain-non-string? (cdr lst) depth)))
+        (else (members-contain-non-string? (cdr lst) (1+ depth)))))
 
 (define (validate-question-number question)
   (cond ((not (integer? (qnr-question-number question)))
