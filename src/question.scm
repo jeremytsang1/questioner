@@ -30,14 +30,13 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define QNR-VALID-QUESTION-NO-ERROR "")
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
-  "<question> has non-integer question number")
+  "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
-  "<question> has non-positive question number")
+  "<question> has non-positive `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NEGATIVE
-  "<question> has negative question number")
+  "<question> has negative `question-number`")
 
-;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;; Record Definition ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <question>
   (qnr-make-question query solutions expected-response-count question-number)
   qnr-question?

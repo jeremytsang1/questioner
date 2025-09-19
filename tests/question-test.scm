@@ -18,7 +18,7 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
-(test-equal "valid single response question"
+(test-equal "valid single response <question>"
   QNR-VALID-QUESTION-NO-ERROR
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
@@ -26,7 +26,7 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       123)))
 
-(test-assert "question fieldname access"
+(test-assert "<question> fieldname access"
   (let ((question (qnr-make-question "a" "b" "c" "d")))
     (and (string=? (qnr-query question) "a")
          (string=? (qnr-solutions question) "b")
@@ -37,7 +37,7 @@
   QNR-ERROR-NON-QUESTION
   (qnr-validate-question '(foo bar baz bop)))
 
-(test-equal "validate <question> with field number that is non-integer"
+(test-equal "validate <question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
@@ -45,7 +45,7 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-TYPE)))
 
-(test-equal "validate <question> with field number that is 0"
+(test-equal "validate <question> with field `question-number` that is 0"
   QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
@@ -53,7 +53,7 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-ZERO)))
 
-(test-equal "validate <question> with field number that is negative"
+(test-equal "validate <question> with field `question-number` that is negative"
   QNR-ERROR-QUESTION-NUMBER-NEGATIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
