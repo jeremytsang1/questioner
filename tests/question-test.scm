@@ -69,6 +69,14 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
+(test-equal "validate <question> with an empty list for `solutions`"
+  "<question> has an empty list for `solutions`"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      '()
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-equal "validate <question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   (qnr-validate-question
