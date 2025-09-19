@@ -128,10 +128,10 @@ users must guess from SOLUTIONS to have been considered answering the question."
   (find (lambda (element) (null? element)) lst))
 
 (define (members-contain-non-string? lst)
-  (search-sublists?
-   (lambda (sublist)
-     (not (null? (filter (lambda (elt) (not (string? elt))) sublist))))
-   lst))
+  (find (lambda (sublist)
+          (find (lambda (alternative) (not (string? alternative)))
+                sublist))
+        lst))
 
 (define (list-of-lists-contains-string? lst key)
   "Return #t if any sublist of LST contains KEY.
