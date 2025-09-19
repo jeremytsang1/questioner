@@ -115,9 +115,9 @@ users must guess from SOLUTIONS to have been considered answering the question."
            QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER)
           ((contains-empty-sublist solutions)
            QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
-          ((members-contain-non-string? solutions)
+          ((members-contain-non-string solutions)
            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
-          ((list-of-lists-contains-string? solutions "")
+          ((members-contain-empty-string solutions)
            QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST)
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
@@ -127,28 +127,20 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define (contains-empty-sublist lst)
   (find (lambda (element) (null? element)) lst))
 
-(define (members-contain-non-string? lst)
+(define (members-contain-non-string lst)
   (find (lambda (sublist)
           (find (lambda (alternative) (not (string? alternative)))
                 sublist))
         lst))
 
-(define (list-of-lists-contains-string? lst key)
+(define (members-contain-empty-string lst)
   "Return #t if any sublist of LST contains KEY.
 
 LST must be a list of lists of strings."
-  (search-sublists? (lambda (sublist) (member key sublist)) lst))
-
-(define (search-sublists? pred lst)
-  "Traverse LST and return #t if PRED returns #t when called on any
-given sublist.
-
-LST is a list of lists.
-
-Each PRED call is (PRED SUBLIST) where SUBLIST is an element of LST."
-  (cond ((null? lst) #f)
-        ((and (list? (car lst)) (pred (car lst)) #t))
-        (else (search-sublists? pred (cdr lst)))))
+  (find (lambda (sublist)
+          (find (lambda (alternative) (string-null? alternative))
+                sublist))
+        lst))
 
 (define (validate-question-number question)
   (let ((question-number (qnr-question-number question)))
