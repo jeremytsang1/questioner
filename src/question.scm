@@ -140,9 +140,7 @@ Assumes LST is a list of lists (i.e. each member is a list)."
   "Return #t if any sublist of LST contains KEY.
 
 LST must be a list of lists of strings."
-  (cond ((null? lst) #f)
-        ((and (list? (car lst)) (member key (car lst)) #t))
-        (else (list-of-lists-contains-string? (cdr lst) key))))
+  (search-sublists? (lambda (sublist) (member key sublist)) lst))
 
 (define (search-sublists? pred lst)
   "Traverse LST and return #t if PRED returns #t when called on any
