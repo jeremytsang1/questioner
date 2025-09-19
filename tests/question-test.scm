@@ -17,7 +17,7 @@
 (test-begin TEST-SUITE-NAME)
 
 (test-equal "valid single response question"
-  QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE
+  QNR-VALID-QUESTION-NO-ERROR
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-VALID-SINGLE-RESPONSE

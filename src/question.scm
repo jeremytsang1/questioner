@@ -1,7 +1,7 @@
 (define-module (src question)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
-  #:export (QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE
+  #:export (QNR-VALID-QUESTION-NO-ERROR
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -26,7 +26,7 @@ represent equivalent versions of a particular answer.
 EXPECTED-RESPONSE-COUNT is a positive integer representing how many answers
 users must guess from SOLUTIONS to have been considered answering the question.")
 
-(define QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE "")
+(define QNR-VALID-QUESTION-NO-ERROR "")
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer question number")
@@ -59,7 +59,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
      (if (not (string-null? prev-error-message))
          prev-error-message
          (validator question)))
-   QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE ;; Begin assuming question is valid
+   QNR-VALID-QUESTION-NO-ERROR ;; Begin assuming question is valid
    (list validate-question-is-<record> validate-question-number)))
 
 (define (validate-question-is-<record> question)
@@ -70,4 +70,4 @@ users must guess from SOLUTIONS to have been considered answering the question."
          QNR-ERROR-QUESTION-NUMBER-NON-INTEGER)
         ((= (qnr-question-number question) 0)
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
-        (else QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE)))
+        (else QNR-VALID-QUESTION-NO-ERROR)))
