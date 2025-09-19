@@ -108,7 +108,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (contains-non-list? lst)
-  "Returns #t if at least one of the members  LST is not a list, otherwise #f.
+  "Returns #t if at least one of the members LST is not a list, otherwise #f.
 
 Assumes LST is a list."
   (cond ((null? lst) #f)
@@ -116,7 +116,7 @@ Assumes LST is a list."
         (else #t)))
 
 (define (contains-empty-sublist? lst)
-  "Returns #t if LST if one of its members is an empty list, otherwise #f.
+  "Returns #t if one of the members of LST is an empty list, otherwise #f.
 
 Assumes LST is a list of lists (i.e. each member is a list)."
   (cond ((null? lst) #f)
