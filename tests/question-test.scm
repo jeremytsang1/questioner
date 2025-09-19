@@ -66,4 +66,12 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-NEGATIVE)))
 
+(test-equal "validate <question> with field `query` that is non-string"
+  "<question> has non-string `query`"
+  (qnr-validate-question
+   (qnr-make-question '()
+                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-end TEST-SUITE-NAME)
