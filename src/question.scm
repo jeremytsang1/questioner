@@ -96,19 +96,19 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define (validate-solutions question)
   (cond ((not (list? (qnr-solutions question))) QNR-ERROR-SOLUTIONS-NON-LIST)
         ((null? (qnr-solutions question)) QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL)
-        ((not (each-element-list? (qnr-solutions question)))
+        ((contains-non-list? (qnr-solutions question))
          QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER)
         ((contains-empty-sublist? (qnr-solutions question))
          QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
-(define (each-element-list? lst)
-  "Returns #t if each element is a list, otherwise #f.
+(define (contains-non-list? lst)
+  "Returns #t if at least one of the members  LST is not a list, otherwise #f.
 
 Assumes LST is a list."
-  (cond ((null? lst) #t)
-        ((list? (car lst)) (each-element-list? (cdr lst)))
-        (else #f)))
+  (cond ((null? lst) #f)
+        ((list? (car lst)) (contains-non-list? (cdr lst)))
+        (else #t)))
 
 (define (contains-empty-sublist? lst)
   "Returns #t if LST if one of its members is an empty list, otherwise #f.
