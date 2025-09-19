@@ -9,6 +9,7 @@
             QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
             QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
             QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
+            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
@@ -47,6 +48,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> `solutions` has a non-list top-level member")
 (define QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
   "<question> `solutions` contains an empty sublist")
+(define QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
+  "<question> `solutions` contains a sublist with a non-string element.")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -101,7 +104,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
         ((contains-empty-sublist? (qnr-solutions question))
          QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
         ((members-contain-non-string? (qnr-solutions question))
-         "<question> `solutions` contains a sublist with a non-string element.")
+         QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (contains-non-list? lst)
@@ -121,12 +124,12 @@ Assumes LST is a list of lists (i.e. each member is a list)."
         (else (contains-empty-sublist? (cdr lst)))))
 
 (define* (members-contain-non-string? lst #:optional (min-depth 1))
-  "Search for non-string members of list of lists LST at least MIN-DEPTH deep.
+   "Search for non-string members of list of lists LST at least MIN-DEPTH deep.
 
 The top level of the list is considered depth 0."
 
   (define (search at depth)
-    (cond ((null? at) #f)
+      (cond ((null? at) #f)
           ((and (not (string? (car at))) (>= depth min-depth)) #t)
           ;; Note that lists at depth >= min-depth have been ruled about above
           ;; because lists are not strings. So any list considered in the

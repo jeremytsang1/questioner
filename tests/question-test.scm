@@ -20,6 +20,8 @@
   '(("foo") "bar" "bop"))
 (define SOLUTIONS-INVALID-CONTAINS-EMPTY-SUBLIST
   '(("foo" "bar") () '("baz" "bop")))
+(define SOLUTIONS-INVALID-SUBLIST-CONTAINS-NON-STRING
+  '((("abc")) ("1" "2" "3")))
 
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 
@@ -99,10 +101,10 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` that has a sublist containing a non-string"
-  "<question> `solutions` contains a sublist with a non-string element."
+  QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '((("abc")) ("1" "2" "3"))
+                      SOLUTIONS-INVALID-SUBLIST-CONTAINS-NON-STRING
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
