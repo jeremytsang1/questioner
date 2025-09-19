@@ -6,6 +6,7 @@
             QNR-ERROR-QUERY-NON-STRING
             QNR-ERROR-QUERY-EMPTY-STRING
             QNR-ERROR-SOLUTIONS-NON-LIST
+            QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
@@ -38,6 +39,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> has `query` that is an empty string")
 (define QNR-ERROR-SOLUTIONS-NON-LIST
   "<question> has a non-list for `solutions`")
+(define QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
+  "<question> has an empty list for `solutions`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -85,10 +88,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (validate-solutions question)
-  (cond ((not (list? (qnr-solutions question)))
-         QNR-ERROR-SOLUTIONS-NON-LIST)
-        ((null? (qnr-solutions question))
-         "<question> has an empty list for `solutions`")
+  (cond ((not (list? (qnr-solutions question))) QNR-ERROR-SOLUTIONS-NON-LIST)
+        ((null? (qnr-solutions question)) QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL)
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (validate-question-number question)

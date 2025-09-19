@@ -15,6 +15,7 @@
 
 (define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
 (define SOLUTIONS-INVALID-NON-LIST "not a list")
+(define SOLUTIONS-INVALID-EMPTY-TOP-LEVEL '())
 
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 
@@ -70,10 +71,10 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with an empty list for `solutions`"
-  "<question> has an empty list for `solutions`"
+  QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '()
+                      SOLUTIONS-INVALID-EMPTY-TOP-LEVEL
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
