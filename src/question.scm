@@ -87,6 +87,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define (validate-solutions question)
   (cond ((not (list? (qnr-solutions question)))
          QNR-ERROR-SOLUTIONS-NON-LIST)
+        ((null? (qnr-solutions question))
+         "<question> has an empty list for `solutions`")
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (validate-question-number question)
