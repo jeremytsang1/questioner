@@ -36,7 +36,7 @@
   (qnr-validate-question '(foo bar baz bop)))
 
 (test-equal "validate <question> with field number that is non-integer"
-  QNR-ERROR-NON-INTEGER-QUESTION-NUMBER
+  QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-VALID-SINGLE-RESPONSE
