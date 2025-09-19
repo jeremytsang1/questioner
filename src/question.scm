@@ -35,6 +35,13 @@ represent equivalent versions of a particular answer.
 EXPECTED-RESPONSE-COUNT is a positive integer representing how many answers
 users must guess from SOLUTIONS to have been considered answering the question.")
 
+
+;; DESIGN CHOICE: Would have preferred to use symbols and exceptions for the
+;; below but since since the Guile implementation of srfi-64 does not match
+;; error types (see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=66776 and
+;; https://wolfsden.cz/blog/post/state-of-srfi-64.html) it is not feasible to
+;; use those in srfi-64 tests since there would be no way to verfiy if the
+;; correct error is being caught or not, only that an error is being caught.
 (define QNR-VALID-QUESTION-NO-ERROR "")
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
 (define QNR-ERROR-QUERY-NON-STRING
