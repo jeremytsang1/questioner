@@ -11,6 +11,7 @@
 
 (define QUERY-VALID "foo")
 (define QUERY-INVALID-NON-STRING '())
+(define QUERY-INVALID-EMPTY-STRING "")
 
 (define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
 
@@ -76,9 +77,9 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with field `query` that is an empty string"
-  "<question> has `query` that is an empty string"
+  QNR-ERROR-QUERY-EMPTY-STRING
   (qnr-validate-question
-   (qnr-make-question ""
+   (qnr-make-question QUERY-INVALID-EMPTY-STRING
                       SOLUTIONS-VALID-SINGLE-RESPONSE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
