@@ -29,6 +29,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 (define QNR-VALID-QUESTION-NO-ERROR "")
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
+(define QNR-ERROR-QUERY-NON-STRING
+  "<question> has non-string `query`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -62,7 +64,13 @@ users must guess from SOLUTIONS to have been considered answering the question."
          prev-error-message
          (validator question)))
    QNR-VALID-QUESTION-NO-ERROR ;; Begin assuming question is valid
-   (list validate-question-is-<record> validate-question-number)))
+   (list validate-question-is-<record>
+         validate-query
+         validate-question-number)))
+
+(define (validate-query question)
+  (cond ((not (string? (qnr-query question))) QNR-ERROR-QUERY-NON-STRING)
+        (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (validate-question-is-<record> question)
   (if (not (qnr-question? question)) QNR-ERROR-NON-QUESTION ""))
