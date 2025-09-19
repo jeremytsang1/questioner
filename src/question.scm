@@ -36,14 +36,14 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> has non-string `query`")
 (define QNR-ERROR-QUERY-EMPTY-STRING
   "<question> has `query` that is an empty string")
+(define QNR-ERROR-SOLUTIONS-NON-LIST
+  "<question> has a non-list for `solutions`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   "<question> has non-positive `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NEGATIVE
   "<question> has negative `question-number`")
-(define QNR-ERROR-SOLUTIONS-NON-LIST
-  "<question> has a non-list for `solutions`")
 
 ;; Record Definition ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <question>
@@ -76,13 +76,18 @@ users must guess from SOLUTIONS to have been considered answering the question."
          validate-question-number
          validate-solutions)))
 
+(define (validate-question-is-<record> question)
+  (if (not (qnr-question? question)) QNR-ERROR-NON-QUESTION ""))
+
 (define (validate-query question)
   (cond ((not (string? (qnr-query question))) QNR-ERROR-QUERY-NON-STRING)
         ((string-null? (qnr-query question)) QNR-ERROR-QUERY-EMPTY-STRING)
         (else QNR-VALID-QUESTION-NO-ERROR)))
 
-(define (validate-question-is-<record> question)
-  (if (not (qnr-question? question)) QNR-ERROR-NON-QUESTION ""))
+(define (validate-solutions question)
+  (cond ((not (list? (qnr-solutions question)))
+         QNR-ERROR-SOLUTIONS-NON-LIST)
+        (else QNR-VALID-QUESTION-NO-ERROR)))
 
 (define (validate-question-number question)
   (cond ((not (integer? (qnr-question-number question)))
@@ -91,9 +96,4 @@ users must guess from SOLUTIONS to have been considered answering the question."
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
         ((< (qnr-question-number question) 0)
          QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
-        (else QNR-VALID-QUESTION-NO-ERROR)))
-
-(define (validate-solutions question)
-  (cond ((not (list? (qnr-solutions question)))
-         QNR-ERROR-SOLUTIONS-NON-LIST)
         (else QNR-VALID-QUESTION-NO-ERROR)))

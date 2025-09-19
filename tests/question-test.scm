@@ -26,6 +26,13 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
+(test-assert "<question> fieldname access"
+  (let ((question (qnr-make-question "a" "b" "c" "d")))
+    (and (string=? (qnr-query question) "a")
+         (string=? (qnr-solutions question) "b")
+         (string=? (qnr-expected-response-count question) "c")
+         (string=? (qnr-question-number question) "d"))))
+
 (test-equal "valid single response <question>"
   QNR-VALID-QUESTION-NO-ERROR
   (qnr-validate-question
@@ -34,16 +41,33 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
-(test-assert "<question> fieldname access"
-  (let ((question (qnr-make-question "a" "b" "c" "d")))
-    (and (string=? (qnr-query question) "a")
-         (string=? (qnr-solutions question) "b")
-         (string=? (qnr-expected-response-count question) "c")
-         (string=? (qnr-question-number question) "d"))))
-
 (test-equal "validate an object that is not a <question>"
   QNR-ERROR-NON-QUESTION
   (qnr-validate-question '(foo bar baz bop)))
+
+(test-equal "validate <question> with field `query` that is non-string"
+  QNR-ERROR-QUERY-NON-STRING
+  (qnr-validate-question
+   (qnr-make-question QUERY-INVALID-NON-STRING
+                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
+(test-equal "validate <question> with field `query` that is an empty string"
+  QNR-ERROR-QUERY-EMPTY-STRING
+  (qnr-validate-question
+   (qnr-make-question QUERY-INVALID-EMPTY-STRING
+                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
+(test-equal "validate <question> with string for `solutions` instead of list"
+  QNR-ERROR-SOLUTIONS-NON-LIST
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      SOLUTIONS-INVALID-NON-LIST
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
@@ -68,29 +92,5 @@
                       SOLUTIONS-VALID-SINGLE-RESPONSE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-NEGATIVE)))
-
-(test-equal "validate <question> with field `query` that is non-string"
-  QNR-ERROR-QUERY-NON-STRING
-  (qnr-validate-question
-   (qnr-make-question QUERY-INVALID-NON-STRING
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
-                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
-
-(test-equal "validate <question> with field `query` that is an empty string"
-  QNR-ERROR-QUERY-EMPTY-STRING
-  (qnr-validate-question
-   (qnr-make-question QUERY-INVALID-EMPTY-STRING
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
-                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
-
-(test-equal "validate <question> with string for solutions instead of list"
-  QNR-ERROR-SOLUTIONS-NON-LIST
-  (qnr-validate-question
-   (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-NON-LIST
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
-                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-end TEST-SUITE-NAME)
