@@ -47,4 +47,4 @@ $(LOGS): $(DIR_LOGS)/%.log: $(DIR_TESTS)/%.scm $(SRCS)
 
 .PHONY: clean
 clean:
-	rm -r $(DIR_LOGS)
+	rm -rf $(DIR_LOGS)
