@@ -12,6 +12,7 @@
 (define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 (define QUESTION-NUMBER-INVALID-TYPE "hello") ;; Not an integer.
+(define QUESTION-NUMBER-INVALID-ZERO 0)
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
@@ -49,6 +50,6 @@
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-VALID-SINGLE-RESPONSE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
-                      0)))
+                      QUESTION-NUMBER-INVALID-ZERO)))
 
 (test-end TEST-SUITE-NAME)
