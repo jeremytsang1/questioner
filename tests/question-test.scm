@@ -10,6 +10,7 @@
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))
 
 (define QUERY-VALID "foo")
+(define QUERY-INVALID-NON-STRING '())
 
 (define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
 
@@ -67,9 +68,9 @@
                       QUESTION-NUMBER-INVALID-NEGATIVE)))
 
 (test-equal "validate <question> with field `query` that is non-string"
-  "<question> has non-string `query`"
+  QNR-ERROR-QUERY-NON-STRING
   (qnr-validate-question
-   (qnr-make-question '()
+   (qnr-make-question QUERY-INVALID-NON-STRING
                       SOLUTIONS-VALID-SINGLE-RESPONSE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
