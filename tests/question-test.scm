@@ -16,6 +16,14 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
+(test-equal "valid single response question"
+  ""
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      123)))
+
 (test-assert "question fieldname access"
   (let ((question (qnr-make-question "a" "b" "c" "d")))
     (and (string=? (qnr-query question) "a")
