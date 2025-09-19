@@ -126,12 +126,12 @@ Assumes LST is a list of lists (i.e. each member is a list)."
         (else (contains-empty-sublist? (cdr lst)))))
 
 (define* (members-contain-non-string? lst #:optional (min-depth 1))
-   "Search for non-string members of list of lists LST at least MIN-DEPTH deep.
+  "Search for non-string members of list of lists LST at least MIN-DEPTH deep.
 
 The top level of the list is considered depth 0."
 
   (define (search at depth)
-      (cond ((null? at) #f)
+    (cond ((null? at) #f)
           ((and (not (string? (car at))) (>= depth min-depth)) #t)
           ;; Note that lists at depth >= min-depth have been ruled about above
           ;; because lists are not strings. So any list considered in the
@@ -142,7 +142,6 @@ The top level of the list is considered depth 0."
           (else (search (cdr at) (1+ depth)))))
 
   (search lst 0))
-
 
 (define (list-of-lists-contains-string? lst key)
   "Return #t if any sublist of LST contains KEY.
