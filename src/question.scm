@@ -90,7 +90,17 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define (validate-solutions question)
   (cond ((not (list? (qnr-solutions question))) QNR-ERROR-SOLUTIONS-NON-LIST)
         ((null? (qnr-solutions question)) QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL)
+        ((not (each-element-list? (qnr-solutions question)))
+         "<question> has list with non-list members for `solutions`")
         (else QNR-VALID-QUESTION-NO-ERROR)))
+
+(define (each-element-list? lst)
+  "Returns #t if each element is a list, otherwise #f.
+
+Assumes LST is a list."
+  (cond ((null? lst) #t)
+        ((list? (car lst)) (each-element-list? (cdr lst)))
+        (else #f)))
 
 (define (validate-question-number question)
   (cond ((not (integer? (qnr-question-number question)))
