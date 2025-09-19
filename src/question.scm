@@ -27,7 +27,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define QNR-VALID-QUESTION-LACK-OF-ERROR-MESSAGE "")
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
 (define QNR-ERROR-NON-INTEGER-QUESTION-NUMBER
-  "<question> has non-integer value")
+  "<question> has non-integer question number")
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
