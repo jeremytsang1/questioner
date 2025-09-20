@@ -11,22 +11,22 @@
 
 (define QUERY-VALID "foo")
 (define QUERY-INVALID-NON-STRING '())
-(define QUERY-INVALID-EMPTY-STRING "")
+(define QUERY-INVALID-WRONG-TYPE "")
 
-(define SOLUTIONS-VALID-SINGLE-RESPONSE '(("bar")))
-(define SOLUTIONS-INVALID-NON-LIST "not a list")
-(define SOLUTIONS-INVALID-EMPTY-TOP-LEVEL '())
-(define SOLUTIONS-INVALID-CONTAINS-NON-LIST-TOP-LEVEL-MEMBER
+(define SOLUTIONS-VALID-SINGLE-CHOICE '(("bar")))
+(define SOLUTIONS-INVALID-WRONG-TYPE "not a list")
+(define SOLUTIONS-INVALID-NO-CHOICES '())
+(define SOLUTIONS-INVALID-CHOICES-WRONG-TYPE
   '(("foo") "bar" "bop"))
-(define SOLUTIONS-INVALID-CONTAINS-EMPTY-SUBLIST
+(define SOLUTIONS-INVALID-EMPTY-CHOICE
   '(("foo" "bar") () '("baz" "bop")))
-(define SOLUTIONS-INVALID-SUBLIST-CONTAINS-NON-STRING
+(define SOLUTIONS-INVALID-ALTERNATIVE-WRONG-TYPE
   '((("abc")) ("1" "2" "3")))
-(define SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
+(define SOLUTIONS-INVALID-EMPTY-ALTERNATIVE
   '(("foo" "baz" "bop") ("baz") ("alpha" "" "beta")))
-(define SOLUTIONS-INVALID-STRING-ENTIRELY-OF-SPACES-IN-SUBLIST
+(define SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-SPACES
   '(("a" "b" " c ") ("d " "        " "e") ("f")))
-(define SOLUTIONS-INVALID-STRING-ENTIRELY-OF-TABS-IN-SUBLIST
+(define SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-TABS
   '(("a" "b" " c ") ("d " "\t\t\t\t" "e") ("f")))
 (define SOLUTIONS-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   '(("alpha" "beta" "gamma")
@@ -56,7 +56,7 @@
   QNR-VALID-QUESTION-NO-ERROR
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      SOLUTIONS-VALID-SINGLE-CHOICE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
@@ -68,55 +68,55 @@
   QNR-ERROR-QUERY-NON-STRING
   (qnr-validate-question
    (qnr-make-question QUERY-INVALID-NON-STRING
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      SOLUTIONS-VALID-SINGLE-CHOICE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with field `query` that is an empty string"
-  QNR-ERROR-QUERY-EMPTY-STRING
+  QNR-ERROR-QUERY-EMPTY
   (qnr-validate-question
-   (qnr-make-question QUERY-INVALID-EMPTY-STRING
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
+   (qnr-make-question QUERY-INVALID-WRONG-TYPE
+                      SOLUTIONS-VALID-SINGLE-CHOICE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with string for `solutions` instead of list"
-  QNR-ERROR-SOLUTIONS-NON-LIST
+  QNR-ERROR-SOLUTIONS-WRONG-TYPE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-NON-LIST
+                      SOLUTIONS-INVALID-WRONG-TYPE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with an empty list for `solutions`"
-  QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
+  QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-EMPTY-TOP-LEVEL
+                      SOLUTIONS-INVALID-NO-CHOICES
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` has non-list members"
-  QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
+  QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-CONTAINS-NON-LIST-TOP-LEVEL-MEMBER
+                      SOLUTIONS-INVALID-CHOICES-WRONG-TYPE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` that has an empty sublist"
-  QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
+  QNR-ERROR-SOLUTIONS-CHOICES-EMPTY
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-CONTAINS-EMPTY-SUBLIST
+                      SOLUTIONS-INVALID-EMPTY-CHOICE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` that has a sublist containing a non-string"
-  QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
+  QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-SUBLIST-CONTAINS-NON-STRING
+                      SOLUTIONS-INVALID-ALTERNATIVE-WRONG-TYPE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
@@ -124,7 +124,7 @@
   QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
+                      SOLUTIONS-INVALID-EMPTY-ALTERNATIVE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
@@ -132,7 +132,7 @@
   QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-STRING-ENTIRELY-OF-SPACES-IN-SUBLIST
+                      SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-SPACES
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
@@ -140,7 +140,7 @@
   QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-INVALID-STRING-ENTIRELY-OF-TABS-IN-SUBLIST
+                      SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-TABS
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
@@ -154,10 +154,10 @@
 
 
 (test-equal "validate <question> with field `question-number` that is non-integer"
-  QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
+  QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      SOLUTIONS-VALID-SINGLE-CHOICE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-TYPE)))
 
@@ -165,7 +165,7 @@
   QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      SOLUTIONS-VALID-SINGLE-CHOICE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-ZERO)))
 
@@ -173,7 +173,7 @@
   QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTIONS-VALID-SINGLE-RESPONSE
+                      SOLUTIONS-VALID-SINGLE-CHOICE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-NEGATIVE)))
 

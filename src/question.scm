@@ -5,15 +5,15 @@
   #:export (QNR-VALID-QUESTION-NO-ERROR
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-QUERY-NON-STRING
-            QNR-ERROR-QUERY-EMPTY-STRING
-            QNR-ERROR-SOLUTIONS-NON-LIST
-            QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
-            QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
-            QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
-            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
+            QNR-ERROR-QUERY-EMPTY
+            QNR-ERROR-SOLUTIONS-WRONG-TYPE
+            QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND
+            QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE
+            QNR-ERROR-SOLUTIONS-CHOICES-EMPTY
+            QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE
             QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
             QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
-            QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
+            QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
             qnr-make-question
@@ -47,24 +47,24 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
 (define QNR-ERROR-QUERY-NON-STRING
   "<question> has non-string `query`")
-(define QNR-ERROR-QUERY-EMPTY-STRING
-  "<question> has `query` that is an empty string")
-(define QNR-ERROR-SOLUTIONS-NON-LIST
-  "<question> has a non-list for `solutions`")
-(define QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL
-  "<question> has an empty list for `solutions`")
-(define QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
-  "<question> `solutions` has a non-list top-level member")
-(define QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
-  "<question> `solutions` contains an empty sublist")
-(define QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
-  "<question> `solutions` contains a sublist with a non-string element.")
+(define QNR-ERROR-QUERY-EMPTY
+  "<question> has `query` that is empty")
+(define QNR-ERROR-SOLUTIONS-WRONG-TYPE
+  "<question> `solutions` was given wrong type")
+(define QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND
+  "<question> `solutions` has no choices")
+(define QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE
+  "<question> `solutions` choices was given wrong type")
+(define QNR-ERROR-SOLUTIONS-CHOICES-EMPTY
+  "<question> `solutions` has a choice list that is empty")
+(define QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE
+  "<question> `solutions` alternative given wrong type")
 (define QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   "<question> `solutions` contains an alternative made entirely of whitespace")
 (define QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   "<question> `solutions` contains duplicate alternatives across choices")
-(define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
-  "<question> has non-integer `question-number`")
+(define QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
+  "<question> `question-number` has wrong type")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   "<question> has non-positive `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NEGATIVE
@@ -107,7 +107,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define (validate-query question)
   (let ((question (qnr-query question)))
     (cond ((not (string? question)) QNR-ERROR-QUERY-NON-STRING)
-          ((string-null? question) QNR-ERROR-QUERY-EMPTY-STRING)
+          ((string-null? question) QNR-ERROR-QUERY-EMPTY)
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
 (define (validate-solutions question)
@@ -122,14 +122,14 @@ The solutions field of a <question> is a valid if the following are true:
   (one string in one sublist does not show up in another sublist)"
   (let ((solutions (qnr-solutions question)))
     ;; Order matters in the following `cond`.
-    (cond ((not (list? solutions)) QNR-ERROR-SOLUTIONS-NON-LIST)
-          ((null? solutions) QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL)
+    (cond ((not (list? solutions)) QNR-ERROR-SOLUTIONS-WRONG-TYPE)
+          ((null? solutions) QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND)
           ((contains-non-list solutions)
-           QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER)
+           QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE)
           ((contains-empty-sublist solutions)
-           QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
+           QNR-ERROR-SOLUTIONS-CHOICES-EMPTY)
           ((sublist-members-contain-non-string solutions)
-           QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
+           QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE)
           ((sublist-members-composed-entirely-of-whitespace solutions)
            QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
           ((contains-duplicates-across-sublists? solutions)
@@ -166,7 +166,7 @@ The solutions field of a <question> is a valid if the following are true:
 
 (define (validate-question-number question)
   (let ((question-number (qnr-question-number question)))
-    (cond ((not (integer? question-number)) QNR-ERROR-QUESTION-NUMBER-NON-INTEGER)
+    (cond ((not (integer? question-number)) QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE)
           ((= question-number 0) QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
           ((< question-number 0) QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
           (else QNR-VALID-QUESTION-NO-ERROR))))
