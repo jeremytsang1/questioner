@@ -24,6 +24,10 @@
   '((("abc")) ("1" "2" "3")))
 (define SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
   '(("foo" "baz" "bop") ("baz") ("alpha" "" "beta")))
+(define SOLUTIONS-INVALID-STRING-ENTIRELY-OF-SPACES-IN-SUBLIST
+  '(("a" "b" " c ") ("d " "        " "e") ("f")))
+(define SOLUTIONS-INVALID-STRING-ENTIRELY-OF-TABS-IN-SUBLIST
+  '(("a" "b" " c ") ("d " "\t\t\t\t" "e") ("f")))
 (define SOLUTIONS-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   '(("alpha" "beta" "gamma")
     ("delta")
@@ -117,7 +121,7 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` with empty string in sublist"
-  "<question> `solutions` contains an alternative made entirely of whitespace"
+  QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
@@ -125,18 +129,18 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` with entirely spaces alternative"
-  "<question> `solutions` contains an alternative made entirely of whitespace"
+  QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '(("a" "b" " c ") ("d " "        " "e") ("f"))
+                      SOLUTIONS-INVALID-STRING-ENTIRELY-OF-SPACES-IN-SUBLIST
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with alternatives containing only tabs"
-  "<question> `solutions` contains an alternative made entirely of whitespace"
+  QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '(("a" "b" " c ") ("d " "\t\t\t\t" "e") ("f"))
+                      SOLUTIONS-INVALID-STRING-ENTIRELY-OF-TABS-IN-SUBLIST
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
@@ -172,5 +176,7 @@
                       SOLUTIONS-VALID-SINGLE-RESPONSE
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-INVALID-NEGATIVE)))
+
+
 
 (test-end TEST-SUITE-NAME)
