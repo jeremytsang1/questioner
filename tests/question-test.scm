@@ -117,7 +117,7 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` with empty string in sublist"
-  QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
+  "<question> `solutions` contains an alternative made entirely of whitespace"
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
@@ -125,7 +125,7 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with `solutions` with entirely spaces alternative"
-  "<question> `solution` has alternative entirely made of spaces"
+  "<question> `solutions` contains an alternative made entirely of whitespace"
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       '(("a" "b" " c ") ("d " "        " "e") ("f"))
@@ -133,7 +133,7 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with alternatives containing only tabs"
-  "<question> `solution` has alternative entirely made of tabs"
+  "<question> `solutions` contains an alternative made entirely of whitespace"
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       '(("a" "b" " c ") ("d " "\t\t\t\t" "e") ("f"))
