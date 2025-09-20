@@ -10,7 +10,7 @@
             QNR-ERROR-SOLUTIONS-NON-LIST-TOP-LEVEL-MEMBER
             QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
             QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
-            QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
+            QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
             QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -59,8 +59,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> `solutions` contains an empty sublist")
 (define QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
   "<question> `solutions` contains a sublist with a non-string element.")
-(define QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
-  "<question> `solutions` contains empty string in a sublist")
+(define QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  "<question> `solutions` contains an alternative made entirely of whitespace")
 (define QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   "<question> `solutions` contains duplicate alternatives across choices")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
@@ -121,11 +121,11 @@ users must guess from SOLUTIONS to have been considered answering the question."
           ((members-contain-non-string solutions)
            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
           ((members-contain-empty-string solutions)
-           QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST)
+           QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
           ((members-contain-entirely-spaces-string solutions)
-           "<question> `solution` has alternative entirely made of spaces")
+           QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
           ((members-contain-entirely-tabs-string solutions)
-           "<question> `solution` has alternative entirely made of tabs")
+           QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
           ((contains-duplicates-across-sublists? solutions)
            QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES)
           (else QNR-VALID-QUESTION-NO-ERROR))))
