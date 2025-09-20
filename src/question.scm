@@ -124,6 +124,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
            QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST)
           ((members-contain-entirely-spaces-string solutions)
            "<question> `solution` has alternative entirely made of spaces")
+          ((members-contain-entirely-tabs-string solutions)
+           "<question> `solution` has alternative entirely made of tabs")
           ((contains-duplicates-across-sublists? solutions)
            QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES)
           (else QNR-VALID-QUESTION-NO-ERROR))))
@@ -151,6 +153,14 @@ users must guess from SOLUTIONS to have been considered answering the question."
           (find (lambda (alternative)
                   (string-every (lambda (char)
                                   (char=? #\space char)) alternative))
+                sublist))
+        list-of-lists))
+
+(define (members-contain-entirely-tabs-string list-of-lists)
+  (find (lambda (sublist)
+          (find (lambda (alternative)
+                  (string-every (lambda (char)
+                                  (char=? #\tab char)) alternative))
                 sublist))
         list-of-lists))
 
