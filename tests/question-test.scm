@@ -42,6 +42,8 @@
          (string=? (qnr-expected-response-count question) "c")
          (string=? (qnr-question-number question) "d"))))
 
+;; Validation Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (test-equal "valid single response <question>"
   QNR-VALID-QUESTION-NO-ERROR
   (qnr-validate-question
@@ -117,6 +119,17 @@
                       SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
+(test-equal "validate <question> with duplicate alternatives across choices"
+  "<question> `solutions` contains duplicate alternatives across choices"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      '(("alpha" "beta" "gamma")
+                        ("delta")
+                        ("kappa" "lambda" "alpha" "mu"))
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 
 (test-equal "validate <question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
