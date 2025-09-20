@@ -132,19 +132,17 @@ users must guess from SOLUTIONS to have been considered answering the question."
 (define (contains-empty-sublist lst)
   (find (lambda (element) (null? element)) lst))
 
-(define (members-contain-non-string lst)
-  "LST must be a list of lists"
+(define (members-contain-non-string list-of-lists)
   (find (lambda (sublist)
           (find (lambda (alternative) (not (string? alternative)))
                 sublist))
-        lst))
+        list-of-lists))
 
-(define (members-contain-empty-string lst)
-  "LST must be a list of lists."
+(define (members-contain-empty-string list-of-lists)
   (find (lambda (sublist)
           (find (lambda (alternative) (string-null? alternative))
                 sublist))
-        lst))
+        list-of-lists))
 
 (define (contains-duplicates-across-sublists? list-of-lists)
   (define (check-for-duplicates lst seen)
