@@ -139,12 +139,12 @@ users must guess from SOLUTIONS to have been considered answering the question."
                 sublist))
         list-of-lists))
 
-(define (sublist-members-composed-entirely-of-whitespace list-of-list-of-strings)
+(define (sublist-members-composed-entirely-of-whitespace list-of-lists-of-strings)
   (find (lambda (sublist)
           (find (lambda (alternative)
                   (string-null? (qnr-format-answer alternative)))
                 sublist))
-        list-of-list-of-strings))
+        list-of-lists-of-strings))
 
 (define (contains-duplicates-across-sublists? list-of-lists)
   "Uses eqv? to make the comparisons."
