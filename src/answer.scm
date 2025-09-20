@@ -1,10 +1,10 @@
 (define-module (src answer)
   #:export (qnr-format-answer
-            EMPTY-STRING
-            SINGLE-SPACE))
+            QNR-EMPTY-STRING
+            QNR-SINGLE-SPACE))
 
-(define EMPTY-STRING "")
-(define SINGLE-SPACE " ")
+(define QNR-EMPTY-STRING "")
+(define QNR-SINGLE-SPACE " ")
 
 (define (qnr-format-answer answer)
   "Format ANSWER to be in a more comparable form.
@@ -18,7 +18,7 @@ to lowercase."
    ;; Filter on empty strings because splitting on whitespace generates empty
    ;; strings in the resulting list of delimited substrings.
    (filter string-non-null? (string-split answer char-whitespace?))
-   SINGLE-SPACE))
+   QNR-SINGLE-SPACE))
 
 (define (char-whitespace? char)
   (char-set-contains? char-set:whitespace char))

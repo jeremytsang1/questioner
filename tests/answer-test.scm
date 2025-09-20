@@ -25,12 +25,12 @@
 
 (test-assert "empty answer"
   (string=?
-   EMPTY-STRING
+   QNR-EMPTY-STRING
    (qnr-format-answer EMPTY-ANSWER)))
 
 (test-assert "only whitespace"
   (string=?
-   EMPTY-STRING
+   QNR-EMPTY-STRING
    (qnr-format-answer EXCLUSIVELY-WHITESPACE)))
 
 (test-assert "single word answer"
@@ -52,7 +52,7 @@
 
 (test-assert "two word answer with multiple spaces between"
   (string=?
-   (string-concatenate (list SINGLE-WORD-ANSWER SINGLE-SPACE SECOND-WORD))
+   (string-concatenate (list SINGLE-WORD-ANSWER QNR-SINGLE-SPACE SECOND-WORD))
    (qnr-format-answer
     (string-concatenate (list SINGLE-WORD-ANSWER SPACES SECOND-WORD)))))
 
