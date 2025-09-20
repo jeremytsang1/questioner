@@ -11,6 +11,7 @@
             QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST
             QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING
             QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
+            QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
             QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
@@ -60,6 +61,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
   "<question> `solutions` contains a sublist with a non-string element.")
 (define QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST
   "<question> `solutions` contains empty string in a sublist")
+(define QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
+  "<question> `solutions` contains duplicate alternatives across choices")
 (define QNR-ERROR-QUESTION-NUMBER-NON-INTEGER
   "<question> has non-integer `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -120,7 +123,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
           ((members-contain-empty-string solutions)
            QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST)
           ((contains-duplicates-across-sublists? solutions)
-           "<question> `solutions` contains duplicate alternatives across choices")
+           QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES)
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
 (define (contains-non-list lst)
@@ -150,8 +153,6 @@ users must guess from SOLUTIONS to have been considered answering the question."
           ((not (null? (lset-intersection eqv? (car lst) seen))) #t)
           (else (check-for-duplicates (cdr lst)
                                       (lset-union eqv? seen (car lst))))))
-
-
   (check-for-duplicates list-of-lists '()))
 
 (define (validate-question-number question)

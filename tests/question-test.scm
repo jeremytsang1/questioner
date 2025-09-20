@@ -24,6 +24,10 @@
   '((("abc")) ("1" "2" "3")))
 (define SOLUTIONS-INVALID-EMPTY-STRING-IN-SUBLIST
   '(("foo" "baz" "bop") ("baz") ("alpha" "" "beta")))
+(define SOLUTIONS-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
+  '(("alpha" "beta" "gamma")
+    ("delta")
+    ("kappa" "lambda" "alpha" "mu")))
 
 (define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
 
@@ -121,12 +125,10 @@
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <question> with duplicate alternatives across choices"
-  "<question> `solutions` contains duplicate alternatives across choices"
+  QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      '(("alpha" "beta" "gamma")
-                        ("delta")
-                        ("kappa" "lambda" "alpha" "mu"))
+                      SOLUTIONS-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
