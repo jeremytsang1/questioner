@@ -145,8 +145,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
         list-of-lists))
 
 (define (contains-duplicates-across-sublists? list-of-lists)
+  "Uses eqv? to make the comparisons."
   (define (check-for-duplicates lst seen)
-    "Uses eqv? to see if there are any duplicates across the sublists of AT."
     (cond ((null? lst) #f)
           ((not (null? (lset-intersection eqv? (car lst) seen))) #t)
           (else (check-for-duplicates (cdr lst)
