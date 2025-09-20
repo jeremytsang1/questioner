@@ -132,6 +132,14 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
+(test-equal "validate <question> with alternatives containing only tabs"
+  "<question> `solution` has alternative entirely made of tabs"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      '(("a" "b" " c ") ("d " "\t\t\t\t" "e") ("f"))
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-equal "validate <question> with duplicate alternatives across choices"
   QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   (qnr-validate-question
