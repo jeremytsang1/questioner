@@ -1,6 +1,7 @@
 (define-module (src question)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
+  #:use-module (src answer)
   #:export (QNR-VALID-QUESTION-NO-ERROR
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-QUERY-NON-STRING
@@ -120,11 +121,7 @@ users must guess from SOLUTIONS to have been considered answering the question."
            QNR-ERROR-SOLUTIONS-CONTAINS-EMPTY-SUBLIST)
           ((members-contain-non-string solutions)
            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
-          ((members-contain-empty-string solutions)
-           QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
-          ((members-contain-entirely-spaces-string solutions)
-           QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
-          ((members-contain-entirely-tabs-string solutions)
+          ((members-composed-entirely-of-whitespace solutions)
            QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
           ((contains-duplicates-across-sublists? solutions)
            QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES)
@@ -142,27 +139,12 @@ users must guess from SOLUTIONS to have been considered answering the question."
                 sublist))
         list-of-lists))
 
-(define (members-contain-empty-string list-of-lists)
-  (find (lambda (sublist)
-          (find (lambda (alternative) (string-null? alternative))
-                sublist))
-        list-of-lists))
-
-(define (members-contain-entirely-spaces-string list-of-lists)
+(define (members-composed-entirely-of-whitespace list-of-list-of-strings)
   (find (lambda (sublist)
           (find (lambda (alternative)
-                  (string-every (lambda (char)
-                                  (char=? #\space char)) alternative))
+                  (string-null? (qnr-format-answer alternative)))
                 sublist))
-        list-of-lists))
-
-(define (members-contain-entirely-tabs-string list-of-lists)
-  (find (lambda (sublist)
-          (find (lambda (alternative)
-                  (string-every (lambda (char)
-                                  (char=? #\tab char)) alternative))
-                sublist))
-        list-of-lists))
+        list-of-list-of-strings))
 
 (define (contains-duplicates-across-sublists? list-of-lists)
   "Uses eqv? to make the comparisons."
