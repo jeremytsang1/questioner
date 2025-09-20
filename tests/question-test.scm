@@ -124,6 +124,14 @@
                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
+(test-equal "validate <question> with `solutions` with entirely spaces alternative"
+  "<question> `solution` has alternative entirely made of spaces"
+  (qnr-validate-question
+   (qnr-make-question QUERY-VALID
+                      '(("a" "b" " c ") ("d " "        " "e") ("f"))
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE
+                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+
 (test-equal "validate <question> with duplicate alternatives across choices"
   QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   (qnr-validate-question
