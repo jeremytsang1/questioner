@@ -37,7 +37,6 @@ represent equivalent versions of a particular answer.
 EXPECTED-RESPONSE-COUNT is a positive integer representing how many answers
 users must guess from SOLUTIONS to have been considered answering the question.")
 
-
 ;; DESIGN CHOICE: Would have preferred to use symbols and exceptions for the
 ;; below but since since the Guile implementation of srfi-64 does not match
 ;; error types (see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=66776 and
@@ -112,7 +111,17 @@ users must guess from SOLUTIONS to have been considered answering the question."
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
 (define (validate-solutions question)
+  "Return a string containing why QUESTION has invalid solutions, otherwise
+return QNR-VALID-QUESTION-NO-ERROR.
+
+The solutions field of a <question> is a valid if the following are true:
+- it is a non-empty list of non-empty lists of strings
+- none of the strings (alternatives) in  the sublists (choices) are made
+  entirely of whitespace
+- there are no duplicate alternatives across choices
+  (one string in one sublist does not show up in another sublist)"
   (let ((solutions (qnr-solutions question)))
+    ;; Order matters in the following `cond`.
     (cond ((not (list? solutions)) QNR-ERROR-SOLUTIONS-NON-LIST)
           ((null? solutions) QNR-ERROR-SOLUTIONS-EMPTY-TOP-LEVEL)
           ((contains-non-list solutions)
