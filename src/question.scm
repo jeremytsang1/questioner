@@ -119,6 +119,8 @@ users must guess from SOLUTIONS to have been considered answering the question."
            QNR-ERROR-SOLUTIONS-SUBLIST-CONTAINS-NON-STRING)
           ((members-contain-empty-string solutions)
            QNR-ERROR-SOLUTIONS-EMPTY-STRING-IN-SUBLIST)
+          ((contains-duplicates-across-sublists? solutions)
+           "<question> `solutions` contains duplicate alternatives across choices")
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
 (define (contains-non-list lst)
@@ -140,6 +142,17 @@ users must guess from SOLUTIONS to have been considered answering the question."
           (find (lambda (alternative) (string-null? alternative))
                 sublist))
         lst))
+
+(define (contains-duplicates-across-sublists? list-of-lists)
+  (define (check-for-duplicates lst seen)
+    "Uses eqv? to see if there are any duplicates across the sublists of AT."
+    (cond ((null? lst) #f)
+          ((not (null? (lset-intersection eqv? (car lst) seen))) #t)
+          (else (check-for-duplicates (cdr lst)
+                                      (lset-union eqv? seen (car lst))))))
+
+
+  (check-for-duplicates list-of-lists '()))
 
 (define (validate-question-number question)
   (let ((question-number (qnr-question-number question)))
