@@ -8,16 +8,18 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (src choice)
-  #:export (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-            QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
-            QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
-            QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
-            QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
-            QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
-            qnr-make-solution
-            qnr-solution?
-            qnr-choices
-            qnr-expected-response-count))
+  #:export
+  (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+   QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
+   QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
+   QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
+   QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
+   QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
+   QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH
+   qnr-make-solution
+   qnr-solution?
+   qnr-choices
+   qnr-expected-response-count))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-solution-construction)
@@ -34,6 +36,8 @@
   "<solution> field `expected-response-count` is wrong type")
 (define QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
   "<solution> field `expected-response-count` is non-positive")
+(define QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH
+  "<solution> `expected-response-count` is larger than length of `choices`")
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-solution>
@@ -67,8 +71,9 @@ yellow)."
 
   (let ((choices (construct-choices list-of-list-of-strings)))
     (when (> expected-response-count (length choices))
-      (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           "<solution> `expected-response-count` is larger than length of `choices`"))
+      (throw
+       QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+       QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH))
     (raw-make-solution choices expected-response-count)))
 
 (define (construct-choices list-of-list-of-strings)

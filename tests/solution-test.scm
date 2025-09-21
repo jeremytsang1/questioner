@@ -120,7 +120,7 @@
 (qnr-test-error-message
  "construct <solution> wrong value expected-response-count: greater than length of choices"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> `expected-response-count` is larger than length of `choices`"
+ QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 5)))
 
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
