@@ -40,7 +40,7 @@ CHOICE is valid if the following are true:
 
 - None of the strings (alternatives) are made entirely of whitespace."
   ;; Order matters in the following `cond`.
-  (cond ((not (list choice)) QNR-ERROR-CHOICE-WRONG-TYPE)
+  (cond ((not (list? choice)) QNR-ERROR-CHOICE-WRONG-TYPE)
         ((null? choice) QNR-ERROR-CHOICE-EMPTY)
         ((find-non-string choice)
          QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE)
