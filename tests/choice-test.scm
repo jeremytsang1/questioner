@@ -126,4 +126,8 @@
   '("foo")
   (qnr-make-choice '("foo    ")))
 
+(test-equal "Constuct multiple unformatted alternatives choice"
+  '("foo" "bar" "baz" "bop")
+  (qnr-make-choice '("foo" "   foo   " "bar" "baz" "bop" "bar")))
+
 (test-end TEST-SUITE-NAME)
