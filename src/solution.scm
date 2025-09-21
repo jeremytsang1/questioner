@@ -7,12 +7,14 @@
 (define-module (src solution)
   #:use-module (srfi srfi-9)
   #:use-module (src choice)
-  #:export (qnr-make-solution
+  #:export (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+            qnr-make-solution
             qnr-solution?
             qnr-choices
             qnr-expected-response-count))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-construction-failure)
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-solution>
@@ -37,7 +39,8 @@ EXPECTED-RESPONSE-COUNT would be 2 and the user could answer any 2 combination
 of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
 yellow)."
   (when (null? list-of-list-of-strings)
-    (throw 'qnr-choice-construction-failure))
+    (throw 'qnr-choice-construction-failure
+           "<solution> received empty choices"))
 
   (raw-make-solution (map qnr-make-choice list-of-list-of-strings)
                      expected-response-count))

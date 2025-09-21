@@ -49,7 +49,7 @@
                                SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
 (test-error "fail to construct <solution> from empty choices"
-            'qnr-choice-construction-failure
+            QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
             (qnr-make-solution '() SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
 (test-equal "whitespace format choices upon <solution> creation"
