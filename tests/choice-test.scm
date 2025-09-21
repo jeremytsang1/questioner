@@ -93,4 +93,13 @@
   #f
   (qnr-choice-includes-answer? '("head" "shoulders" "knees" "toes") "hand"))
 
+;; Construction ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; WARNING: test-error is not completely implemented in Guile Scheme (See
+;; https://wolfsden.cz/blog/post/state-of-srfi-64.html). It is good enough to
+;; know when any error is thrown but not a specific error. So here we are using
+;; the first argument is just a non-functional descriptor.
+(test-error "Fail to construct from empty list"
+            'qnr-choice-construction-failure
+            (qnr-make-choice '()))
+
 (test-end TEST-SUITE-NAME)
