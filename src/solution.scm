@@ -8,7 +8,8 @@
   #:use-module (srfi srfi-9)
   #:export (qnr-make-solution
             qnr-solution?
-            qnr-choices))
+            qnr-choices
+            qnr-expected-response-count))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
