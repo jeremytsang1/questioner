@@ -4,4 +4,16 @@
 ;; testee can be expected to respond with for their answer to be considered
 ;; correct.
 
-(define-module (src solution))
+(define-module (src solution)
+  #:use-module (srfi srfi-9)
+  #:export (qnr-make-solution
+            qnr-solution?))
+
+;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-record-type <qnr-solution>
+  (qnr-make-solution choices expected-response-count)
+  qnr-solution?
+  (choices qnr-choices)
+  (expected-response-count qnr-expected-response-count))
