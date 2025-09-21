@@ -9,6 +9,7 @@
   #:use-module (src choice)
   #:export (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
             QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
+            QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
             qnr-make-solution
             qnr-solution?
             qnr-choices
@@ -18,7 +19,7 @@
 (define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-solution-construction)
 
 (define QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
-  "<solution> has non-list for field `choices`")
+  "<solution> field `choices` has wrong type")
 (define QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
   "<solution> field choices is empty")
 
