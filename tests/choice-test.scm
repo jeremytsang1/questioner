@@ -78,4 +78,9 @@
   CHOICE-MULTIPLE-ALTERNATIVE-EXTRA-WHITESPACE-FORMATTED
   (qnr-format-choice CHOICE-MULTIPLE-ALTERNATIVE-EXTRA-WHITESPACE))
 
+(test-equal "format duplicates with extra whitespace away"
+  '("pencil sharpener")
+  (qnr-format-choice
+   '("pencil sharpener  " "   pencil sharpener" "   pencil     sharpener   ")))
+
 (test-end TEST-SUITE-NAME)
