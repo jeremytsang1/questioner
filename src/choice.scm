@@ -53,7 +53,10 @@ CHOICE is valid if the following are true:
 
 
 (define (qnr-format-choice choice)
-  "Remove extra exterior whitespace from all the alternatives in CHOICE.
+  "Remove extra whitespace from all the alternatives in CHOICE and remove all
+ duplicates.
+
+Duplicates are removed after removing whitespace.
 
 CHOICE must be a valid choice per qnr-validate-choice."
-  (map qnr-remove-excess-whitespace choice))
+  (delete-duplicates (map qnr-remove-excess-whitespace choice)))
