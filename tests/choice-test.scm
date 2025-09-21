@@ -122,6 +122,18 @@
  QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
  (lambda () (qnr-make-choice '("foo" ("bar")))))
 
+(qnr-test-error-message
+ "construct choice alternative from wrong type: integer"
+ QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
+ (lambda () (qnr-make-choice '("alpha" "beta" 334 "gamma"))))
+
+(qnr-test-error-message
+ "construct choice alternative from wrong type: boolean"
+ QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
+ (lambda () (qnr-make-choice '("alpha" #t "beta" "gamma"))))
+
 (test-equal "Construct choice with duplicate alternatives"
   '("foo" "bar")
   (qnr-make-choice '("foo" "bar" "foo")))
