@@ -122,4 +122,8 @@
   '("foo")
   (qnr-make-choice '("foo")))
 
+(test-equal "Constuct single unformatted alternative choice"
+  '("foo")
+  (qnr-make-choice '("foo    ")))
+
 (test-end TEST-SUITE-NAME)
