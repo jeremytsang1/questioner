@@ -9,7 +9,8 @@
             QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
             QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
             QNR-ERROR-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
-            qnr-validate-choice))
+            qnr-validate-choice
+            qnr-format-choice))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-VALID-CHOICE-NO-ERROR "")
@@ -48,3 +49,10 @@ CHOICE is valid if the following are true:
 (define (find-whitespace-string choice)
   (find (lambda (alternative) (string-null? (qnr-format-answer alternative)))
         choice))
+
+
+(define (qnr-format-choice choice)
+  "Remove extra exterior whitespace from all the alternatives in CHOICE.
+
+CHOICE must be a valid choice per qnr-validate-choice."
+  (map qnr-format-answer choice))
