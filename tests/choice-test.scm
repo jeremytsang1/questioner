@@ -19,6 +19,7 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
+;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "validate valid `choice` with single alternative"
   QNR-VALID-CHOICE-NO-ERROR
   (qnr-validate-choice CHOICE-VALID-CHOICE-SINGLE-ALTERNATIVES))
