@@ -73,7 +73,7 @@ CHOICE must be a valid choice per qnr-validate-choice."
   (let ((error-message (qnr-validate-choice list-of-strings)))
     (unless (string-null? error-message)
       (throw QNR-ERROR-KEY-CHOICE-CONSTRUCTION error-message))
-    list-of-strings))
+    (qnr-format-choice list-of-strings)))
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-choice-includes-answer? choice answer)
