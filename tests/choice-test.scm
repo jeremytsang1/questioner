@@ -98,7 +98,7 @@
 ;; https://wolfsden.cz/blog/post/state-of-srfi-64.html). It is good enough to
 ;; know when any error is thrown but not a specific error. So here we are using
 ;; the first argument is just a non-functional descriptor.
-(test-error "Fail to construct from empty list"
+(test-error "Fail to construct choice from empty list"
             'qnr-choice-construction-failure
             (qnr-make-choice '()))
 
