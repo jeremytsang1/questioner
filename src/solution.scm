@@ -5,6 +5,7 @@
 ;; correct.
 
 (define-module (src solution)
+  #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (src choice)
   #:export (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
@@ -54,5 +55,23 @@ yellow)."
     (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
            QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY))
 
-  (raw-make-solution (map qnr-make-choice list-of-list-of-strings)
-                     expected-response-count))
+  (let ((choices (map qnr-make-choice list-of-list-of-strings)))
+    (when (has-duplicate-alternatives-across-choices? list-of-list-of-strings)
+      (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+             "<solution> field `choices` has duplicate alternatives across choices"))
+  (raw-make-solution choices expected-response-count)))
+
+;; This function is necessary because if there are duplicates, the use can use
+;; a single alternative to answer a multi-response question.
+(define (has-duplicate-alternatives-across-choices? choices)
+  "Return #t if there is an alternative which is a member of two or more members
+of CHOICES.
+
+CHOICES is a list of `choice` as defined by (src choice)."
+  (define (has-duplicates? choices-left seen)
+    (cond ((null? choices-left) #f)
+          ((not (null? (lset-intersection eqv? (car choices-left) seen))) #t)
+          (else (has-duplicates? (cdr choices-left)
+                                 (lset-union eqv? seen (car choices-left))))))
+
+  (has-duplicates? choices '()))
