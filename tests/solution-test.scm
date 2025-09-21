@@ -49,4 +49,15 @@
   '(("foo"))
   (qnr-choices (qnr-make-solution '(("    foo         ")) 1)))
 
+(test-equal "delete duplicates and excess whitespace upon <solution> creation"
+  '(("alpha" "beta" "gamma")
+    ("a" "b" "c")
+    ("alfa" "bravo charlie"))
+  (qnr-choices
+   (qnr-make-solution
+    '(("    alpha     " "alpha  " "beta" "gamma")
+      ("a" "b" "c" "b" "a")
+      ("alfa" "bravo    charlie" "  bravo charlie"))
+    1)))
+
 (test-end TEST-SUITE-NAME)
