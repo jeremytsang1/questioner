@@ -57,4 +57,12 @@
   '("extra interior whitespace")
   (qnr-format-choice '("extra   interior     whitespace")))
 
+(test-equal "format single alternative with extra interior whitespace"
+  '("extra interior whitespace")
+  (qnr-format-choice '("extra   interior     whitespace")))
+
+(test-equal "format multiple alternatives with extra whitespace"
+  '("alfa" "bravo charlie" "delta")
+  (qnr-format-choice '("  alfa   " "bravo    charlie  " "  delta")))
+
 (test-end TEST-SUITE-NAME)
