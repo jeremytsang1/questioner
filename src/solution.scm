@@ -131,4 +131,4 @@ as `choices`.
 
 SOLUTION must be a well form <solution>."
   ;; ASSUME: SOLUTION is a valid <solution>
-  (list (car (car (qnr-choices solution)))))
+  (map car (qnr-choices solution)))
