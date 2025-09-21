@@ -117,6 +117,12 @@
  QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 0)))
 
+(qnr-test-error-message
+ "construct <solution> wrong value expected-response-count: greater than length of choices"
+ QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+ "<solution> `expected-response-count` is larger than length of `choices`"
+ (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 5)))
+
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "whitespace format choices upon <solution> creation"
   '(("foo"))
