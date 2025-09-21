@@ -3,7 +3,7 @@
 #!/usr/local/bin/guile -s
 !#
 
-(use-modules (srfi srfi-64) (util test) (src solution))
+(use-modules (srfi srfi-64) (util test) (src solution) (src choice))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))
@@ -28,5 +28,10 @@
   (qnr-expected-response-count
    (qnr-make-solution SINGLE-CHOICE-CHOICES
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
+
+
+(test-error "fail to construct <solution> wrong type choices: integer"
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+            (qnr-choices (qnr-make-solution 12345 1)))
 
 (test-end TEST-SUITE-NAME)
