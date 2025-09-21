@@ -33,39 +33,39 @@
 (test-begin TEST-SUITE-NAME)
 
 (test-equal "validate `choices` with list value"
-  QNR-ERROR-SOLUTIONS-WRONG-TYPE
-  (qnr-validate-solution CHOICES-INVALID-WRONG-TYPE))
+  QNR-ERROR-CHOICES-WRONG-TYPE
+  (qnr-validate-choices CHOICES-INVALID-WRONG-TYPE))
 
 (test-equal "validate empty list `choices`"
-  QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND
-  (qnr-validate-solution CHOICES-INVALID-NO-CHOICES))
+  QNR-ERROR-CHOICES-NO-CHOICES-FOUND
+  (qnr-validate-choices CHOICES-INVALID-NO-CHOICES))
 
 (test-equal "validate `choices` with non-list members"
-  QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE
-  (qnr-validate-solution CHOICES-INVALID-CHOICES-WRONG-TYPE))
+  QNR-ERROR-SINGLE-CHOICE-WRONG-TYPE
+  (qnr-validate-choices CHOICES-INVALID-CHOICES-WRONG-TYPE))
 
 (test-equal "validate `choices` with empty sublist"
-  QNR-ERROR-SOLUTIONS-CHOICES-EMPTY
-  (qnr-validate-solution CHOICES-INVALID-EMPTY-CHOICE))
+  QNR-ERROR-CHOICES-EMPTY
+  (qnr-validate-choices CHOICES-INVALID-EMPTY-CHOICE))
 
 (test-equal "validate `choices` with sublist containing non-string"
-  QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE
-  (qnr-validate-solution CHOICES-INVALID-ALTERNATIVE-WRONG-TYPE))
+  QNR-ERROR-CHOICES-ALTERNATIVE-WRONG-TYPE
+  (qnr-validate-choices CHOICES-INVALID-ALTERNATIVE-WRONG-TYPE))
 
 (test-equal "validate `choices` with empty string in sublist"
-  QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-  (qnr-validate-solution CHOICES-INVALID-EMPTY-ALTERNATIVE))
+  QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  (qnr-validate-choices CHOICES-INVALID-EMPTY-ALTERNATIVE))
 
 (test-equal "validate `choices` with alternative made entirely of spaces"
-  QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-  (qnr-validate-solution CHOICES-INVALID-EMPTY-ALTERNATIVE-SPACES))
+  QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  (qnr-validate-choices CHOICES-INVALID-EMPTY-ALTERNATIVE-SPACES))
 
 (test-equal "validate `choices` with alternative made entirely of tabs"
-  QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-  (qnr-validate-solution CHOICES-INVALID-EMPTY-ALTERNATIVE-TABS))
+  QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  (qnr-validate-choices CHOICES-INVALID-EMPTY-ALTERNATIVE-TABS))
 
 (test-equal "validate `choices` with duplicate alternatives across sublists"
-  QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
-  (qnr-validate-solution CHOICES-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES))
+  QNR-ERROR-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
+  (qnr-validate-choices CHOICES-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES))
 
 (test-end TEST-SUITE-NAME)

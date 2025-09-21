@@ -2,57 +2,59 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (src answer)
-  #:export (QNR-ERROR-SOLUTIONS-WRONG-TYPE
-            QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND
-            QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE
-            QNR-ERROR-SOLUTIONS-CHOICES-EMPTY
-            QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE
-            QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-            QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
-            qnr-validate-solution))
+  #:export (QNR-ERROR-CHOICES-WRONG-TYPE
+            QNR-ERROR-CHOICES-NO-CHOICES-FOUND
+            QNR-ERROR-SINGLE-CHOICE-WRONG-TYPE
+            QNR-ERROR-CHOICES-EMPTY
+            QNR-ERROR-CHOICES-ALTERNATIVE-WRONG-TYPE
+            QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+            QNR-ERROR-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
+            qnr-validate-choices))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define QNR-VALID-QUESTION-NO-ERROR "") ;; TODO: Remove duplicate definition.
-(define QNR-ERROR-SOLUTIONS-WRONG-TYPE
-  "<question> `solutions` was given wrong type")
-(define QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND
-  "<question> `solutions` has no choices")
-(define QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE
-  "<question> `solutions` choices was given wrong type")
-(define QNR-ERROR-SOLUTIONS-CHOICES-EMPTY
-  "<question> `solutions` has a choice list that is empty")
-(define QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE
-  "<question> `solutions` alternative given wrong type")
-(define QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-  "<question> `solutions` contains an alternative made entirely of whitespace")
-(define QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
-  "<question> `solutions` contains duplicate alternatives across choices")
+(define QNR-VALID-CHOICE-NO-ERROR "") ;; TODO: Remove duplicate definition.
+(define QNR-ERROR-CHOICES-WRONG-TYPE
+  "`choices` has wrong type")
+(define QNR-ERROR-CHOICES-NO-CHOICES-FOUND
+  "`choices` empty")
+(define QNR-ERROR-SINGLE-CHOICE-WRONG-TYPE
+  "A top-level member of `choices` was given wrong type")
+(define QNR-ERROR-CHOICES-EMPTY
+  "`choices` contains an empty list choice")
+(define QNR-ERROR-CHOICES-ALTERNATIVE-WRONG-TYPE
+  "`choices` contains a choice with an alternative that has wrong type")
+(define QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  "`choices` contains a choice with a completely whitespace alternative")
+(define QNR-ERROR-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
+  "`choices` contains duplicate alternatives across choices")
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (qnr-validate-solution solutions)
-  "Return a string containing why QUESTION has invalid solutions, otherwise
-return QNR-VALID-QUESTION-NO-ERROR.
+(define (qnr-validate-choices choices)
+  "Return a string containing why CHOICES has invalid choices, otherwise
+return QNR-VALID-CHOICE-NO-ERROR
 
-The solutions field of a <question> is a valid if the following are true:
-- it is a non-empty list of non-empty lists of strings
-- none of the strings (alternatives) in  the sublists (choices) are made
-  entirely of whitespace
-- there are no duplicate alternatives across choices
-  (one string in one sublist does not show up in another sublist)"
+CHOICES is valid if the following are true:
+- It is a non-empty list of non-empty lists of strings (these strings are
+  called `alternatives`). Each of the non-empty lists represents a single
+  choice.
+- None of the strings (alternatives) in the sublists are made
+  entirely of whitespacel.
+- There are no duplicate alternatives across choices
+  (one string in one sublist does not show up in another sublist)."
   ;; Order matters in the following `cond`.
-  (cond ((not (list? solutions)) QNR-ERROR-SOLUTIONS-WRONG-TYPE)
-        ((null? solutions) QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND)
-        ((contains-non-list solutions)
-         QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE)
-        ((contains-empty-sublist solutions)
-         QNR-ERROR-SOLUTIONS-CHOICES-EMPTY)
-        ((sublist-members-contain-non-string solutions)
-         QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE)
-        ((sublist-members-composed-entirely-of-whitespace solutions)
-         QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
-        ((contains-duplicates-across-sublists? solutions)
-         QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES)
-        (else QNR-VALID-QUESTION-NO-ERROR)))
+  (cond ((not (list? choices)) QNR-ERROR-CHOICES-WRONG-TYPE)
+        ((null? choices) QNR-ERROR-CHOICES-NO-CHOICES-FOUND)
+        ((contains-non-list choices)
+         QNR-ERROR-SINGLE-CHOICE-WRONG-TYPE)
+        ((contains-empty-sublist choices)
+         QNR-ERROR-CHOICES-EMPTY)
+        ((sublist-members-contain-non-string choices)
+         QNR-ERROR-CHOICES-ALTERNATIVE-WRONG-TYPE)
+        ((sublist-members-composed-entirely-of-whitespace choices)
+         QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE)
+        ((contains-duplicates-across-sublists? choices)
+         QNR-ERROR-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES)
+        (else QNR-VALID-CHOICE-NO-ERROR)))
 
 (define (contains-non-list lst)
   (find (lambda (element) (not (list? element))) lst))
