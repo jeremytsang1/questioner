@@ -114,6 +114,10 @@
             'qnr-choice-construction-failure
             (qnr-make-choice ("foo" ("bar"))))
 
+(test-error "Fail to constructo choice due to duplicates"
+            'qnr-choice-construction-failure
+            (qnr-make-choice ("foo" "bar" "foo")))
+
 (test-equal "Constuct single alternative choice"
   '("foo")
   (qnr-make-choice '("foo")))
