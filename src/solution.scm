@@ -39,4 +39,5 @@ yellow)."
   (unless (list? list-of-list-of-strings)
     (throw QNR-ERROR-KEY-CHOICE-CONSTRUCTION))
 
-  (raw-make-solution list-of-list-of-strings expected-response-count))
+  (raw-make-solution (map qnr-make-choice list-of-list-of-strings)
+                     expected-response-count))
