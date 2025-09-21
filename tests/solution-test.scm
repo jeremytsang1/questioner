@@ -33,4 +33,17 @@
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-choices (qnr-make-solution 12345 1)))
 
+(test-error "fail to construct <solution> wrong type choices: string"
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+            (qnr-choices (qnr-make-solution "hello" 1)))
+
+(test-error "fail to construct <solution> wrong type choices: symbol"
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+            (qnr-choices (qnr-make-solution 'goodbye 1)))
+
+(test-error "fail to construct <solution> wrong type choices: character"
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+            (qnr-choices (qnr-make-solution #\a 1)))
+
+
 (test-end TEST-SUITE-NAME)
