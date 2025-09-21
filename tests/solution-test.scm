@@ -46,14 +46,14 @@
 
 (qnr-test-error-message
  "construct <solution> wrong type choices: string"
- QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  "<solution> has non-list for field `choices`"
  (lambda ()
    (qnr-make-solution "hello" SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 (qnr-test-error-message
  "construct <solution> wrong type choices: symbol"
- QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  "<solution> has non-list for field `choices`"
  (lambda ()
    (qnr-make-solution 'goodbye
@@ -61,7 +61,7 @@
 
 (qnr-test-error-message
  "construct <solution> wrong type choices: character"
- QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  "<solution> has non-list for field `choices`"
  (lambda ()
    (qnr-make-solution #\a
@@ -70,7 +70,7 @@
 (qnr-test-error-message
  "construct <solution> wrong value choices: empty list"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> field `choices` is empty"
+ "<solution> field choices is empty"
  (lambda ()
    (qnr-make-solution '() SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 

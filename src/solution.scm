@@ -8,6 +8,7 @@
   #:use-module (srfi srfi-9)
   #:use-module (src choice)
   #:export (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+            QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
             qnr-make-solution
             qnr-solution?
             qnr-choices
@@ -15,6 +16,12 @@
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-solution-construction)
+
+(define QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
+  "<solution> has non-list for field `choices`")
+(define QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
+  "<solution> field choices is empty")
+
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-solution>
@@ -38,9 +45,13 @@ colors?\" where the choices c '((\"red\") (\"yellow\") (\"blue\")) the
 EXPECTED-RESPONSE-COUNT would be 2 and the user could answer any 2 combination
 of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
 yellow)."
+  (unless (list? list-of-list-of-strings)
+    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE))
+
   (when (null? list-of-list-of-strings)
-    (throw 'qnr-choice-construction-failure
-           "<solution> received empty choices"))
+    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY))
 
   (raw-make-solution (map qnr-make-choice list-of-list-of-strings)
                      expected-response-count))
