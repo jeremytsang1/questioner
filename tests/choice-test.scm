@@ -42,23 +42,23 @@
   (qnr-validate-choice CHOICE-VALID-CHOICE-MULTIPLE-ALTERNATIVES))
 
 (test-equal "validate `choice` cannot be empty"
-  QNR-ERROR-CHOICE-EMPTY
+  QNR-ERROR-MSG-CHOICE-EMPTY
   (qnr-validate-choice CHOICE-INVALID-EMPTY-CHOICE))
 
 (test-equal "validate `choice` containing non-string alternative"
-  QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
+  QNR-ERROR-MSG-CHOICE-ALTERNATIVE-WRONG-TYPE
   (qnr-validate-choice CHOICE-INVALID-ALTERNATIVE-WRONG-TYPE))
 
 (test-equal "validate `choice` with empty string alternative"
-  QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  QNR-ERROR-MSG-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-choice CHOICE-INVALID-EMPTY-ALTERNATIVE))
 
 (test-equal "validate `choice` with alternative made entirely of spaces"
-  QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  QNR-ERROR-MSG-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-choice CHOICE-INVALID-EMPTY-ALTERNATIVE-SPACES))
 
 (test-equal "validate `choice` with alternative made entirely of tabs"
-  QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
+  QNR-ERROR-MSG-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-choice CHOICE-INVALID-EMPTY-ALTERNATIVE-TABS))
 
 ;; Formatting ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -101,37 +101,37 @@
 (qnr-test-error-message
  "construct choice from wrong value: empty list"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
- QNR-ERROR-CHOICE-EMPTY
+ QNR-ERROR-MSG-CHOICE-EMPTY
  (lambda () (qnr-make-choice '())))
 
 (qnr-test-error-message
  "construct choice from wrong type: integer"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
- QNR-ERROR-CHOICE-WRONG-TYPE
+ QNR-ERROR-MSG-CHOICE-WRONG-TYPE
  (lambda () (qnr-make-choice 1231)))
 
 (qnr-test-error-message
  "construct choice from wrong type: string"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
- QNR-ERROR-CHOICE-WRONG-TYPE
+ QNR-ERROR-MSG-CHOICE-WRONG-TYPE
  (lambda () (qnr-make-choice "foo")))
 
 (qnr-test-error-message
  "construct choice alternative from wrong type: list"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
- QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
+ QNR-ERROR-MSG-CHOICE-ALTERNATIVE-WRONG-TYPE
  (lambda () (qnr-make-choice '("foo" ("bar")))))
 
 (qnr-test-error-message
  "construct choice alternative from wrong type: integer"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
- QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
+ QNR-ERROR-MSG-CHOICE-ALTERNATIVE-WRONG-TYPE
  (lambda () (qnr-make-choice '("alpha" "beta" 334 "gamma"))))
 
 (qnr-test-error-message
  "construct choice alternative from wrong type: boolean"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
- QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
+ QNR-ERROR-MSG-CHOICE-ALTERNATIVE-WRONG-TYPE
  (lambda () (qnr-make-choice '("alpha" #t "beta" "gamma"))))
 
 (test-equal "Construct choice with duplicate alternatives"

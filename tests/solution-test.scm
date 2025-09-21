@@ -33,7 +33,7 @@
 (qnr-test-error-message
  "construct <solution> from choices with empty choice"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
- QNR-ERROR-CHOICE-EMPTY
+ QNR-ERROR-MSG-CHOICE-EMPTY
  (lambda () (qnr-make-solution '(("foo" "bar") () ("baz") ("bop"))
                                SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
