@@ -66,7 +66,10 @@ CHOICE must be a valid choice per qnr-validate-choice."
   (delete-duplicates (map qnr-remove-excess-whitespace choice)))
 
 ;; Creation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (qnr-make-choice list-of-strings) 1)
+(define (qnr-make-choice list-of-strings)
+  (unless (string-null? (qnr-validate-choice list-of-strings))
+    (throw 'qnr-choice-construction-failure))
+  1)
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-choice-includes-answer? choice answer)
