@@ -23,7 +23,7 @@
 (define QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
   "<solution> field `choices` has wrong type")
 (define QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
-  "<solution> field choices is empty")
+  "<solution> field `choices` is empty")
 (define QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
   "<solution> field `choices` has duplicate alternatives across choices")
 
