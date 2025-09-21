@@ -8,8 +8,8 @@
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))
 
-(define SINGLE-CHOICE-CHOICES '("blue"))
-(define SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)
+(define SINGLE-CHOICE-CHOICES '(("blue")))
+(define SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT 1)
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
