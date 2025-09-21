@@ -10,7 +10,8 @@
             QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
             QNR-ERROR-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
             qnr-validate-choice
-            qnr-format-choice))
+            qnr-format-choice
+            qnr-choice-includes-answer?))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-VALID-CHOICE-NO-ERROR "")
@@ -51,7 +52,7 @@ CHOICE is valid if the following are true:
           (string-null? (qnr-remove-excess-whitespace alternative)))
         choice))
 
-
+;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-format-choice choice)
   "Remove extra whitespace from all the alternatives in CHOICE and remove all
  duplicates.
@@ -60,3 +61,6 @@ Preserves order and removes duplicates after removing whitespace.
 
 CHOICE must be a valid choice per qnr-validate-choice."
   (delete-duplicates (map qnr-remove-excess-whitespace choice)))
+
+(define (qnr-choice-includes-answer? choice answer)
+  (if (member answer choice) #t #f))
