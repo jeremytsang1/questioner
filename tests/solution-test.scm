@@ -149,4 +149,14 @@
     '(("foo" "bar" "baz" "bop"))
     SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
+(test-equal
+    "Show primary correct answers for single-choice <solution>"
+  '("alpha" "a" "alfa")
+  (qnr-get-primary-correct-answers
+   (qnr-make-solution
+    '(("alpha" "beta" "gamma")
+      ("a" "b" "c")
+      ("alfa" "bravo charlie"))
+    SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
+
 (test-end TEST-SUITE-NAME)
