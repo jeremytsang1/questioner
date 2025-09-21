@@ -29,6 +29,16 @@
    (qnr-make-solution SINGLE-CHOICE-CHOICES
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
+;; Validating choices at the choice level ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(test-equal "fail to construct <solution> from choices with empty choice"
+  QNR-ERROR-CHOICE-EMPTY
+  (catch
+    QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+    (lambda () (qnr-make-solution '(("foo" "bar") () ("baz") ("bop"))
+                                  SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
+    (lambda (key . (error-message)) error-message)))
+
+;; Validating choices at the <solution> level ;;;;;;;;;;;;;;;;;;;;;;;
 (test-error "fail to construct <solution> wrong type choices: integer"
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-solution 12345 SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
@@ -52,6 +62,7 @@
             QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
             (qnr-make-solution '() SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
+;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "whitespace format choices upon <solution> creation"
   '(("foo"))
   (qnr-choices (qnr-make-solution '(("    foo         "))
