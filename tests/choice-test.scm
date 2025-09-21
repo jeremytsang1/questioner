@@ -48,4 +48,9 @@
   QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   (qnr-validate-choice CHOICE-INVALID-EMPTY-ALTERNATIVE-TABS))
 
+;; Formatting ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(test-equal "format single alternative with extra exterior whitespace"
+  '("extra-exterior-whitespace")
+  (qnr-format-choice '("       extra-exterior-whitespace   ")))
+
 (test-end TEST-SUITE-NAME)
