@@ -98,25 +98,33 @@
 ;; https://wolfsden.cz/blog/post/state-of-srfi-64.html). It is good enough to
 ;; know when any error is thrown but not a specific error. So here we are using
 ;; the first argument is just a non-functional descriptor.
-(test-error "Fail to construct choice from empty list"
-            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-choice '()))
+(qnr-test-error-message
+ "Fail to construct choice from empty list"
+ QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-CHOICE-EMPTY
+ (lambda () (qnr-make-choice '())))
 
-(test-error "Fail to construct choice from wrong type: integer"
-            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-choice 1231))
+(qnr-test-error-message
+ "Fail to construct choice from wrong type: integer"
+ QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-CHOICE-WRONG-TYPE
+ (lambda () (qnr-make-choice 1231)))
 
-(test-error "Fail to construct choice from wrong type: string"
-            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-choice "foo"))
+(qnr-test-error-message
+ "Fail to construct choice from wrong type: string"
+ QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-CHOICE-WRONG-TYPE
+ (lambda () (qnr-make-choice "foo")))
 
-(test-error "Fail to construct choice from wrong type: list of lists"
-            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-choice ("foo" ("bar"))))
+(qnr-test-error-message
+ "Fail to construct choice from wrong type: list of lists"
+ QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
+ (lambda () (qnr-make-choice '("foo" ("bar")))))
 
-(test-error "Fail to construct choice due to duplicates"
-            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-choice ("foo" "bar" "foo")))
+(test-equal "Construct choice with duplicate alternatives"
+  '("foo" "bar")
+  (qnr-make-choice '("foo" "bar" "foo")))
 
 (test-equal "Constuct single alternative choice"
   '("foo")
