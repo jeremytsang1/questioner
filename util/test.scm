@@ -1,6 +1,8 @@
 (define-module (util test)
   #:use-module (ice-9 match)
-  #:export (qnr-generate-log-file-name))
+  #:use-module (srfi srfi-64)
+  #:export (qnr-generate-log-file-name
+            qnr-test-error-message))
 
 (define EXPECTED_TEST_SCRIPT_SUFFIX ".scm")
 (define EXPECTED_TEST_SCRIPT_ARGUMENT_COUNT
@@ -51,3 +53,18 @@ log file."
 
 Assumes STR is not empty."
   (string-take-right str 1))
+
+(define (qnr-test-error-message test-name
+                                error-key
+                                expected-error-message
+                                hunk-to-test)
+  "Runs TEST-EXPRESSION in an attempt to catch ERROR-KEY which should pass
+EXPECTED-ERROR-MESSAGE."
+  (test-equal test-name
+    expected-error-message
+    (catch
+      error-key
+      ;; Note this needs to be a hunk so it is not evaluated before being
+      ;; passed to `qnr-test-error-message`
+      hunk-to-test
+      (lambda (key . args) (car args)))))

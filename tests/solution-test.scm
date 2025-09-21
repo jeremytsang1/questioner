@@ -30,13 +30,12 @@
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 ;; Validating choices at the choice level ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(test-equal "fail to construct <solution> from choices with empty choice"
-  QNR-ERROR-CHOICE-EMPTY
-  (catch
-    QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-    (lambda () (qnr-make-solution '(("foo" "bar") () ("baz") ("bop"))
-                                  SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
-    (lambda (key . (error-message)) error-message)))
+(qnr-test-error-message
+ "construct <solution> from choices with empty choice"
+ QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+ QNR-ERROR-CHOICE-EMPTY
+ (lambda () (qnr-make-solution '(("foo" "bar") () ("baz") ("bop"))
+                               SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 ;; Validating choices at the <solution> level ;;;;;;;;;;;;;;;;;;;;;;;
 (test-error "fail to construct <solution> wrong type choices: integer"
