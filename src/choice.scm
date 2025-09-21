@@ -47,7 +47,8 @@ CHOICE is valid if the following are true:
   (find (lambda (alternative) (not (string? alternative))) choice))
 
 (define (find-whitespace-string choice)
-  (find (lambda (alternative) (string-null? (qnr-format-answer alternative)))
+  (find (lambda (alternative)
+          (string-null? (qnr-remove-excess-whitespace alternative)))
         choice))
 
 
@@ -55,4 +56,4 @@ CHOICE is valid if the following are true:
   "Remove extra exterior whitespace from all the alternatives in CHOICE.
 
 CHOICE must be a valid choice per qnr-validate-choice."
-  (map qnr-format-answer choice))
+  (map qnr-remove-excess-whitespace choice))

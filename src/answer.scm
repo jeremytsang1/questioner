@@ -1,12 +1,12 @@
 (define-module (src answer)
-  #:export (qnr-format-answer
+  #:export (qnr-remove-excess-whitespace
             QNR-EMPTY-STRING
             QNR-SINGLE-SPACE))
 
 (define QNR-EMPTY-STRING "")
 (define QNR-SINGLE-SPACE " ")
 
-(define (qnr-format-answer answer)
+(define (qnr-remove-excess-whitespace answer)
   "Format ANSWER to be in a more comparable form.
 
 Remove excess internal/external whitespace from ANSWER and convert it entirely
