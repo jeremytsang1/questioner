@@ -56,7 +56,7 @@ CHOICE is valid if the following are true:
   "Remove extra whitespace from all the alternatives in CHOICE and remove all
  duplicates.
 
-Duplicates are removed after removing whitespace.
+Preserves order and removes duplicates after removing whitespace.
 
 CHOICE must be a valid choice per qnr-validate-choice."
   (delete-duplicates (map qnr-remove-excess-whitespace choice)))

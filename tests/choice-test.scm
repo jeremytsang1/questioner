@@ -83,4 +83,9 @@
   (qnr-format-choice
    '("pencil sharpener  " "   pencil sharpener" "   pencil     sharpener   ")))
 
+(test-equal "format duplicates with extra whitespace away"
+  '("rock" "paper" "scissors")
+  (qnr-format-choice
+   '("rock    " "paper" "scissors" "  paper " "  paper " "rock   ")))
+
 (test-end TEST-SUITE-NAME)
