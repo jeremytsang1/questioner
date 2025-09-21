@@ -140,4 +140,13 @@
       ("alfa" "bravo    charlie" "  bravo charlie"))
     SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
+;; Operations On Valid <solution> Objects ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(test-equal
+    "Show primary correct answers for single-choice <solution>"
+  '("foo")
+  (qnr-get-primary-correct-answers
+   (qnr-make-solution
+    '(("foo" "bar" "baz" "bop"))
+    SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
+
 (test-end TEST-SUITE-NAME)
