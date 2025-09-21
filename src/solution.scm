@@ -12,6 +12,7 @@
             QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
             QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
             QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
+            QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT
             qnr-make-solution
             qnr-solution?
             qnr-choices
@@ -27,6 +28,8 @@
 (define QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
   "<solution> field `choices` has duplicate alternatives across choices")
 
+(define QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT
+  "<solution> field `expected-response-count` is negative")
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-solution>
@@ -52,7 +55,7 @@ of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
 yellow)."
   (when (< expected-response-count 0)
     (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           "<solution> field `expected-response-count` is negative"))
+           QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT))
 
   (raw-make-solution (construct-choices list-of-list-of-strings)
                      expected-response-count))

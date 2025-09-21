@@ -84,7 +84,7 @@
 (qnr-test-error-message
  "construct <solution> wrong value expected-response-count: negative"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> field `expected-response-count` is negative"
+ QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES -27)))
 
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
