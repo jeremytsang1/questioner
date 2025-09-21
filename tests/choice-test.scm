@@ -53,4 +53,8 @@
   '("extra-exterior-whitespace")
   (qnr-format-choice '("       extra-exterior-whitespace   ")))
 
+(test-equal "format single alternative with extra interior whitespace"
+  '("extra interior whitespace")
+  (qnr-format-choice '("extra   interior     whitespace")))
+
 (test-end TEST-SUITE-NAME)
