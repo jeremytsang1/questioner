@@ -8,6 +8,7 @@
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))
 
+(define CHOICE-VALID-CHOICE-SINGLE-ALTERNATIVES '("hello"))
 (define CHOICE-VALID-CHOICE-MULTIPLE-ALTERNATIVES '("foo" "bar" "baz" "bop"))
 (define CHOICE-INVALID-EMPTY-CHOICE '())
 (define CHOICE-INVALID-ALTERNATIVE-WRONG-TYPE '(("abc")))
@@ -18,7 +19,11 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
-(test-equal "validate valid `choice`with multiple alternatives"
+(test-equal "validate valid `choice` with single alternative"
+  QNR-VALID-CHOICE-NO-ERROR
+  (qnr-validate-choice CHOICE-VALID-CHOICE-SINGLE-ALTERNATIVES))
+
+(test-equal "validate valid `choice` with multiple alternatives"
   QNR-VALID-CHOICE-NO-ERROR
   (qnr-validate-choice CHOICE-VALID-CHOICE-MULTIPLE-ALTERNATIVES))
 
