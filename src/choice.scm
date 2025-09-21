@@ -1,4 +1,5 @@
-(define-module (src solution)
+;;; (src choice)
+(define-module (src choice)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (src answer)
