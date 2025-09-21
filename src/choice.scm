@@ -30,7 +30,7 @@
 (define QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   "`choice` contains alternative made completely of whitespace")
 
-(define QNR-ERROR-KEY-CHOICE-CONSTRUCTION 'qnr-choice-construction-failure)
+(define QNR-ERROR-KEY-CHOICE-CONSTRUCTION 'qnr-error-choice-construction)
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-choice choice)
