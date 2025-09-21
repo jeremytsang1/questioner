@@ -12,6 +12,7 @@
             QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
             QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
             QNR-ERROR-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             qnr-validate-choice
             qnr-format-choice
             qnr-make-choice
@@ -28,6 +29,8 @@
   "`choice` an alternative that has wrong type")
 (define QNR-ERROR-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
   "`choice` contains alternative made completely of whitespace")
+
+(define QNR-ERROR-KEY-CHOICE-CONSTRUCTION 'qnr-choice-construction-failure)
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-choice choice)
@@ -67,9 +70,10 @@ CHOICE must be a valid choice per qnr-validate-choice."
 
 ;; Creation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-make-choice list-of-strings)
-  (unless (string-null? (qnr-validate-choice list-of-strings))
-    (throw 'qnr-choice-construction-failure))
-  list-of-strings)
+  (let ((error-message (qnr-validate-choice list-of-strings)))
+    (unless (string-null? error-message)
+      (throw QNR-ERROR-KEY-CHOICE-CONSTRUCTION error-message))
+    list-of-strings))
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-choice-includes-answer? choice answer)

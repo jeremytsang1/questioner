@@ -99,23 +99,23 @@
 ;; know when any error is thrown but not a specific error. So here we are using
 ;; the first argument is just a non-functional descriptor.
 (test-error "Fail to construct choice from empty list"
-            'qnr-choice-construction-failure
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-choice '()))
 
 (test-error "Fail to construct choice from wrong type: integer"
-            'qnr-choice-construction-failure
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-choice 1231))
 
 (test-error "Fail to construct choice from wrong type: string"
-            'qnr-choice-construction-failure
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-choice "foo"))
 
 (test-error "Fail to construct choice from wrong type: list of lists"
-            'qnr-choice-construction-failure
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-choice ("foo" ("bar"))))
 
 (test-error "Fail to constructo choice due to duplicates"
-            'qnr-choice-construction-failure
+            QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-choice ("foo" "bar" "foo")))
 
 (test-equal "Constuct single alternative choice"
