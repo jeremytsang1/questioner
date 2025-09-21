@@ -114,4 +114,8 @@
             'qnr-choice-construction-failure
             (qnr-make-choice ("foo" ("bar"))))
 
+(test-equal "Constuct single alternative choice"
+  '("foo")
+  (qnr-make-choice '("foo")))
+
 (test-end TEST-SUITE-NAME)
