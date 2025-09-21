@@ -62,7 +62,7 @@ yellow)."
     (when (has-duplicate-alternatives-across-choices? list-of-list-of-strings)
       (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
              QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES))
-  (raw-make-solution choices expected-response-count)))
+    (raw-make-solution choices expected-response-count)))
 
 ;; This function is necessary because if there are duplicates, the use can use
 ;; a single alternative to answer a multi-response question.
