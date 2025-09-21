@@ -69,7 +69,7 @@ CHOICE must be a valid choice per qnr-validate-choice."
 (define (qnr-make-choice list-of-strings)
   (unless (string-null? (qnr-validate-choice list-of-strings))
     (throw 'qnr-choice-construction-failure))
-  1)
+  list-of-strings)
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-choice-includes-answer? choice answer)
