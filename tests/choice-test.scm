@@ -16,6 +16,19 @@
 (define CHOICE-INVALID-EMPTY-ALTERNATIVE-SPACES '("d " "        " "e"))
 (define CHOICE-INVALID-EMPTY-ALTERNATIVE-TABS '("d " "\t\t\t\t" "e"))
 
+(define CHOICE-SINGLE-ALTERNATIVE-EXTRA-EXTERIOR-WHITESPACE-FORMATTED
+  '("extra-exterior-whitespace"))
+(define CHOICE-SINGLE-ALTERNATIVE-EXTRA-EXTERIOR-WHITESPACE
+  '("       extra-exterior-whitespace   "))
+(define CHOICE-SINGLE-ALTERNATIVE-EXTRA-INTERIOR-WHITESPACE-FORMATTED
+  '("extra interior whitespace"))
+(define CHOICE-SINGLE-ALTERNATIVE-EXTRA-INTERIOR-WHITESPACE
+  '("extra   interior     whitespace"))
+(define CHOICE-MULTIPLE-ALTERNATIVE-EXTRA-WHITESPACE-FORMATTED
+  '("alfa" "bravo charlie" "delta"))
+(define CHOICE-MULTIPLE-ALTERNATIVE-EXTRA-WHITESPACE
+  '("  alfa   " "bravo    charlie  " "  delta"))
+
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
@@ -50,19 +63,19 @@
 
 ;; Formatting ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "format single alternative with extra exterior whitespace"
-  '("extra-exterior-whitespace")
-  (qnr-format-choice '("       extra-exterior-whitespace   ")))
+  CHOICE-SINGLE-ALTERNATIVE-EXTRA-EXTERIOR-WHITESPACE-FORMATTED
+  (qnr-format-choice CHOICE-SINGLE-ALTERNATIVE-EXTRA-EXTERIOR-WHITESPACE))
 
 (test-equal "format single alternative with extra interior whitespace"
   '("extra interior whitespace")
   (qnr-format-choice '("extra   interior     whitespace")))
 
 (test-equal "format single alternative with extra interior whitespace"
-  '("extra interior whitespace")
-  (qnr-format-choice '("extra   interior     whitespace")))
+  CHOICE-SINGLE-ALTERNATIVE-EXTRA-INTERIOR-WHITESPACE-FORMATTED
+  (qnr-format-choice CHOICE-SINGLE-ALTERNATIVE-EXTRA-INTERIOR-WHITESPACE))
 
 (test-equal "format multiple alternatives with extra whitespace"
-  '("alfa" "bravo charlie" "delta")
-  (qnr-format-choice '("  alfa   " "bravo    charlie  " "  delta")))
+  CHOICE-MULTIPLE-ALTERNATIVE-EXTRA-WHITESPACE-FORMATTED
+  (qnr-format-choice CHOICE-MULTIPLE-ALTERNATIVE-EXTRA-WHITESPACE))
 
 (test-end TEST-SUITE-NAME)
