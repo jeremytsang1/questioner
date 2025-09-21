@@ -3,12 +3,15 @@
 #!/usr/local/bin/guile -s
 !#
 
-(use-modules (srfi srfi-64) (src solution))
+(use-modules (srfi srfi-64) (util test) (src solution))
 
-(test-begin "solution-test.log")
+;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define TEST-SUITE-NAME (qnr-generate-log-file-name))
 
+;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(test-begin TEST-SUITE-NAME)
 (test-equal "verify record type after construction"
   #t
   (qnr-solution? (qnr-make-solution '("blue") 1)))
 
-(test-end "solution-test.log")
+(test-end TEST-SUITE-NAME)
