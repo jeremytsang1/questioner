@@ -45,5 +45,8 @@
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-solution #\a 1))
 
+(test-equal "whitspace format choices upon <solution> creation"
+  '(("foo"))
+  (qnr-choices (qnr-make-solution '(("    foo         ")) 1)))
 
 (test-end TEST-SUITE-NAME)
