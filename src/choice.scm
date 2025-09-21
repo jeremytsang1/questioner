@@ -1,4 +1,7 @@
 ;;; (src choice)
+;; Description: Defines a `choice` in a `<solution>`. A choice represents a set
+;; of equivalent answers any of which would satisfy a single response to a
+;; question.
 (define-module (src choice)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
