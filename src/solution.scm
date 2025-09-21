@@ -50,19 +50,24 @@ primary colors?\" where the choices c '((\"red\") (\"yellow\") (\"blue\")) the
 EXPECTED-RESPONSE-COUNT would be 2 and the user could answer any 2 combination
 of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
 yellow)."
-  (unless (list? list-of-list-of-strings)
-    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE))
+  (raw-make-solution (construct-choices list-of-list-of-strings)
+                     expected-response-count))
 
-  (when (null? list-of-list-of-strings)
-    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY))
-
+(define (construct-choices list-of-list-of-strings)
+  (validate-before-choice-creation list-of-list-of-strings)
   (let ((choices (map qnr-make-choice list-of-list-of-strings)))
     (when (has-duplicate-alternatives-across-choices? list-of-list-of-strings)
       (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
              QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES))
-    (raw-make-solution choices expected-response-count)))
+    choices))
+
+(define (validate-before-choice-creation choices-candidate)
+  (unless (list? choices-candidate)
+    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE))
+  (when (null? choices-candidate)
+    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY)))
 
 ;; This function is necessary because if there are duplicates, the use can use
 ;; a single alternative to answer a multi-response question.
