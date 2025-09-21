@@ -87,6 +87,12 @@
  QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES -27)))
 
+(qnr-test-error-message
+ "construct <solution> wrong value expected-response-count: zero"
+ QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+ QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT
+ (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 0)))
+
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "whitespace format choices upon <solution> creation"
   '(("foo"))
