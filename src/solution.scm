@@ -20,7 +20,8 @@
    qnr-make-solution
    qnr-solution?
    qnr-choices
-   qnr-expected-response-count))
+   qnr-expected-response-count
+   qnr-get-primary-correct-answers))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-solution-construction)
@@ -119,3 +120,15 @@ CHOICES is a list of `choice` as defined by (src choice)."
                                  (lset-union eqv? seen (car choices-left))))))
 
   (has-duplicates? choices '()))
+
+;; Quiz Logic ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define (qnr-get-primary-correct-answers solution)
+  "Collect answers to show testee after they miss a question with SOLUTION.
+
+The answers collected will be the first alternative of each choice in
+<soluntion> field `choices`. Retrurns a list of strings with of the same length
+as `choices`.
+
+SOLUTION must be a well form <solution>."
+  ;; ASSUME: SOLUTION is a valid <solution>
+  (list (car (car (qnr-choices solution)))))
