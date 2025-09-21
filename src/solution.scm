@@ -61,19 +61,8 @@ primary colors?\" where the choices c '((\"red\") (\"yellow\") (\"blue\")) the
 EXPECTED-RESPONSE-COUNT would be 2 and the user could answer any 2 combination
 of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
 yellow)."
-  (unless (integer? expected-response-count)
-    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE))
-
-  (when (<= expected-response-count 0)
-    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT))
-
   (let ((choices (construct-choices list-of-list-of-strings)))
-    (when (> expected-response-count (length choices))
-      (throw
-       QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-       QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH))
+    (validate-expected-response-count expected-response-count choices)
     (raw-make-solution choices expected-response-count)))
 
 (define (construct-choices list-of-list-of-strings)
@@ -91,6 +80,20 @@ yellow)."
   (when (null? choices-candidate)
     (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
            QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY)))
+
+(define (validate-expected-response-count ecr choices)
+  (unless (integer? ecr)
+    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE))
+
+  (when (<= ecr 0)
+    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT))
+
+  (when (> ecr (length choices))
+      (throw
+       QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+       QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH)))
 
 ;; This function is necessary because if there are duplicates, the use can use
 ;; a single alternative to answer a multi-response question.
