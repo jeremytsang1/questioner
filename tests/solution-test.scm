@@ -80,6 +80,13 @@
    (qnr-make-solution '(("foo" "bar" "baz") ("alpha" "beta" "foo" "gamma"))
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
+;; Validating `expected-response-count` ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(qnr-test-error-message
+ "construct <solution> wrong value expected-response-count: negative"
+ QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+ "<solution> field `expected-response-count` is negative"
+ (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES -27)))
+
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "whitespace format choices upon <solution> creation"
   '(("foo"))
