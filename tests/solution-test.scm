@@ -31,23 +31,27 @@
 
 (test-error "fail to construct <solution> wrong type choices: integer"
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-solution 12345 1))
+            (qnr-make-solution 12345 SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
 (test-error "fail to construct <solution> wrong type choices: string"
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-solution "hello" 1))
+            (qnr-make-solution "hello"
+                               SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
 (test-error "fail to construct <solution> wrong type choices: symbol"
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-solution 'goodbye 1))
+            (qnr-make-solution 'goodbye
+                               SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
 (test-error "fail to construct <solution> wrong type choices: character"
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
-            (qnr-make-solution #\a 1))
+            (qnr-make-solution #\a
+                               SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
 (test-equal "whitspace format choices upon <solution> creation"
   '(("foo"))
-  (qnr-choices (qnr-make-solution '(("    foo         ")) 1)))
+  (qnr-choices (qnr-make-solution '(("    foo         "))
+                                  SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 (test-equal "delete duplicates and excess whitespace upon <solution> creation"
   '(("alpha" "beta" "gamma")
@@ -58,6 +62,6 @@
     '(("    alpha     " "alpha  " "beta" "gamma")
       ("a" "b" "c" "b" "a")
       ("alfa" "bravo    charlie" "  bravo charlie"))
-    1)))
+    SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 (test-end TEST-SUITE-NAME)
