@@ -53,6 +53,10 @@ primary colors?\" where the choices c '((\"red\") (\"yellow\") (\"blue\")) the
 EXPECTED-RESPONSE-COUNT would be 2 and the user could answer any 2 combination
 of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
 yellow)."
+  (unless (integer? expected-response-count)
+    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           "<solution> field `expected-response-count` is wrong type"))
+
   (when (<= expected-response-count 0)
     (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
            QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT))
