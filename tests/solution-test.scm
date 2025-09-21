@@ -72,6 +72,14 @@
  (lambda ()
    (qnr-make-solution '() SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
+(qnr-test-error-message
+ "construct <solution> wong value choices: duplicates across choices"
+ QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+ "<solution> field `choices` has duplicate alternatives across choices"
+ (lambda ()
+   (qnr-make-solution '(("foo" "bar" "baz") ("alpha" "beta" "foo" "gamma"))
+                      SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
+
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "whitespace format choices upon <solution> creation"
   '(("foo"))
