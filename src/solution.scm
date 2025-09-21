@@ -65,8 +65,11 @@ yellow)."
     (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
            QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT))
 
-  (raw-make-solution (construct-choices list-of-list-of-strings)
-                     expected-response-count))
+  (let ((choices (construct-choices list-of-list-of-strings)))
+    (when (> expected-response-count (length choices))
+      (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+           "<solution> `expected-response-count` is larger than length of `choices`"))
+    (raw-make-solution choices expected-response-count)))
 
 (define (construct-choices list-of-list-of-strings)
   (validate-before-choice-creation list-of-list-of-strings)
