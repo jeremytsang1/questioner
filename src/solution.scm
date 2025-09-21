@@ -6,6 +6,7 @@
 
 (define-module (src solution)
   #:use-module (srfi srfi-9)
+  #:use-module (src choice)
   #:export (qnr-make-solution
             qnr-solution?
             qnr-choices
@@ -15,7 +16,27 @@
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-solution>
-  (qnr-make-solution choices expected-response-count)
+  (raw-make-solution choices expected-response-count)
   qnr-solution?
   (choices qnr-choices)
   (expected-response-count qnr-expected-response-count))
+
+(define (qnr-make-solution list-of-list-of-strings expected-response-count)
+  "Create a new <solution> record with choices select from formed by LIST-OF-LIST-OF-STRINGS
+ and EXPECTED-RESPONSE-COUNT being the number of choices that must answered for
+the response to be considered correct.
+
+LIST-OF-LIST-OF-STRINGS should be a list where each element is a list of
+strings that creates a valid choice as per module (src choice).
+
+EXPECTED-RESPONSE-COUNT should be a positive integer that is less than or equal
+to (length CHOICES). Represents the number of answers the user must provide
+when answering a question. For example for a question like \"Name two primary
+colors?\" where the choices c '((\"red\") (\"yellow\") (\"blue\")) the
+EXPECTED-RESPONSE-COUNT would be 2 and the user could answer any 2 combination
+of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
+yellow)."
+  (unless (list? list-of-list-of-strings)
+    (throw QNR-ERROR-KEY-CHOICE-CONSTRUCTION))
+
+  (raw-make-solution list-of-list-of-strings expected-response-count))

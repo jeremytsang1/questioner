@@ -29,7 +29,6 @@
    (qnr-make-solution SINGLE-CHOICE-CHOICES
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-
 (test-error "fail to construct <solution> wrong type choices: integer"
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-choices (qnr-make-solution 12345 1)))
