@@ -114,7 +114,7 @@
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-choice ("foo" ("bar"))))
 
-(test-error "Fail to constructo choice due to duplicates"
+(test-error "Fail to construct choice due to duplicates"
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             (qnr-make-choice ("foo" "bar" "foo")))
 
