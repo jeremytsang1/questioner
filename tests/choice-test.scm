@@ -88,4 +88,9 @@
   (qnr-format-choice
    '("rock    " "paper" "scissors" "  paper " "  paper " "rock   ")))
 
+;; Answer Checking ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(test-equal "fail to find an answer among the alternatives"
+  #f
+  (qnr-choice-includes-answer? '("head" "shoulders" "knees" "toes") "hand"))
+
 (test-end TEST-SUITE-NAME)
