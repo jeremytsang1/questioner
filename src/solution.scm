@@ -10,6 +10,7 @@
   #:use-module (src choice)
   #:export
   (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+   QNR-VALID-SOLUTION-NO-ERROR
    QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
    QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
    QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
@@ -23,6 +24,8 @@
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-solution-construction)
+
+(define QNR-VALID-SOLUTION-NO-ERROR "")
 
 (define QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
   "<solution> field `choices` has wrong type")
@@ -82,18 +85,18 @@ yellow)."
            QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY)))
 
 (define (validate-expected-response-count ecr choices)
-  (unless (integer? ecr)
-    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE))
+  (let ((error-message
+         (cond
+          ((not (integer? ecr))
+           QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE)
+          ((<= ecr 0)
+           QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT)
+          ((> ecr (length choices))
+           QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH)
+          (else QNR-VALID-SOLUTION-NO-ERROR))))
 
-  (when (<= ecr 0)
-    (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-           QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT))
-
-  (when (> ecr (length choices))
-      (throw
-       QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-       QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH)))
+    (unless (string=? error-message QNR-VALID-SOLUTION-NO-ERROR)
+      (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION error-message))))
 
 ;; This function is necessary because if there are duplicates, the use can use
 ;; a single alternative to answer a multi-response question.
