@@ -48,7 +48,7 @@
             (qnr-make-solution #\a
                                SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT))
 
-(test-equal "whitspace format choices upon <solution> creation"
+(test-equal "whitespace format choices upon <solution> creation"
   '(("foo"))
   (qnr-choices (qnr-make-solution '(("    foo         "))
                                   SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
