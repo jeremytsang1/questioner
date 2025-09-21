@@ -99,25 +99,25 @@
 ;; know when any error is thrown but not a specific error. So here we are using
 ;; the first argument is just a non-functional descriptor.
 (qnr-test-error-message
- "Fail to construct choice from empty list"
+ "construct choice from wrong value: empty list"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-CHOICE-EMPTY
  (lambda () (qnr-make-choice '())))
 
 (qnr-test-error-message
- "Fail to construct choice from wrong type: integer"
+ "construct choice from wrong type: integer"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-CHOICE-WRONG-TYPE
  (lambda () (qnr-make-choice 1231)))
 
 (qnr-test-error-message
- "Fail to construct choice from wrong type: string"
+ "construct choice from wrong type: string"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-CHOICE-WRONG-TYPE
  (lambda () (qnr-make-choice "foo")))
 
 (qnr-test-error-message
- "Fail to construct choice from wrong type: list of lists"
+ "construct choice alternative from wrong type: list"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-CHOICE-ALTERNATIVE-WRONG-TYPE
  (lambda () (qnr-make-choice '("foo" ("bar")))))
