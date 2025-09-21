@@ -102,4 +102,16 @@
             'qnr-choice-construction-failure
             (qnr-make-choice '()))
 
+(test-error "Fail to construct choice from wrong type: integer"
+            'qnr-choice-construction-failure
+            (qnr-make-choice 1231))
+
+(test-error "Fail to construct choice from wrong type: string"
+            'qnr-choice-construction-failure
+            (qnr-make-choice "foo"))
+
+(test-error "Fail to construct choice from wrong type: list of lists"
+            'qnr-choice-construction-failure
+            (qnr-make-choice ("foo" ("bar"))))
+
 (test-end TEST-SUITE-NAME)
