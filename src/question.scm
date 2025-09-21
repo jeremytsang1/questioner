@@ -10,8 +10,7 @@
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
             qnr-make-question
             qnr-query
-            qnr-solutions
-            qnr-expected-response-count
+            qnr-solution
             qnr-question-number
             qnr-validate-question))
 
@@ -22,12 +21,7 @@
 QUERY is a string of text to be shown to users. It represents the question that
 needs to be answered.
 
-SOLUTIONS is a list of list of non-empty strings. Each sublist of string
-represents a valid answer to the question where elements of a given sublist
-represent equivalent versions of a particular answer.
-
-EXPECTED-RESPONSE-COUNT is a positive integer representing how many answers
-users must guess from SOLUTIONS to have been considered answering the question.")
+SOLUTION is a record object of <solution>. See module (src solution).")
 
 ;; DESIGN CHOICE: Would have preferred to use symbols and exceptions for the
 ;; below but since since the Guile implementation of srfi-64 does not match
@@ -50,11 +44,10 @@ users must guess from SOLUTIONS to have been considered answering the question."
 
 ;; Record Definition ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <question>
-  (qnr-make-question query solutions expected-response-count question-number)
+  (qnr-make-question query solution question-number)
   qnr-question?
   (query qnr-query)
-  (solutions qnr-solutions)
-  (expected-response-count qnr-expected-response-count)
+  (solution qnr-solution)
   (question-number qnr-question-number))
 
 (set-procedure-property!
@@ -68,15 +61,14 @@ users must guess from SOLUTIONS to have been considered answering the question."
    (lambda (validator prev-error-message)
      ;; Return early when already have a previous error message. Don't bother
      ;; doing any more checks once a validation error is found becuase later
-     ;; validators may assume the earlier validators pass (e.g. can't check
-     ;; expected-response-count if solutions is not a list).
+     ;; validators may assume the earlier validators pass.
      (if (not (string-null? prev-error-message))
          prev-error-message
          (validator question)))
    QNR-VALID-QUESTION-NO-ERROR ;; Begin assuming question is valid
    (list validate-question-is-<record>
          validate-query
-         validate-question-number))) ;; TODO: validate solutions.
+         validate-question-number))) ;; TODO: validate solution.
 
 (define (validate-question-is-<record> question)
   (if (not (qnr-question? question)) QNR-ERROR-NON-QUESTION ""))
