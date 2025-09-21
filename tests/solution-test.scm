@@ -84,37 +84,37 @@
 (qnr-test-error-message
  "construct <solution> wrong type expected-response-count: string"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> field `expected-response-count` is wrong type"
+ QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES "foo")))
 
 (qnr-test-error-message
  "construct <solution> wrong type expected-response-count: list"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> field `expected-response-count` is wrong type"
+ QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES (list 3 4 6))))
 
 (qnr-test-error-message
  "construct <solution> wrong type expected-response-count: non-integral number"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> field `expected-response-count` is wrong type"
+ QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 3.14159)))
 
 (qnr-test-error-message
  "construct <solution> wrong type expected-response-count: boolean"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> field `expected-response-count` is wrong type"
+ QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES #f)))
 
 (qnr-test-error-message
  "construct <solution> wrong value expected-response-count: negative"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT
+ QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES -27)))
 
 (qnr-test-error-message
  "construct <solution> wrong value expected-response-count: zero"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- QNR-ERROR-MSG-SOLUTION-NEGATIVE-EXPECTED-RESPONSE-COUNT
+ QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 0)))
 
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
