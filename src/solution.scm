@@ -7,7 +7,8 @@
 (define-module (src solution)
   #:use-module (srfi srfi-9)
   #:export (qnr-make-solution
-            qnr-solution?))
+            qnr-solution?
+            qnr-choices))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
