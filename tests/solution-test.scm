@@ -10,21 +10,21 @@
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))
 
-(define SOLUTIONS-INVALID-WRONG-TYPE "not a list")
-(define SOLUTIONS-INVALID-NO-CHOICES '())
-(define SOLUTIONS-INVALID-CHOICES-WRONG-TYPE
+(define CHOICES-INVALID-WRONG-TYPE "not a list")
+(define CHOICES-INVALID-NO-CHOICES '())
+(define CHOICES-INVALID-CHOICES-WRONG-TYPE
   '(("foo") "bar" "bop"))
-(define SOLUTIONS-INVALID-EMPTY-CHOICE
+(define CHOICES-INVALID-EMPTY-CHOICE
   '(("foo" "bar") () '("baz" "bop")))
-(define SOLUTIONS-INVALID-ALTERNATIVE-WRONG-TYPE
+(define CHOICES-INVALID-ALTERNATIVE-WRONG-TYPE
   '((("abc")) ("1" "2" "3")))
-(define SOLUTIONS-INVALID-EMPTY-ALTERNATIVE
+(define CHOICES-INVALID-EMPTY-ALTERNATIVE
   '(("foo" "baz" "bop") ("baz") ("alpha" "" "beta")))
-(define SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-SPACES
+(define CHOICES-INVALID-EMPTY-ALTERNATIVE-SPACES
   '(("a" "b" " c ") ("d " "        " "e") ("f")))
-(define SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-TABS
+(define CHOICES-INVALID-EMPTY-ALTERNATIVE-TABS
   '(("a" "b" " c ") ("d " "\t\t\t\t" "e") ("f")))
-(define SOLUTIONS-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
+(define CHOICES-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
   '(("alpha" "beta" "gamma")
     ("delta")
     ("kappa" "lambda" "alpha" "mu")))
@@ -32,40 +32,40 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
-(test-equal "validate <question> with string for `solutions` instead of list"
+(test-equal "validate `choices` with list value"
   QNR-ERROR-SOLUTIONS-WRONG-TYPE
-  (qnr-validate-solution SOLUTIONS-INVALID-WRONG-TYPE))
+  (qnr-validate-solution CHOICES-INVALID-WRONG-TYPE))
 
-(test-equal "validate <question> with an empty list for `solutions`"
+(test-equal "validate empty list `choices`"
   QNR-ERROR-SOLUTIONS-NO-CHOICES-FOUND
-  (qnr-validate-solution SOLUTIONS-INVALID-NO-CHOICES))
+  (qnr-validate-solution CHOICES-INVALID-NO-CHOICES))
 
-(test-equal "validate <question> with `solutions` has non-list members"
+(test-equal "validate `choices` with non-list members"
   QNR-ERROR-SOLUTIONS-CHOICES-WRONG-TYPE
-  (qnr-validate-solution SOLUTIONS-INVALID-CHOICES-WRONG-TYPE))
+  (qnr-validate-solution CHOICES-INVALID-CHOICES-WRONG-TYPE))
 
-(test-equal "validate <question> with `solutions` that has an empty sublist"
+(test-equal "validate `choices` with empty sublist"
   QNR-ERROR-SOLUTIONS-CHOICES-EMPTY
-  (qnr-validate-solution SOLUTIONS-INVALID-EMPTY-CHOICE))
+  (qnr-validate-solution CHOICES-INVALID-EMPTY-CHOICE))
 
-(test-equal "validate <question> with `solutions` that has a sublist containing a non-string"
+(test-equal "validate `choices` with sublist containing non-string"
   QNR-ERROR-SOLUTIONS-ALTERNATIVE-WRONG-TYPE
-  (qnr-validate-solution SOLUTIONS-INVALID-ALTERNATIVE-WRONG-TYPE))
+  (qnr-validate-solution CHOICES-INVALID-ALTERNATIVE-WRONG-TYPE))
 
-(test-equal "validate <question> with `solutions` with empty string in sublist"
+(test-equal "validate `choices` with empty string in sublist"
   QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-  (qnr-validate-solution SOLUTIONS-INVALID-EMPTY-ALTERNATIVE))
+  (qnr-validate-solution CHOICES-INVALID-EMPTY-ALTERNATIVE))
 
-(test-equal "validate <question> with `solutions` with entirely spaces alternative"
+(test-equal "validate `choices` with alternative made entirely of spaces"
   QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-  (qnr-validate-solution SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-SPACES))
+  (qnr-validate-solution CHOICES-INVALID-EMPTY-ALTERNATIVE-SPACES))
 
-(test-equal "validate <question> with alternatives containing only tabs"
+(test-equal "validate `choices` with alternative made entirely of tabs"
   QNR-ERROR-SOLUTIONS-ALTERNATIVE-MADE-ENTIRELY-OF-WHITESPACE
-  (qnr-validate-solution SOLUTIONS-INVALID-EMPTY-ALTERNATIVE-TABS))
+  (qnr-validate-solution CHOICES-INVALID-EMPTY-ALTERNATIVE-TABS))
 
-(test-equal "validate <question> with duplicate alternatives across choices"
+(test-equal "validate `choices` with duplicate alternatives across sublists"
   QNR-ERROR-SOLUTIONS-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES
-  (qnr-validate-solution SOLUTIONS-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES))
+  (qnr-validate-solution CHOICES-INVALID-DUPLICATE-ALTERNATIVES-ACROSS-CHOICES))
 
 (test-end TEST-SUITE-NAME)
