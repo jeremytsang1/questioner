@@ -87,16 +87,23 @@ yellow)."
 (define (validate-expected-response-count ecr choices)
   (let ((error-message
          (cond
-          ((not (integer? ecr))
+          ((expected-response-count-wrong-type? ecr)
            QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE)
-          ((<= ecr 0)
+          ((expected-response-count-out-of-domain? ecr)
            QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT)
-          ((> ecr (length choices))
+          ((expected-response-impossible-for-given-choices? ecr choices)
            QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH)
           (else QNR-VALID-SOLUTION-NO-ERROR))))
 
     (unless (string=? error-message QNR-VALID-SOLUTION-NO-ERROR)
       (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION error-message))))
+
+(define (expected-response-count-wrong-type? ecr) (not (integer? ecr)))
+
+(define (expected-response-count-out-of-domain? ecr) (<= ecr 0))
+
+(define (expected-response-impossible-for-given-choices? ecr choices)
+  (> ecr (length choices)))
 
 ;; This function is necessary because if there are duplicates, the use can use
 ;; a single alternative to answer a multi-response question.
