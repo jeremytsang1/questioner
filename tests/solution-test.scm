@@ -18,4 +18,9 @@
   (qnr-solution? (qnr-make-solution SINGLE-CHOICE-CHOICES
                                     SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
+(test-equal "access <solution> choices after construction"
+  SINGLE-CHOICE-CHOICES
+  (qnr-choices (qnr-make-solution SINGLE-CHOICE-CHOICES
+                                  SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
+
 (test-end TEST-SUITE-NAME)
