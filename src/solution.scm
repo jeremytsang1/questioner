@@ -11,6 +11,7 @@
   #:export (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
             QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
             QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
+            QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
             qnr-make-solution
             qnr-solution?
             qnr-choices
@@ -23,6 +24,8 @@
   "<solution> field `choices` has wrong type")
 (define QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
   "<solution> field choices is empty")
+(define QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
+  "<solution> field `choices` has duplicate alternatives across choices")
 
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -58,7 +61,7 @@ yellow)."
   (let ((choices (map qnr-make-choice list-of-list-of-strings)))
     (when (has-duplicate-alternatives-across-choices? list-of-list-of-strings)
       (throw QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
-             "<solution> field `choices` has duplicate alternatives across choices"))
+             QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES))
   (raw-make-solution choices expected-response-count)))
 
 ;; This function is necessary because if there are duplicates, the use can use

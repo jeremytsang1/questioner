@@ -73,9 +73,9 @@
    (qnr-make-solution '() SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 (qnr-test-error-message
- "construct <solution> wong value choices: duplicates across choices"
+ "construct <solution> wrong value choices: duplicates across choices"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
- "<solution> field `choices` has duplicate alternatives across choices"
+ QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
  (lambda ()
    (qnr-make-solution '(("foo" "bar" "baz") ("alpha" "beta" "foo" "gamma"))
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
