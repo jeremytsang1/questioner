@@ -185,15 +185,11 @@
 
 (test-equal "Find wrong answers: correctly answers 1-reponse 1-choice question"
   '()
-  (qnr-find-wrong-answers
-   (qnr-make-solution '(("foo")) 1)
-   '("foo")))
+  (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '("foo")))
 
 (test-equal "Incorrectly answer 1-alternative 1-response 1-choice question"
   '("bar")
-  (qnr-find-wrong-answers
-   (qnr-make-solution '(("foo")) 1)
-   '("bar")))
+  (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '("bar")))
 
 (test-equal "Correctly answer multi-alternative 1-response 1-choice question"
   '()
