@@ -158,22 +158,30 @@ LIST-OF-STRINGS is a non-empty list of strings that are not completely composed
 of whitespace. It should have length equal to SOLUTION's field
 `expected-response-count` (and hence be non-empty since that field should never
 be non-positive)."
-  (let ((response
-         (make-response list-of-strings
-                        (qnr-expected-response-count solution))))
-    (define (check-answer choices response)
-      (if (null? response)
-          '()
-          (let ((choice-containing-response
-                 (find (lambda (choice) (member (car response) choice))
-                       choices)))
-            (cond (choice-containing-response
-                   (check-answer (delete choice-containing-response choices)
-                                 (cdr response)))
-                  (else (cons (car response)
-                              (check-answer choices (cdr response))))))))
+  (let ((response (make-response list-of-strings
+                                 (qnr-expected-response-count solution))))
+    (collect-wrong-answers (qnr-choices solution) response)))
 
-    (check-answer (qnr-choices solution) response)))
+(define (collect-wrong-answers choices response)
+  "Return a subset of RESPONSE that only contains the members that were not
+only (1) not in any choice but also (2) not in any choice that contains another
+member."
+
+  (if (null? response)
+      '()
+      (let ((choice-containing-response
+             (find (lambda (choice) (member (car response) choice))
+                   choices)))
+        ;; If a response member is in a choice, then remove that choice from
+        ;; further consideration and also don't add that response member to the
+        ;; result (since it is not a wrong answer).
+        (cond (choice-containing-response
+               (collect-wrong-answers (delete choice-containing-response choices)
+                                      (cdr response)))
+              ;; If a response member is not any is not in any choice then it
+              ;; is an incorrect response, so add it to the list.
+              (else (cons (car response)
+                          (collect-wrong-answers choices (cdr response))))))))
 
 (define (make-response list-of-strings expected-response-count)
   (let ((response (map qnr-remove-excess-whitespace list-of-strings)))
