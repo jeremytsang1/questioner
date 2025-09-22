@@ -10,6 +10,7 @@
   #:use-module (src choice)
   #:export
   (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
+   QNR-ERROR-KEY-SOLUTION
    QNR-VALID-SOLUTION-NO-ERROR
    QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
    QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
@@ -26,6 +27,7 @@
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-solution-construction)
+(define QNR-ERROR-KEY-SOLUTION 'qnr-error-solution)
 
 (define QNR-VALID-SOLUTION-NO-ERROR "")
 
@@ -135,4 +137,6 @@ SOLUTION must be a well form <solution>."
   (map car (qnr-choices solution)))
 
 (define (qnr-find-wrong-answers solution response)
+  (when (null? response)
+    (throw QNR-ERROR-KEY-SOLUTION "<solution> cannot find wrong answers to empty response"))
   '())
