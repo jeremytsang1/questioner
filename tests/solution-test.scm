@@ -288,4 +288,40 @@
                       3)
    '("gamma" "gamma" "alpha")))
 
+(test-equal "Correct multi-alternative multi-choice multi-response"
+  '()
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha" "a" "alfa")
+                        ("beta" "b" "bravo")
+                        ("gamma" "c" "charlie"))
+                      3)
+   '("alpha" "b" "charlie")))
+
+(test-equal "Partially incorrect multi-alternative multi-choice multi-response"
+  '("pi" "phi")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha" "a" "alfa")
+                        ("beta" "b" "bravo")
+                        ("gamma" "c" "charlie"))
+                      3)
+   '("alpha" "pi" "phi")))
+
+(test-equal "Entirely incorrect multi-alternative multi-choice multi-response"
+  '("one" "two" "three")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha" "a" "alfa")
+                        ("beta" "b" "bravo")
+                        ("gamma" "c" "charlie"))
+                      3)
+   '("one" "two" "three")))
+
+(test-equal "Entirely incorrect multi-alternative multi-choice multi-response"
+  '()
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("mouse")
+                        ("duck" "chicken" "budgie" "quail" "robin")
+                        ("fly" "ant" "ladybug"))
+                      2)
+   '("mouse" "ant")))
+
 (test-end TEST-SUITE-NAME)
