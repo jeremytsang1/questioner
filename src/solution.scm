@@ -21,7 +21,8 @@
    qnr-solution?
    qnr-choices
    qnr-expected-response-count
-   qnr-get-primary-correct-answers))
+   qnr-get-primary-correct-answers
+   qnr-find-wrong-answers))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define QNR-ERROR-KEY-SOLUTION-CONSTRUCTION 'qnr-error-solution-construction)
@@ -132,3 +133,6 @@ as `choices`.
 SOLUTION must be a well form <solution>."
   ;; ASSUME: SOLUTION is a valid <solution>
   (map car (qnr-choices solution)))
+
+(define (qnr-find-wrong-answers solution response)
+  '())
