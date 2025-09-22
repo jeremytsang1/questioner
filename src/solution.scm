@@ -144,4 +144,8 @@ SOLUTION must be a well form <solution>."
   (when (null? response)
     (throw QNR-ERROR-KEY-SOLUTION
            QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE))
+  (when (not (= (length response) (qnr-expected-response-count solution)))
+    (throw QNR-ERROR-KEY-SOLUTION
+           "`response` must be equal to solution's field `expected-response-count`"))
+
   (if (equal? (car (qnr-choices solution)) response) '() response))
