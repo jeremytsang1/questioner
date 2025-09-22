@@ -165,8 +165,7 @@
  "<solution> cannot find wrong answers to empty response"
  (lambda () (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '())))
 
-(test-equal
-    "Find wrong answers: correctly answers 1-reponse 1-choice question"
+(test-equal "Find wrong answers: correctly answers 1-reponse 1-choice question"
   '()
   (qnr-find-wrong-answers
    (qnr-make-solution '(("foo")) 1)
