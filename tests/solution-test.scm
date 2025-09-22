@@ -159,18 +159,17 @@
       ("alfa" "bravo charlie"))
     SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-(test-equal
-    "Find wrong answers: correctly answers 1-reponse 1-choice question"
-  '()
-  (qnr-find-wrong-answers
-   (qnr-make-solution '(("foo")) 1)
-   '("foo")))
-
 (qnr-test-error-message
  "Crash finding wrong answers when response empty"
  QNR-ERROR-KEY-SOLUTION
  "<solution> cannot find wrong answers to empty response"
  (lambda () (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '())))
 
+(test-equal
+    "Find wrong answers: correctly answers 1-reponse 1-choice question"
+  '()
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("foo")) 1)
+   '("foo")))
 
 (test-end TEST-SUITE-NAME)
