@@ -13,9 +13,9 @@
 (define QUERY-INVALID-NON-STRING '())
 (define QUERY-INVALID-WRONG-TYPE "")
 
-(define SOLUTION-VALID-SINGLE-CHOICE '(("bar"))) ;; TODO
+(define CHOICES-VALID-SINGLE '(("bar"))) ;; TODO
 
-(define EXPECTED-RESPONSE-COUNT-VALID-SINGLE-REPONSE 1)
+(define EXPECTED-RESPONSE-COUNT-VALID-SINGLE 1)
 
 (define QUESTION-NUMBER-VALID-POSITIVE-INTEGER 123)
 (define QUESTION-NUMBER-INVALID-TYPE "hello") ;; Not an integer.
@@ -26,17 +26,20 @@
 (test-begin TEST-SUITE-NAME)
 
 (test-assert "<qnr-question> fieldname access"
-  (let ((question (qnr-make-question "a" "b" "c")))
-    (and (string=? (qnr-query question) "a")
-         (string=? (qnr-solution question) "b")
-         (string=? (qnr-question-number question) "c"))))
+  (let ((question (qnr-make-question QUERY-VALID
+                                     CHOICES-VALID-SINGLE
+                                     EXPECTED-RESPONSE-COUNT-VALID-SINGLE
+                                     QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+    (and (string=? (qnr-query question) QUERY-VALID)
+         (= (qnr-question-number question) QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
 ;; Validation Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "valid single response <qnr-question>"
   QNR-VALID-QUESTION-NO-ERROR
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTION-VALID-SINGLE-CHOICE
+                      CHOICES-VALID-SINGLE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate an object that is not a <qnr-question>"
@@ -47,35 +50,40 @@
   QNR-ERROR-QUERY-NON-STRING
   (qnr-validate-question
    (qnr-make-question QUERY-INVALID-NON-STRING
-                      SOLUTION-VALID-SINGLE-CHOICE
+                      CHOICES-VALID-SINGLE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <qnr-question> with field `query` that is an empty string"
   QNR-ERROR-QUERY-EMPTY
   (qnr-validate-question
    (qnr-make-question QUERY-INVALID-WRONG-TYPE
-                      SOLUTION-VALID-SINGLE-CHOICE
+                      CHOICES-VALID-SINGLE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
 (test-equal "validate <qnr-question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTION-VALID-SINGLE-CHOICE
+                      CHOICES-VALID-SINGLE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                       QUESTION-NUMBER-INVALID-TYPE)))
 
 (test-equal "validate <qnr-question> with field `question-number` that is 0"
   QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTION-VALID-SINGLE-CHOICE
+                      CHOICES-VALID-SINGLE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                       QUESTION-NUMBER-INVALID-ZERO)))
 
 (test-equal "validate <qnr-question> with field `question-number` that is negative"
   QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
-                      SOLUTION-VALID-SINGLE-CHOICE
+                      CHOICES-VALID-SINGLE
+                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                       QUESTION-NUMBER-INVALID-NEGATIVE)))
 
 (test-end TEST-SUITE-NAME)

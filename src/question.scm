@@ -1,6 +1,7 @@
 (define-module (src question)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
+  #:use-module (src solution)
   #:export (QNR-VALID-QUESTION-NO-ERROR
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-QUERY-NON-STRING
@@ -15,14 +16,6 @@
             qnr-validate-question))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define DOC-QNR-MAKE-QUESTION
-  "Create a record representing a quiz question.
-
-QUERY is a string of text to be shown to users. It represents the question that
-needs to be answered.
-
-SOLUTION is a record object of <solution>. See module (src solution).")
-
 ;; DESIGN CHOICE: Would have preferred to use symbols and exceptions for the
 ;; below but since since the Guile implementation of srfi-64 does not match
 ;; error types (see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=66776 and
@@ -44,16 +37,36 @@ SOLUTION is a record object of <solution>. See module (src solution).")
 
 ;; Record Definition ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-question>
-  (qnr-make-question query solution question-number)
+  (raw-make-question query solution question-number)
   qnr-question?
   (query qnr-query)
   (solution qnr-solution)
   (question-number qnr-question-number))
 
-(set-procedure-property!
- qnr-make-question
- 'documentation
- DOC-QNR-MAKE-QUESTION)
+(define (qnr-make-question query
+                           choices
+                           expected-response-count
+                           question-number)
+  "Create a record representing a quiz question.
+
+QUERY is a string of text to be shown to users. It represents the question that
+needs to be answered.
+
+CHOICE-LIST is a non-empty list of list of strings. None of the strings
+should be made entirely from whitespace or empty (see (src choice)). They
+should not be duplicates across sublists (see (src solution)).
+
+EXPECTED-RESPONSE-COUNT is a positive integer that is less than or equal
+to `(length CHOICES)`. This represents the number of answers the user must
+provide when answering a question. For example for a question like \"Name two
+primary colors?\" where the choices c '((\"red\") (\"yellow\") (\"blue\")) the
+EXPECTED-RESPONSE-COUNT would be 2 and the user could answer any 2 combination
+of the 3 possible choices (e.g. red and blue, red and yellow, or blue and
+yellow).
+
+QUESTION-NUMBER is a positive integer."
+  (let* ((solution (qnr-make-solution choices expected-response-count)))
+    (raw-make-question query solution question-number)))
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
