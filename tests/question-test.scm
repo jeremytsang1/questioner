@@ -25,53 +25,53 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
-(test-assert "<question> fieldname access"
+(test-assert "<qnr-question> fieldname access"
   (let ((question (qnr-make-question "a" "b" "c")))
     (and (string=? (qnr-query question) "a")
          (string=? (qnr-solution question) "b")
          (string=? (qnr-question-number question) "c"))))
 
 ;; Validation Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(test-equal "valid single response <question>"
+(test-equal "valid single response <qnr-question>"
   QNR-VALID-QUESTION-NO-ERROR
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTION-VALID-SINGLE-CHOICE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
-(test-equal "validate an object that is not a <question>"
+(test-equal "validate an object that is not a <qnr-question>"
   QNR-ERROR-NON-QUESTION
   (qnr-validate-question '(foo bar baz bop)))
 
-(test-equal "validate <question> with field `query` that is non-string"
+(test-equal "validate <qnr-question> with field `query` that is non-string"
   QNR-ERROR-QUERY-NON-STRING
   (qnr-validate-question
    (qnr-make-question QUERY-INVALID-NON-STRING
                       SOLUTION-VALID-SINGLE-CHOICE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
-(test-equal "validate <question> with field `query` that is an empty string"
+(test-equal "validate <qnr-question> with field `query` that is an empty string"
   QNR-ERROR-QUERY-EMPTY
   (qnr-validate-question
    (qnr-make-question QUERY-INVALID-WRONG-TYPE
                       SOLUTION-VALID-SINGLE-CHOICE
                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
 
-(test-equal "validate <question> with field `question-number` that is non-integer"
+(test-equal "validate <qnr-question> with field `question-number` that is non-integer"
   QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTION-VALID-SINGLE-CHOICE
                       QUESTION-NUMBER-INVALID-TYPE)))
 
-(test-equal "validate <question> with field `question-number` that is 0"
+(test-equal "validate <qnr-question> with field `question-number` that is 0"
   QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID
                       SOLUTION-VALID-SINGLE-CHOICE
                       QUESTION-NUMBER-INVALID-ZERO)))
 
-(test-equal "validate <question> with field `question-number` that is negative"
+(test-equal "validate <qnr-question> with field `question-number` that is negative"
   QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
   (qnr-validate-question
    (qnr-make-question QUERY-VALID

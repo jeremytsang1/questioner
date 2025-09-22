@@ -30,20 +30,20 @@ SOLUTION is a record object of <solution>. See module (src solution).")
 ;; use those in srfi-64 tests since there would be no way to verfiy if the
 ;; correct error is being caught or not, only that an error is being caught.
 (define QNR-VALID-QUESTION-NO-ERROR "")
-(define QNR-ERROR-NON-QUESTION "passed object is not a <question>")
+(define QNR-ERROR-NON-QUESTION "passed object is not a <qnr-question>")
 (define QNR-ERROR-QUERY-NON-STRING
-  "<question> has non-string `query`")
+  "<qnr-question> has non-string `query`")
 (define QNR-ERROR-QUERY-EMPTY
-  "<question> has `query` that is empty")
+  "<qnr-question> has `query` that is empty")
 (define QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
-  "<question> `question-number` has wrong type")
+  "<qnr-question> `question-number` has wrong type")
 (define QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
-  "<question> has non-positive `question-number`")
+  "<qnr-question> has non-positive `question-number`")
 (define QNR-ERROR-QUESTION-NUMBER-NEGATIVE
-  "<question> has negative `question-number`")
+  "<qnr-question> has negative `question-number`")
 
 ;; Record Definition ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-record-type <question>
+(define-record-type <qnr-question>
   (qnr-make-question query solution question-number)
   qnr-question?
   (query qnr-query)
