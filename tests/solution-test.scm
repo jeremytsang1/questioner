@@ -196,4 +196,9 @@
   (qnr-find-wrong-answers (qnr-make-solution '(("foo" "bar" "baz" "bop")) 1)
                           '("baz")))
 
+(test-equal "Incorrectly answer multi-alternative 1-response 1-choice question"
+  '("hello")
+  (qnr-find-wrong-answers (qnr-make-solution '(("foo" "bar" "baz" "bop")) 1)
+                          '("hello")))
+
 (test-end TEST-SUITE-NAME)
