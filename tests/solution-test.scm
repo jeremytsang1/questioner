@@ -160,31 +160,31 @@
     SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 (qnr-test-error-message
- "Crash finding wrong answers when response empty"
+ "Detect when there are no responses"
  QNR-ERROR-KEY-SOLUTION
- "<solution> cannot find wrong answers to empty response"
+ QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE
  (lambda () (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '())))
 
 (qnr-test-error-message
- "Crash when response's length less than solution's expected response count"
+ "Detect when number of responses less than solution's expected response count"
  QNR-ERROR-KEY-SOLUTION
- QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH
+ QNR-ERROR-MSG-SOLUTION-RESPONSES-LENGTH-MISMATCH
  (lambda ()
    (qnr-find-wrong-answers
     (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 3)
     '("a" "b"))))
 
 (qnr-test-error-message
- "Crash when response's length more than solution's expected response count"
+ "Detect when number of responses more than solution's expected response count"
  QNR-ERROR-KEY-SOLUTION
- QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH
+ QNR-ERROR-MSG-SOLUTION-RESPONSES-LENGTH-MISMATCH
  (lambda ()
    (qnr-find-wrong-answers
     (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 2)
     '("a" "b" "c" "d" "e"))))
 
 (qnr-test-error-message
- "Detect when response contains empty string"
+ "Detect when responses contains empty string"
  QNR-ERROR-KEY-SOLUTION
  QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE
  (lambda ()
