@@ -219,4 +219,10 @@
    (qnr-make-solution '(("alpha") ("beta") ("gamma")) 1)
    '("gamma")))
 
+(test-equal "Incorrectly answer 1-alternative multi-choice 1-response"
+  '("delta")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha") ("beta") ("gamma")) 1)
+   '("delta")))
+
 (test-end TEST-SUITE-NAME)
