@@ -18,6 +18,7 @@
    QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
    QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
    QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH
+   QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE
    qnr-make-solution
    qnr-solution?
    qnr-choices
@@ -45,6 +46,9 @@
   "<solution> field `expected-response-count` is non-positive")
 (define QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH
   "<solution> `expected-response-count` is larger than length of `choices`")
+
+(define QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE
+  "<solution> cannot find wrong answers to empty response")
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-solution>
@@ -138,5 +142,6 @@ SOLUTION must be a well form <solution>."
 
 (define (qnr-find-wrong-answers solution response)
   (when (null? response)
-    (throw QNR-ERROR-KEY-SOLUTION "<solution> cannot find wrong answers to empty response"))
+    (throw QNR-ERROR-KEY-SOLUTION
+           QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE))
   '())
