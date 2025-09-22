@@ -149,10 +149,10 @@ SOLUTION must be a well form <solution>."
 
 SOLUTION should be a valid solution.
 
-RESPONSE is a non-empty list of strings. It is assumed to be formatted per
-`qnr-remove-excess-whitespace`. It should have length equal to SOLUTION's field
-`expected-response-count` (and hence be non-empty since that field should never
-be non-positive)."
+RESPONSE is a non-empty list of non-empty strings. It is assumed to be
+formatted per `qnr-remove-excess-whitespace`. It should have length equal to
+SOLUTION's field `expected-response-count` (and hence be non-empty since that
+field should never be non-positive)."
   (when (null? response)
     (throw QNR-ERROR-KEY-SOLUTION
            QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE))
