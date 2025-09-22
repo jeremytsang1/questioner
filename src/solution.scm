@@ -159,12 +159,21 @@ of whitespace. It should have length equal to SOLUTION's field
 `expected-response-count` (and hence be non-empty since that field should never
 be non-positive)."
   (let ((response
-         (make-response list-of-strings (qnr-expected-response-count solution))))
-    (if (any (lambda (choice)
-               (qnr-choice-includes-answer? choice (car response)))
-             (qnr-choices solution))
-        '()
-        response)))
+         (make-response list-of-strings
+                        (qnr-expected-response-count solution))))
+    (define (check-answer choices response)
+      (if (null? response)
+          '()
+          (let ((choice-containing-response
+                 (find (lambda (choice) (member (car response) choice))
+                       choices)))
+            (cond (choice-containing-response
+                   (check-answer (delete choice-containing-response choices)
+                                 (cdr response)))
+                  (else (cons (car response)
+                              (check-answer choices (cdr response))))))))
+
+    (check-answer (qnr-choices solution) response)))
 
 (define (make-response list-of-strings expected-response-count)
   (let ((response (map qnr-remove-excess-whitespace list-of-strings)))
