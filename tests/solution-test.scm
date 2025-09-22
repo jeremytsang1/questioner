@@ -168,7 +168,7 @@
 (qnr-test-error-message
  "Crash when response's length less than solution's expected response count"
  QNR-ERROR-KEY-SOLUTION
- "`response` must be equal to solution's field `expected-response-count`"
+ QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH
  (lambda ()
    (qnr-find-wrong-answers
     (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 3)
@@ -177,7 +177,7 @@
 (qnr-test-error-message
  "Crash when response's length more than solution's expected response count"
  QNR-ERROR-KEY-SOLUTION
- "`response` must be equal to solution's field `expected-response-count`"
+ QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH
  (lambda ()
    (qnr-find-wrong-answers
     (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 2)
