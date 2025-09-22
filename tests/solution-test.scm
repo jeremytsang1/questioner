@@ -166,4 +166,11 @@
    (qnr-make-solution '(("foo")) 1)
    '("foo")))
 
+(qnr-test-error-message
+ "Crash finding wrong answers when response empty"
+ QNR-ERROR-KEY-SOLUTION
+ "<solution> cannot find wrong answers to empty response"
+ (lambda () (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '())))
+
+
 (test-end TEST-SUITE-NAME)
