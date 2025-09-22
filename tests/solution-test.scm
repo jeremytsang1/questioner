@@ -270,4 +270,22 @@
                       2)
    '("rho" "gamma")))
 
+(test-equal "Repeated response 1-alternative multi-choice multi-response"
+  '("gamma")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha")
+                        ("beta")
+                        ("gamma"))
+                      2)
+   '("gamma" "gamma")))
+
+(test-equal "Repeated response multi-alternative multi-choice multi-response"
+  '("gamma")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha" "a" "alfa")
+                        ("beta" "b" "bravo")
+                        ("gamma" "c" "charlie"))
+                      3)
+   '("gamma" "gamma" "alpha")))
+
 (test-end TEST-SUITE-NAME)
