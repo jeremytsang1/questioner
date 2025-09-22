@@ -201,4 +201,22 @@
   (qnr-find-wrong-answers (qnr-make-solution '(("foo" "bar" "baz" "bop")) 1)
                           '("hello")))
 
+(test-equal "Correctly answer 1-alternative multi-choice 1-response: version 1"
+  '()
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha") ("beta") ("gamma")) 1)
+   '("alpha")))
+
+(test-equal "Correctly answer 1-alternative multi-choice 1-response: version 2"
+  '()
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha") ("beta") ("gamma")) 1)
+   '("beta")))
+
+(test-equal "Correctly answer 1-alternative multi-choice 1-response: version 3"
+  '()
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha") ("beta") ("gamma")) 1)
+   '("gamma")))
+
 (test-end TEST-SUITE-NAME)
