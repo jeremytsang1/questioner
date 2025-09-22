@@ -160,4 +160,6 @@ be non-positive)."
     (throw QNR-ERROR-KEY-SOLUTION
            QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH))
 
-  (if (equal? (car (qnr-choices solution)) response) '() response))
+  (if (qnr-choice-includes-answer? (car (qnr-choices solution)) (car response))
+      '()
+      response))
