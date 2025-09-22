@@ -159,6 +159,9 @@ be non-positive)."
   (when (not (= (length response) (qnr-expected-response-count solution)))
     (throw QNR-ERROR-KEY-SOLUTION
            QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH))
+  (when (member "" response)
+    (throw QNR-ERROR-KEY-SOLUTION
+           "`response` contains an empty string"))
 
   (if (any (lambda (choice) (qnr-choice-includes-answer? choice (car response)))
            (qnr-choices solution))
