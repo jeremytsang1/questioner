@@ -144,4 +144,4 @@ SOLUTION must be a well form <solution>."
   (when (null? response)
     (throw QNR-ERROR-KEY-SOLUTION
            QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE))
-  '())
+  (if (equal? (car (qnr-choices solution)) response) '() response))
