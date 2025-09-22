@@ -225,4 +225,22 @@
    (qnr-make-solution '(("alpha") ("beta") ("gamma")) 1)
    '("delta")))
 
+(test-equal "Correctly answer multi-alternative multi-choice 1-response"
+  '()
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha" "a" "alfa")
+                        ("beta" "b" "bravo")
+                        ("gamma" "c" "charlie"))
+                      1)
+   '("bravo")))
+
+(test-equal "Incorrectly answer multi-alternative multi-choice 1-response"
+  '("delta")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha" "a" "alfa")
+                        ("beta" "b" "bravo")
+                        ("gamma" "c" "charlie"))
+                      1)
+   '("delta")))
+
 (test-end TEST-SUITE-NAME)
