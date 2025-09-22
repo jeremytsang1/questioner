@@ -261,4 +261,13 @@
                       2)
    '("rho" "sigma")))
 
+(test-equal "Partially incorrect 1-alternative multi-choice multi-response"
+  '("rho")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha")
+                        ("beta")
+                        ("gamma"))
+                      2)
+   '("rho" "gamma")))
+
 (test-end TEST-SUITE-NAME)
