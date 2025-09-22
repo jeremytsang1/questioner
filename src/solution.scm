@@ -21,6 +21,7 @@
    QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH
    QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE
    QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH
+   QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE
    qnr-make-solution
    qnr-solution?
    qnr-choices
@@ -54,6 +55,9 @@
 
 (define QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH
   "`response` must be equal to solution's field `expected-response-count`")
+
+(define QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE
+  "`response` contains a string made entirely of whitespace")
 
 ;; Constructors ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-record-type <qnr-solution>
@@ -172,5 +176,5 @@ be non-positive)."
              QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH))
     (when (any string-null? response)
       (throw QNR-ERROR-KEY-SOLUTION
-             "`response` contains an empty string"))
+             QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE))
     response))

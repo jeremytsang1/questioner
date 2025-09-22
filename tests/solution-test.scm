@@ -186,7 +186,7 @@
 (qnr-test-error-message
  "Detect when response contains empty string"
  QNR-ERROR-KEY-SOLUTION
- "`response` contains an empty string"
+ QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE
  (lambda ()
    (qnr-find-wrong-answers
     (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 3)
