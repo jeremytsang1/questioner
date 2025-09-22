@@ -8,6 +8,7 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (src choice)
+  #:use-module (src answer)
   #:export
   (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
    QNR-ERROR-KEY-SOLUTION
@@ -144,26 +145,32 @@ SOLUTION must be a well form <solution>."
   ;; ASSUME: SOLUTION is a valid <solution>
   (map car (qnr-choices solution)))
 
-(define (qnr-find-wrong-answers solution response)
-  "Return a list of wrong answers in RESPONSE.
+(define (qnr-find-wrong-answers solution list-of-strings)
+  "Return a list of wrong answers in LIST-OF-STRINGS.
 
 SOLUTION should be a valid solution.
 
-RESPONSE is a non-empty list of non-empty strings. It is assumed to be
-formatted per `qnr-remove-excess-whitespace`. It should have length equal to
-SOLUTION's field `expected-response-count` (and hence be non-empty since that
-field should never be non-positive)."
-  (when (null? response)
-    (throw QNR-ERROR-KEY-SOLUTION
-           QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE))
-  (when (not (= (length response) (qnr-expected-response-count solution)))
-    (throw QNR-ERROR-KEY-SOLUTION
-           QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH))
-  (when (member "" response)
-    (throw QNR-ERROR-KEY-SOLUTION
-           "`response` contains an empty string"))
+LIST-OF-STRINGS is a non-empty list of strings that are not completely composed
+of whitespace. It should have length equal to SOLUTION's field
+`expected-response-count` (and hence be non-empty since that field should never
+be non-positive)."
+  (let ((response
+         (make-response list-of-strings (qnr-expected-response-count solution))))
+    (if (any (lambda (choice)
+               (qnr-choice-includes-answer? choice (car response)))
+             (qnr-choices solution))
+        '()
+        response)))
 
-  (if (any (lambda (choice) (qnr-choice-includes-answer? choice (car response)))
-           (qnr-choices solution))
-      '()
-      response))
+(define (make-response list-of-strings expected-response-count)
+  (let ((response (map qnr-remove-excess-whitespace list-of-strings)))
+    (when (null? response)
+      (throw QNR-ERROR-KEY-SOLUTION
+             QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE))
+    (when (not (= (length response) expected-response-count))
+      (throw QNR-ERROR-KEY-SOLUTION
+             QNR-ERROR-MSG-SOLUTION-RESPONSE-LENGTH-MISMATCH))
+    (when (any string-null? response)
+      (throw QNR-ERROR-KEY-SOLUTION
+             "`response` contains an empty string"))
+    response))
