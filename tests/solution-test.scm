@@ -252,4 +252,13 @@
                       1)
    '("delta")))
 
+(test-equal "Incorrectly answer 1-alternative multi-choice multi-response"
+  '("rho" "sigma")
+  (qnr-find-wrong-answers
+   (qnr-make-solution '(("alpha")
+                        ("beta")
+                        ("gamma"))
+                      2)
+   '("rho" "sigma")))
+
 (test-end TEST-SUITE-NAME)
