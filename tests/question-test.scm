@@ -34,56 +34,69 @@
          (= (qnr-question-number question) QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
 ;; Validation Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(test-equal "valid single response <qnr-question>"
-  QNR-VALID-QUESTION-NO-ERROR
-  (qnr-validate-question
-   (qnr-make-question QUERY-VALID
-                      CHOICES-VALID-SINGLE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
-                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+(test-equal "valid constructing single response <qnr-question> without error"
+  'completed-without-throwing-any-errors
+  (begin
+    (qnr-make-question QUERY-VALID
+                       CHOICES-VALID-SINGLE
+                       EXPECTED-RESPONSE-COUNT-VALID-SINGLE
+                       QUESTION-NUMBER-VALID-POSITIVE-INTEGER)
+    'completed-without-throwing-any-errors))
 
-(test-equal "validate an object that is not a <qnr-question>"
-  QNR-ERROR-NON-QUESTION
-  (qnr-validate-question '(foo bar baz bop)))
+(qnr-test-error-message
+ "validate an object that is not a <qnr-question>"
+ QNR-ERROR-KEY-QUESTION
+ QNR-ERROR-NON-QUESTION
+ (lambda () (qnr-validate-question '(foo bar baz bop))))
 
-(test-equal "validate <qnr-question> with field `query` that is non-string"
-  QNR-ERROR-QUERY-NON-STRING
-  (qnr-validate-question
-   (qnr-make-question QUERY-INVALID-NON-STRING
-                      CHOICES-VALID-SINGLE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
-                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+(qnr-test-error-message
+ "validate <qnr-question> with field `query` that is non-string"
+ QNR-ERROR-KEY-QUESTION
+ QNR-ERROR-QUERY-NON-STRING
+ (lambda () (qnr-validate-question
+             (qnr-make-question QUERY-INVALID-NON-STRING
+                                CHOICES-VALID-SINGLE
+                                EXPECTED-RESPONSE-COUNT-VALID-SINGLE
+                                QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
-(test-equal "validate <qnr-question> with field `query` that is an empty string"
-  QNR-ERROR-QUERY-EMPTY
-  (qnr-validate-question
-   (qnr-make-question QUERY-INVALID-WRONG-TYPE
-                      CHOICES-VALID-SINGLE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
-                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
+(qnr-test-error-message
+ "validate <qnr-question> with field `query` that is an empty string"
+ QNR-ERROR-KEY-QUESTION
+ QNR-ERROR-QUERY-EMPTY
+ (lambda () (qnr-validate-question
+             (qnr-make-question QUERY-INVALID-WRONG-TYPE
+                                CHOICES-VALID-SINGLE
+                                EXPECTED-RESPONSE-COUNT-VALID-SINGLE
+                                QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
-(test-equal "validate <qnr-question> with field `question-number` that is non-integer"
-  QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
-  (qnr-validate-question
-   (qnr-make-question QUERY-VALID
-                      CHOICES-VALID-SINGLE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
-                      QUESTION-NUMBER-INVALID-TYPE)))
+(qnr-test-error-message
+ "validate <qnr-question> with field `question-number` that is non-integer"
+ QNR-ERROR-KEY-QUESTION
+ QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
+ (lambda () (qnr-validate-question
+             (qnr-make-question QUERY-VALID
+                                CHOICES-VALID-SINGLE
+                                EXPECTED-RESPONSE-COUNT-VALID-SINGLE
+                                QUESTION-NUMBER-INVALID-TYPE))))
 
-(test-equal "validate <qnr-question> with field `question-number` that is 0"
-  QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
-  (qnr-validate-question
-   (qnr-make-question QUERY-VALID
-                      CHOICES-VALID-SINGLE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
-                      QUESTION-NUMBER-INVALID-ZERO)))
+(qnr-test-error-message
+ "validate <qnr-question> with field `question-number` that is 0"
+ QNR-ERROR-KEY-QUESTION
+ QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
+ (lambda () (qnr-validate-question
+             (qnr-make-question QUERY-VALID
+                                CHOICES-VALID-SINGLE
+                                EXPECTED-RESPONSE-COUNT-VALID-SINGLE
+                                QUESTION-NUMBER-INVALID-ZERO))))
 
-(test-equal "validate <qnr-question> with field `question-number` that is negative"
-  QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
-  (qnr-validate-question
-   (qnr-make-question QUERY-VALID
-                      CHOICES-VALID-SINGLE
-                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
-                      QUESTION-NUMBER-INVALID-NEGATIVE)))
+(qnr-test-error-message
+ "validate <qnr-question> with field `question-number` that is negative"
+ QNR-ERROR-KEY-QUESTION
+ QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
+ (lambda () (qnr-validate-question
+             (qnr-make-question QUERY-VALID
+                                CHOICES-VALID-SINGLE
+                                EXPECTED-RESPONSE-COUNT-VALID-SINGLE
+                                QUESTION-NUMBER-INVALID-NEGATIVE))))
 
 (test-end TEST-SUITE-NAME)

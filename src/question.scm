@@ -2,7 +2,8 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (src solution)
-  #:export (QNR-VALID-QUESTION-NO-ERROR
+  #:export (QNR-ERROR-KEY-QUESTION
+            QNR-VALID-QUESTION-NO-ERROR
             QNR-ERROR-NON-QUESTION
             QNR-ERROR-QUERY-NON-STRING
             QNR-ERROR-QUERY-EMPTY
@@ -22,6 +23,8 @@
 ;; https://wolfsden.cz/blog/post/state-of-srfi-64.html) it is not feasible to
 ;; use those in srfi-64 tests since there would be no way to verfiy if the
 ;; correct error is being caught or not, only that an error is being caught.
+(define QNR-ERROR-KEY-QUESTION 'qnr-error-question)
+
 (define QNR-VALID-QUESTION-NO-ERROR "")
 (define QNR-ERROR-NON-QUESTION "passed object is not a <qnr-question>")
 (define QNR-ERROR-QUERY-NON-STRING
@@ -70,18 +73,22 @@ QUESTION-NUMBER is a positive integer."
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
-  (fold
-   (lambda (validator prev-error-message)
-     ;; Return early when already have a previous error message. Don't bother
-     ;; doing any more checks once a validation error is found becuase later
-     ;; validators may assume the earlier validators pass.
-     (if (not (string-null? prev-error-message))
-         prev-error-message
-         (validator question)))
-   QNR-VALID-QUESTION-NO-ERROR ;; Begin assuming question is valid
-   (list validate-question-is-<record>
-         validate-query
-         validate-question-number))) ;; TODO: validate solution.
+  (let ((error-message
+         (fold
+          (lambda (validator prev-error-message)
+            ;; Return early when already have a previous error message. Don't bother
+            ;; doing any more checks once a validation error is found becuase later
+            ;; validators may assume the earlier validators pass.
+            (if (not (string-null? prev-error-message))
+                prev-error-message
+                (validator question)))
+          QNR-VALID-QUESTION-NO-ERROR ;; Begin assuming question is valid
+          (list validate-question-is-<record>
+                validate-query
+                validate-question-number))))
+
+    (unless (string=? error-message QNR-VALID-QUESTION-NO-ERROR)
+      (throw QNR-ERROR-KEY-QUESTION error-message))))
 
 (define (validate-question-is-<record> question)
   (if (not (qnr-question? question)) QNR-ERROR-NON-QUESTION ""))
