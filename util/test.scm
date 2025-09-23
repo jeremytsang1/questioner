@@ -2,7 +2,8 @@
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-64)
   #:export (qnr-generate-log-file-name
-            qnr-test-error-message))
+            qnr-test-error-message
+            qnr-test-error))
 
 (define EXPECTED_TEST_SCRIPT_SUFFIX ".scm")
 (define EXPECTED_TEST_SCRIPT_ARGUMENT_COUNT
@@ -68,3 +69,11 @@ EXPECTED-ERROR-MESSAGE."
       ;; passed to `qnr-test-error-message`
       hunk-to-test
       (lambda (key . args) (car args)))))
+
+(define (qnr-test-error test-name error-key hunk-to-test)
+  (test-assert test-name
+    (catch error-key
+      (lambda ()
+        (hunk-to-test)
+        #f)
+      (lambda (key . args) #t))))

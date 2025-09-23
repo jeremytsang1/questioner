@@ -4,14 +4,13 @@
 
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))
 
+(define NON-EXISTENT-FILE "does-not-exist.txt")
+
 (test-begin TEST-SUITE-NAME)
 
-(test-assert "Fail to open file not found"
-  (catch 'qnr-error-file-not-found
-    (lambda () (qnr-load-quiz "does-not-exist.txt")
-            #f)
-    (lambda (key . args) #t)))
-
+(qnr-test-error "Fail to open file not found"
+                QNR-ERROR-FILE-NOT-FOUND
+                (lambda () (qnr-load-quiz NON-EXISTENT-FILE)))
 
 (test-end TEST-SUITE-NAME)
 
