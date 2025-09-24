@@ -46,5 +46,15 @@
                    (string-concatenate
                     (list PREFIX FILENAME-MISSING-CLOSING-BRACKET)))))
 
+
+(test-equal "Access query of valid JSON"
+  "Name one of the two longest rivers in the United Stated."
+  (qnr-question-dto-query
+   (car
+    (qnr-question-dto-list-questions
+     (qnr-load-quiz
+      (string-concatenate
+       (list PREFIX "valid-single-question.json")))))))
+
 (test-end TEST-SUITE-NAME)
 
