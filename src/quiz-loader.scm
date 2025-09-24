@@ -5,6 +5,14 @@
 
 (define QNR-ERROR-FILE-NOT-FOUND 'qnr-error-file-not-found)
 
-
 (define (qnr-load-quiz filename)
-  (throw 'qnr-error-file-not-found))
+  (catch 'json-invalid
+    (lambda ()
+      (let* ((questions-port
+              (catch 'system-error
+                (lambda () (open-input-file filename))
+                (lambda (key . args) (throw QNR-ERROR-FILE-NOT-FOUND))))
+             (questions-json (json->scm questions-port #:ordered #t)))
+        (close-port questions-port)
+        questions-json))
+    (lambda (key . args) (throw 'qnr-error-invalid-json))))
