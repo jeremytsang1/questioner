@@ -12,5 +12,9 @@
                 QNR-ERROR-FILE-NOT-FOUND
                 (lambda () (qnr-load-quiz NON-EXISTENT-FILE)))
 
+(qnr-test-error "Open empty invalid JSON: empty file"
+                'qnr-error-invalid-json
+                (lambda () (qnr-load-quiz "./tests/input-files/empty-quiz.json")))
+
 (test-end TEST-SUITE-NAME)
 

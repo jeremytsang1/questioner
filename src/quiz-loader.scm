@@ -1,4 +1,5 @@
 (define-module (src quiz-loader)
+  #:use-module (json)
   #:export (QNR-ERROR-FILE-NOT-FOUND
             qnr-load-quiz))
 
