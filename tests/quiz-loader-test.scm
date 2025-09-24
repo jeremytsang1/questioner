@@ -25,7 +25,7 @@
                 (lambda () (qnr-load-quiz NON-EXISTENT-FILE)))
 
 (qnr-test-error "open empty invalid JSON: empty file"
-                'qnr-error-invalid-json
+                QNR-ERROR-INVALID-JSON
                 (lambda ()
                   (qnr-load-quiz
                    (string-concatenate (list PREFIX FILENAME-EMPTY-FILE)))))
