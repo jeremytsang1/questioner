@@ -15,20 +15,27 @@
                        file-name-separator-string
                        DIR-INPUT-FILES
                        file-name-separator-string)))
+(define FILENAME-NON-EXISTENT-FILE "does-not-exist.txt")
 (define FILENAME-EMPTY-FILE "empty-quiz.json")
-(define NON-EXISTENT-FILE "does-not-exist.txt")
+(define FILENAME-LOREM-IPSUM "invalid-json-lorem-ipsum.json")
 
 (test-begin TEST-SUITE-NAME)
 
 (qnr-test-error "open invalid file: non-existent file"
                 QNR-ERROR-FILE-NOT-FOUND
-                (lambda () (qnr-load-quiz NON-EXISTENT-FILE)))
+                (lambda () (qnr-load-quiz FILENAME-NON-EXISTENT-FILE)))
 
 (qnr-test-error "open empty invalid JSON: empty file"
                 QNR-ERROR-INVALID-JSON
                 (lambda ()
                   (qnr-load-quiz
                    (string-concatenate (list PREFIX FILENAME-EMPTY-FILE)))))
+
+(qnr-test-error "open empty invalid JSON: lorem ipsum paragraphs"
+                QNR-ERROR-INVALID-JSON
+                (lambda ()
+                  (qnr-load-quiz
+                   (string-concatenate (list PREFIX FILENAME-LOREM-IPSUM)))))
 
 (test-end TEST-SUITE-NAME)
 
