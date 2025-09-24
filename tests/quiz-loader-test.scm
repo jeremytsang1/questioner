@@ -18,6 +18,8 @@
 (define FILENAME-NON-EXISTENT-FILE "does-not-exist.txt")
 (define FILENAME-EMPTY-FILE "empty-quiz.json")
 (define FILENAME-LOREM-IPSUM "invalid-json-lorem-ipsum.json")
+(define FILENAME-MISSING-CLOSING-BRACKET
+  "invalid-json-missing-closing-bracket.json")
 
 (test-begin TEST-SUITE-NAME)
 
@@ -36,6 +38,13 @@
                 (lambda ()
                   (qnr-load-quiz
                    (string-concatenate (list PREFIX FILENAME-LOREM-IPSUM)))))
+
+(qnr-test-error "open empty invalid JSON: missing closing bracket"
+                QNR-ERROR-INVALID-JSON
+                (lambda ()
+                  (qnr-load-quiz
+                   (string-concatenate
+                    (list PREFIX FILENAME-MISSING-CLOSING-BRACKET)))))
 
 (test-end TEST-SUITE-NAME)
 
