@@ -12,6 +12,8 @@
 
 
 (define (qnr-load-quiz-file path)
+  "Read the file given by PATH and return a list of `qnr-question-dto` inside a
+field inside an `qnr-quetsion-dto-list` record."
   (catch 'json-invalid
     (lambda ()
       (let* ((questions-port
