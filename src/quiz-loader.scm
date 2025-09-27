@@ -16,14 +16,18 @@
 field inside an `qnr-quetsion-dto-list` record."
   (catch 'json-invalid
     (lambda ()
-      (let* ((questions-port
-              (catch 'system-error
-                (lambda () (open-input-file path))
-                (lambda (key . args) (throw QNR-ERROR-FILE-NOT-FOUND))))
-             (parsed-json (json->scm questions-port #:ordered #t)))
-        (close-port questions-port)
+      (let* ((parsed-json (get-parsed-json-from-file path)))
         (scm->qnr-question-dto-list parsed-json)))
     (lambda (key . args) (throw 'qnr-error-invalid-json))))
+
+(define (get-parsed-json-from-file path)
+  (catch 'system-error
+    (lambda ()
+      (call-with-input-file path (lambda (port) (parse-quiz-json-file port))))
+    (lambda (key . args) (throw QNR-ERROR-FILE-NOT-FOUND))))
+
+(define (parse-quiz-json-file port)
+  (json->scm port #:ordered #t))
 
 ;; JSON Records ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-json-type <qnr-question-dto>
