@@ -25,24 +25,24 @@
 
 (qnr-test-error "open invalid file: non-existent file"
                 QNR-ERROR-FILE-NOT-FOUND
-                (lambda () (qnr-load-quiz FILENAME-NON-EXISTENT-FILE)))
+                (lambda () (qnr-load-quiz-file FILENAME-NON-EXISTENT-FILE)))
 
 (qnr-test-error "open empty invalid JSON: empty file"
                 QNR-ERROR-INVALID-JSON
                 (lambda ()
-                  (qnr-load-quiz
+                  (qnr-load-quiz-file
                    (string-concatenate (list PREFIX FILENAME-EMPTY-FILE)))))
 
 (qnr-test-error "open empty invalid JSON: lorem ipsum paragraphs"
                 QNR-ERROR-INVALID-JSON
                 (lambda ()
-                  (qnr-load-quiz
+                  (qnr-load-quiz-file
                    (string-concatenate (list PREFIX FILENAME-LOREM-IPSUM)))))
 
 (qnr-test-error "open empty invalid JSON: missing closing bracket"
                 QNR-ERROR-INVALID-JSON
                 (lambda ()
-                  (qnr-load-quiz
+                  (qnr-load-quiz-file
                    (string-concatenate
                     (list PREFIX FILENAME-MISSING-CLOSING-BRACKET)))))
 
@@ -52,7 +52,7 @@
   (qnr-question-dto-query
    (car
     (qnr-question-dto-list-questions
-     (qnr-load-quiz
+     (qnr-load-quiz-file
       (string-concatenate
        (list PREFIX "valid-single-question.json")))))))
 

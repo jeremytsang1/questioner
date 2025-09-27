@@ -2,7 +2,7 @@
   #:use-module (json)
   #:export (QNR-ERROR-FILE-NOT-FOUND
             QNR-ERROR-INVALID-JSON
-            qnr-load-quiz
+            qnr-load-quiz-file
             qnr-question-dto-query
             qnr-question-dto-list-questions))
 
@@ -11,12 +11,12 @@
 (define TOP-LEVEL-KEY-NAME "questions")
 
 
-(define (qnr-load-quiz filename)
+(define (qnr-load-quiz-file path)
   (catch 'json-invalid
     (lambda ()
       (let* ((questions-port
               (catch 'system-error
-                (lambda () (open-input-file filename))
+                (lambda () (open-input-file path))
                 (lambda (key . args) (throw QNR-ERROR-FILE-NOT-FOUND))))
              (parsed-json (json->scm questions-port #:ordered #t)))
         (close-port questions-port)
