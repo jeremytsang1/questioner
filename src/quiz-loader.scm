@@ -102,5 +102,7 @@ field inside an `qnr-quetsion-dto-list` record."
   (let ((question (car questions)))
     (when (unspecified? (qnr-dto-question-query question))
       (throw QNR-ERROR-PARSED-MISSING-QUERY))
+    (when (unspecified? (qnr-dto-question-choices question))
+      (throw 'qnr-error-parsed-missing-field-choices))
     (unless (string? (qnr-dto-question-query question))
       (throw QNR-ERROR-PARSED-WWRONG-TYPE-QUERY)))) ;; TODO: Extract
