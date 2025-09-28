@@ -88,7 +88,7 @@ field inside an `qnr-quetsion-dto-list` record."
 ;; https://lists.gnu.org/archive/html/guile-user/2023-08/msg00010.html.
 ;; Redefine under a different name as not to shadow the previous definition.
 (define (access-list-from-dto-question-record-list record)
-  ((record-accessor <qnr-dto-question-list> 'questions) record))
+  ((record-accessor <qnr-dto-question-list> TOP-LEVEL-KEY-NAME-AS-SYMBOL) record))
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
