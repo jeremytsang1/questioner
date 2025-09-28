@@ -59,10 +59,16 @@
     (qnr-question-dto-list-questions
      (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
 
+(test-equal "Access choices of valid JSON"
+  #(#("Missouri" "Missouri River") #("Mississippi" "Mississippi River"))
+  (qnr-question-dto-choices
+   (car
+    (qnr-question-dto-list-questions
+     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
+
 (test-assert "Empty quiz"
   (null?
    (qnr-question-dto-list-questions
     (qnr-load-quiz-file "./tests/input-files/valid-empty-questions-array.json"))))
 
 (test-end TEST-SUITE-NAME)
-
