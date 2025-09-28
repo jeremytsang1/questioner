@@ -111,4 +111,6 @@ Checks to see if the parsed JSON properly conforms to the type
     (when (unspecified? (qnr-dto-question-expected-response-count question))
       (throw 'qnr-error-parsed-missing-field-expected-response-count))
     (unless (string? (qnr-dto-question-query question))
-      (throw QNR-ERROR-PARSED-WWRONG-TYPE-QUERY)))) ;; TODO: Extract
+      (throw QNR-ERROR-PARSED-WWRONG-TYPE-QUERY))
+    (unless (integer? (qnr-dto-question-expected-response-count question))
+      (throw 'qnr-error-parsed-wrong-type-expected-response-count))))
