@@ -110,6 +110,11 @@
                 (lambda ()
                   (qnr-load-quiz-file "./tests/input-files/invalid-parsed-missing-field-choices.json")))
 
+(qnr-test-error "invalid parsed: wrong type choices outer vector"
+                'qnr-error-parsed-wrong-type-choices
+                (lambda ()
+                  (qnr-load-quiz-file "./tests/input-files/invalid-parsed-wrong-type-choices-outer-vector.json")))
+
 (qnr-test-error "invalid parsed: missing field expected-response-count"
                 'qnr-error-parsed-missing-field-expected-response-count
                 (lambda ()
