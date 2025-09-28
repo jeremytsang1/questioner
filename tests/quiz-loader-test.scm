@@ -80,7 +80,9 @@
 
 (qnr-test-error "invalid parsed: missing top level record field"
                 QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
-                (lambda () (qnr-load-quiz-file PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD)))
+                (lambda ()
+                  (qnr-load-quiz-file
+                   PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD)))
 
 (qnr-test-error "invalid parsed: empty quiz"
                 QNR-ERROR-PARSED-EMPTY-QUESTIONS
@@ -92,7 +94,7 @@
                   (qnr-load-quiz-file PATH-INVALID-QUESTION-WRONG-TYPE)))
 
 (qnr-test-error "invalid parsed: missing field query"
-                'qnr-error-parsed-missing-field-query
+                QNR-ERROR-PARSED-MISSING-QUERY
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-QUERY)))
 

@@ -5,6 +5,7 @@
             QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
             QNR-ERROR-PARSED-EMPTY-QUESTIONS
             QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
+            QNR-ERROR-PARSED-MISSING-QUERY
             qnr-load-quiz-file
             ;; Accessors
             qnr-dto-question-query
@@ -24,6 +25,8 @@
   'qnr-error-no-questions-in-json)
 (define QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
   'qnr-error-parsed-quiz-dto-wrong-type-not-a-json-object)
+(define QNR-ERROR-PARSED-MISSING-QUERY
+  'qnr-error-parsed-missing-field-query)
 (define TOP-LEVEL-KEY-NAME "questions")
 (define TOP-LEVEL-KEY-NAME-AS-SYMBOL 'questions)
 
