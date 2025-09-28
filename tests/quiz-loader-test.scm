@@ -39,6 +39,8 @@
   (construct-path PREFIX "invalid-parsed-question-wrong-type.json"))
 (define PATH-INVALID-MISSING-FIELD-QUERY
   (construct-path PREFIX "invalid-parsed-missing-field-query.json"))
+(define PATH-INVALID-WRONG-TYPE-QUERY
+  (construct-path PREFIX "invalid-parsed-wrong-type-query.json"))
 
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -97,6 +99,11 @@
                 QNR-ERROR-PARSED-MISSING-QUERY
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-QUERY)))
+
+(qnr-test-error "invalid parsed: wrong type query"
+                'qnr-error-parsed-wrong-type-query
+                (lambda ()
+                  (qnr-load-quiz-file PATH-INVALID-WRONG-TYPE-QUERY)))
 
 
 (test-end TEST-SUITE-NAME)
