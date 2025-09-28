@@ -78,7 +78,7 @@
                 QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
                 (lambda () (qnr-load-quiz-file PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD)))
 
-(qnr-test-error "empty quiz"
+(qnr-test-error "invalid parsed: empty quiz"
                 QNR-ERROR-PARSED-EMPTY-QUESTIONS
                 (lambda () (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
 
