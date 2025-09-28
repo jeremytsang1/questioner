@@ -35,6 +35,8 @@
   (construct-path PREFIX "invalid-parsed-missing-top-level-record-field.json"))
 (define PATH-INVALID-NO-QUESTIONS
   (construct-path PREFIX "invalid-parsed-empty-questions-array.json"))
+(define PATH-INVALID-QUESTION-WRONG-TYPE
+  (construct-path PREFIX "invalid-parsed-question-wrong-type.json"))
 
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -81,5 +83,9 @@
 (qnr-test-error "invalid parsed: empty quiz"
                 QNR-ERROR-PARSED-EMPTY-QUESTIONS
                 (lambda () (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
+
+(qnr-test-error "invalid parsed: question wrong type as string"
+                'qnr-error-parsed-quiz-dto-wrong-type
+                (lambda () (qnr-load-quiz-file PATH-INVALID-QUESTION-WRONG-TYPE)))
 
 (test-end TEST-SUITE-NAME)

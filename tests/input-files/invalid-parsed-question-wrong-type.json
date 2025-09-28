@@ -1,0 +1,15 @@
+{
+  "questions": [
+    {
+      "query": "Valid question 1",
+      "choices": [["alpha", "beta"], ["gamma"]],
+      "expected-response-count": 1
+    },
+    "wrong type as a question",
+    {
+      "query": "Valid question 2",
+      "choices": [["alfa", "bravo"], ["charlie"]],
+      "expected-response-count": 1
+    }
+  ]
+}
