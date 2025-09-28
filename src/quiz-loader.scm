@@ -108,5 +108,7 @@ Checks to see if the parsed JSON properly conforms to the type
       (throw QNR-ERROR-PARSED-MISSING-QUERY))
     (when (unspecified? (qnr-dto-question-choices question))
       (throw 'qnr-error-parsed-missing-field-choices))
+    (when (unspecified? (qnr-dto-question-expected-response-count question))
+      (throw 'qnr-error-parsed-missing-field-expected-response-count))
     (unless (string? (qnr-dto-question-query question))
       (throw QNR-ERROR-PARSED-WWRONG-TYPE-QUERY)))) ;; TODO: Extract
