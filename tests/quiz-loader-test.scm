@@ -105,5 +105,10 @@
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-WRONG-TYPE-QUERY)))
 
+(qnr-test-error "invalid parsed: missing field choices"
+                'qnr-error-parsed-missing-field-choices
+                (lambda ()
+                  (qnr-load-quiz-file "./tests/input-files/invalid-parsed-missing-field-choices.json")))
+
 
 (test-end TEST-SUITE-NAME)
