@@ -72,7 +72,8 @@
    (car
     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
 
-(test-assert "empty quiz"
-  (null? (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
+(qnr-test-error "empty quiz"
+                'qnr-error-no-questions-in-json
+                (lambda () (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
 
 (test-end TEST-SUITE-NAME)
