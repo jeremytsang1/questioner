@@ -66,6 +66,13 @@
     (qnr-question-dto-list-questions
      (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
 
+(test-equal "Access expected response count of valid JSON"
+  1
+  (qnr-question-dto-expected-response-count
+   (car
+    (qnr-question-dto-list-questions
+     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
+
 (test-assert "Empty quiz"
   (null?
    (qnr-question-dto-list-questions
