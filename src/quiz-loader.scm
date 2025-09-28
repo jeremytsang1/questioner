@@ -4,6 +4,7 @@
             QNR-ERROR-JSON-PARSING
             qnr-load-quiz-file
             qnr-question-dto-query
+            qnr-question-dto-choices
             qnr-question-dto-list-questions))
 
 ;; Built-in Errors
