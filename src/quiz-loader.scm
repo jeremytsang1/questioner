@@ -91,4 +91,8 @@ field inside an `qnr-quetsion-dto-list` record."
     (throw QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD))
 
   (when (null? questions)
-    (throw QNR-ERROR-PARSED-EMPTY-QUESTIONS)))
+    (throw QNR-ERROR-PARSED-EMPTY-QUESTIONS))
+
+  (let ((question (car questions)))
+    (when (unspecified? (qnr-dto-question-query question))
+      (throw 'qnr-error-parsed-missing-field-query))))
