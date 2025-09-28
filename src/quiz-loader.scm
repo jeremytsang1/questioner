@@ -24,9 +24,11 @@
 field inside an `qnr-quetsion-dto-list` record."
   ;; Nested Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (define (create-records-from-parsed-json)
-    (access-list-from-dto-question-record-list
-     (scm->qnr-dto-question-list
-      (get-parsed-json-from-file path))))
+    (let ((questions (access-list-from-dto-question-record-list
+                      (scm->qnr-dto-question-list
+                       (get-parsed-json-from-file path)))))
+      (validate-questions questions)
+      questions))
   (define (handle-failure-to-parse-json key . args)
     (throw QNR-ERROR-JSON-PARSING))
   ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -65,3 +67,9 @@ field inside an `qnr-quetsion-dto-list` record."
 ;; Redefine under a different name as not to shadow the previous definition.
 (define (access-list-from-dto-question-record-list record)
   ((record-accessor <qnr-dto-question-list> 'questions) record))
+
+;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (validate-questions questions)
+  (when (null? questions)
+    (throw 'qnr-error-no-questions-in-json)))
