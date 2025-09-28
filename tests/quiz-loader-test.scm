@@ -32,7 +32,7 @@
 (define PATH-VALID-SINGLE-QUERY
   (construct-path PREFIX "valid-single-question.json"))
 (define PATH-INVALID-NO-QUESTIONS
-  (construct-path PREFIX "valid-empty-questions-array.json"))
+  (construct-path PREFIX "invalid-deserialized-empty-questions-array.json"))
 
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
