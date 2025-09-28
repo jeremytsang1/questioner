@@ -93,6 +93,10 @@ field inside an `qnr-quetsion-dto-list` record."
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (validate-questions questions)
+  "Validate that records in QUESTIONS are valid.
+
+Checks to see if the parsed JSON properly conforms to the type
+`<qnr-dto-question>`."
   (when (unspecified? questions)
     (throw QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD))
 
