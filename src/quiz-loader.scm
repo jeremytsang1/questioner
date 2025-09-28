@@ -98,4 +98,6 @@ field inside an `qnr-quetsion-dto-list` record."
 
   (let ((question (car questions)))
     (when (unspecified? (qnr-dto-question-query question))
-      (throw QNR-ERROR-PARSED-MISSING-QUERY))))
+      (throw QNR-ERROR-PARSED-MISSING-QUERY))
+    (unless (string? (qnr-dto-question-query question))
+      (throw 'qnr-error-parsed-wrong-type-query)))) ;; TODO: Extract
