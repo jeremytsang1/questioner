@@ -41,7 +41,14 @@
   (construct-path PREFIX "invalid-parsed-missing-field-query.json"))
 (define PATH-INVALID-WRONG-TYPE-QUERY
   (construct-path PREFIX "invalid-parsed-wrong-type-query.json"))
-
+(define PATH-INVALID-MISSING-FIELD-CHOICES
+  (construct-path PREFIX "invalid-parsed-missing-field-choices.json"))
+(define PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR
+  (construct-path PREFIX "invalid-parsed-wrong-type-choices-outer-vector.json"))
+(define PATH-INVALID-MISSING-FIELD-EXPECTED-RESPONSE-COUNT
+  (construct-path PREFIX "invalid-parsed-missing-field-expected-response-count.json"))
+(define PATH-INVALID-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
+  (construct-path PREFIX "invalid-parsed-wrong-type-expected-response-count.json"))
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
@@ -108,21 +115,24 @@
 (qnr-test-error "invalid parsed: missing field choices"
                 QNR-ERROR-PARSED-MISSING-CHOICES
                 (lambda ()
-                  (qnr-load-quiz-file "./tests/input-files/invalid-parsed-missing-field-choices.json")))
+                  (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-CHOICES)))
 
 (qnr-test-error "invalid parsed: wrong type choices outer vector"
                 QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
                 (lambda ()
-                  (qnr-load-quiz-file "./tests/input-files/invalid-parsed-wrong-type-choices-outer-vector.json")))
+                  (qnr-load-quiz-file
+                   PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR)))
 
 (qnr-test-error "invalid parsed: missing field expected-response-count"
                 QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT
                 (lambda ()
-                  (qnr-load-quiz-file "./tests/input-files/invalid-parsed-missing-field-expected-response-count.json")))
+                  (qnr-load-quiz-file
+                   PATH-INVALID-MISSING-FIELD-EXPECTED-RESPONSE-COUNT)))
 
 (qnr-test-error "invalid parsed: wrong type expected-response-count"
                 QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
                 (lambda ()
-                  (qnr-load-quiz-file "./tests/input-files/invalid-parsed-wrong-type-expected-response-count.json")))
+                  (qnr-load-quiz-file
+                   PATH-INVALID-WRONG-TYPE-EXPECTED-RESPONSE-COUNT)))
 
 (test-end TEST-SUITE-NAME)
