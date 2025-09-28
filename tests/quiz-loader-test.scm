@@ -31,6 +31,8 @@
   (construct-path PREFIX "invalid-json-missing-closing-bracket.json"))
 (define PATH-VALID-SINGLE-QUERY
   (construct-path PREFIX "valid-single-question.json"))
+(define PATH-INVALID-NO-QUESTIONS
+  (construct-path PREFIX "valid-empty-questions-array.json"))
 
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -71,7 +73,6 @@
     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
 
 (test-assert "empty quiz"
-  (null?
-   (qnr-load-quiz-file "./tests/input-files/valid-empty-questions-array.json")))
+  (null? (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
 
 (test-end TEST-SUITE-NAME)
