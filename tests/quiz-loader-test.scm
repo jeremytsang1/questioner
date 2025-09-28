@@ -85,7 +85,8 @@
                 (lambda () (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
 
 (qnr-test-error "invalid parsed: question wrong type as string"
-                'qnr-error-parsed-quiz-dto-wrong-type
-                (lambda () (qnr-load-quiz-file PATH-INVALID-QUESTION-WRONG-TYPE)))
+                QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
+                (lambda ()
+                  (qnr-load-quiz-file PATH-INVALID-QUESTION-WRONG-TYPE)))
 
 (test-end TEST-SUITE-NAME)

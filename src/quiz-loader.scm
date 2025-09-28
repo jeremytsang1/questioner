@@ -4,6 +4,7 @@
             QNR-ERROR-JSON-PARSING
             QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
             QNR-ERROR-PARSED-EMPTY-QUESTIONS
+            QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
             qnr-load-quiz-file
             ;; Accessors
             qnr-dto-question-query
@@ -21,6 +22,8 @@
   'qnr-error-no-top-level-record-field)
 (define QNR-ERROR-PARSED-EMPTY-QUESTIONS
   'qnr-error-no-questions-in-json)
+(define QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
+  'qnr-error-parsed-quiz-dto-wrong-type-not-a-json-object)
 (define TOP-LEVEL-KEY-NAME "questions")
 (define TOP-LEVEL-KEY-NAME-AS-SYMBOL 'questions)
 
@@ -45,7 +48,7 @@ field inside an `qnr-quetsion-dto-list` record."
 (define (form-parsed-json-into-dto-questions-list parsed-json)
   (with-exception-handler
       (lambda (exc)
-        (throw 'qnr-error-parsed-quiz-dto-wrong-type)
+        (throw QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT)
         #f)
     (lambda () (scm->qnr-dto-question-list parsed-json))))
 
