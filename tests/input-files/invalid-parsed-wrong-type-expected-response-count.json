@@ -1,0 +1,12 @@
+{
+  "questions": [
+    {
+      "query": "Name one of the two longest rivers in the United Stated.",
+      "choices": [
+        ["Missouri", "Missouri River"],
+        ["Mississippi", "Mississippi River"]
+      ],
+      "expected-response-count": 3.45
+    }
+  ]
+}

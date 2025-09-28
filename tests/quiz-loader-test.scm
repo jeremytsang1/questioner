@@ -115,4 +115,9 @@
                 (lambda ()
                   (qnr-load-quiz-file "./tests/input-files/invalid-parsed-missing-field-expected-response-count.json")))
 
+(qnr-test-error "invalid parsed: wrong type expected-response-count"
+                'qnr-error-parsed-wrong-type-expected-response-count
+                (lambda ()
+                  (qnr-load-quiz-file "./tests/input-files/invalid-parsed-wrong-type-expected-response-count.json")))
+
 (test-end TEST-SUITE-NAME)
