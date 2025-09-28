@@ -3,10 +3,10 @@
   #:export (QNR-ERROR-FILE-NOT-FOUND
             QNR-ERROR-JSON-PARSING
             qnr-load-quiz-file
-            qnr-question-dto-query
-            qnr-question-dto-choices
-            qnr-question-dto-expected-response-count
-            qnr-question-dto-list-questions))
+            qnr-dto-question-query
+            qnr-dto-question-choices
+            qnr-dto-question-expected-response-count
+            qnr-dto-question-list-questions))
 
 ;; Built-in Errors
 (define BUILT-IN-ERROR-SYSTEM-ERROR 'system-error)
@@ -17,13 +17,13 @@
 (define QNR-ERROR-JSON-PARSING 'qnr-error-invalid-json)
 (define TOP-LEVEL-KEY-NAME "questions")
 
-
+;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-load-quiz-file path)
-  "Read the file given by PATH and return a list of `qnr-question-dto` inside a
+  "Read the file given by PATH and return a list of `qnr-dto-question` inside a
 field inside an `qnr-quetsion-dto-list` record."
   ;; Nested Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (define (create-records-from-parsed-json)
-    (scm->qnr-question-dto-list (get-parsed-json-from-file path)))
+    (scm->qnr-dto-question-list (get-parsed-json-from-file path)))
   (define (handle-failure-to-parse-json key . args)
     (throw QNR-ERROR-JSON-PARSING))
   ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -46,12 +46,12 @@ field inside an `qnr-quetsion-dto-list` record."
   (json->scm port #:ordered #t))
 
 ;; JSON Records ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-json-type <qnr-question-dto>
+(define-json-type <qnr-dto-question>
   (query)
   (choices)
   (expected-response-count))
 
-(define-json-type <qnr-question-dto-list>
-  (questions TOP-LEVEL-KEY-NAME #(<qnr-question-dto>)))
+(define-json-type <qnr-dto-question-list>
+  (questions TOP-LEVEL-KEY-NAME #(<qnr-dto-question>)))
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
