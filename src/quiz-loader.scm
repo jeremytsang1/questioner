@@ -71,5 +71,8 @@ field inside an `qnr-quetsion-dto-list` record."
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (validate-questions questions)
+  (when (unspecified? questions)
+    (throw 'qnr-error-no-top-level-record-field))
+
   (when (null? questions)
     (throw 'qnr-error-no-questions-in-json)))
