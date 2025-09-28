@@ -31,6 +31,8 @@
   (construct-path PREFIX "invalid-json-missing-closing-bracket.json"))
 (define PATH-VALID-SINGLE-QUERY
   (construct-path PREFIX "valid-single-question.json"))
+(define PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD
+  (construct-path PREFIX "invalid-deserialized-missing-top-level-record-field.json"))
 (define PATH-INVALID-NO-QUESTIONS
   (construct-path PREFIX "invalid-deserialized-empty-questions-array.json"))
 
@@ -71,6 +73,10 @@
   (qnr-dto-question-expected-response-count
    (car
     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
+
+(qnr-test-error "invalid deserialized: missing top level record field"
+                'qnr-error-no-top-level-record-field
+                (lambda () (qnr-load-quiz-file PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD)))
 
 (qnr-test-error "empty quiz"
                 'qnr-error-no-questions-in-json
