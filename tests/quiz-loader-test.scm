@@ -59,5 +59,10 @@
     (qnr-question-dto-list-questions
      (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
 
+(test-assert "Empty quiz"
+  (null?
+   (qnr-question-dto-list-questions
+    (qnr-load-quiz-file "./tests/input-files/valid-empty-questions-array.json"))))
+
 (test-end TEST-SUITE-NAME)
 
