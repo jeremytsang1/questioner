@@ -6,6 +6,7 @@
             QNR-ERROR-PARSED-EMPTY-QUESTIONS
             QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
             QNR-ERROR-PARSED-MISSING-QUERY
+            QNR-ERROR-PARSED-WWRONG-TYPE-QUERY
             qnr-load-quiz-file
             ;; Accessors
             qnr-dto-question-query
@@ -27,6 +28,8 @@
   'qnr-error-parsed-quiz-dto-wrong-type-not-a-json-object)
 (define QNR-ERROR-PARSED-MISSING-QUERY
   'qnr-error-parsed-missing-field-query)
+(define QNR-ERROR-PARSED-WWRONG-TYPE-QUERY
+  'qnr-error-parsed-wrong-type-query)
 (define TOP-LEVEL-KEY-NAME "questions")
 (define TOP-LEVEL-KEY-NAME-AS-SYMBOL 'questions)
 
@@ -100,4 +103,4 @@ field inside an `qnr-quetsion-dto-list` record."
     (when (unspecified? (qnr-dto-question-query question))
       (throw QNR-ERROR-PARSED-MISSING-QUERY))
     (unless (string? (qnr-dto-question-query question))
-      (throw 'qnr-error-parsed-wrong-type-query)))) ;; TODO: Extract
+      (throw QNR-ERROR-PARSED-WWRONG-TYPE-QUERY)))) ;; TODO: Extract

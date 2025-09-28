@@ -101,7 +101,7 @@
                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-QUERY)))
 
 (qnr-test-error "invalid parsed: wrong type query"
-                'qnr-error-parsed-wrong-type-query
+                QNR-ERROR-PARSED-WWRONG-TYPE-QUERY
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-WRONG-TYPE-QUERY)))
 
