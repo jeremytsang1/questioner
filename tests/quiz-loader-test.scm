@@ -52,28 +52,28 @@
                 QNR-ERROR-JSON-PARSING
                 (lambda () (qnr-load-quiz-file PATH-MISSING-CLOSING-BRACKET)))
 
-(test-equal "Access query of valid JSON"
+(test-equal "access query of valid json"
   "Name one of the two longest rivers in the United Stated."
   (qnr-question-dto-query
    (car
     (qnr-question-dto-list-questions
      (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
 
-(test-equal "Access choices of valid JSON"
+(test-equal "access choices of valid json"
   #(#("Missouri" "Missouri River") #("Mississippi" "Mississippi River"))
   (qnr-question-dto-choices
    (car
     (qnr-question-dto-list-questions
      (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
 
-(test-equal "Access expected response count of valid JSON"
+(test-equal "access expected response count of valid json"
   1
   (qnr-question-dto-expected-response-count
    (car
     (qnr-question-dto-list-questions
      (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
 
-(test-assert "Empty quiz"
+(test-assert "empty quiz"
   (null?
    (qnr-question-dto-list-questions
     (qnr-load-quiz-file "./tests/input-files/valid-empty-questions-array.json"))))
