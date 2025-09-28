@@ -31,7 +31,7 @@ field inside an `qnr-quetsion-dto-list` record."
   ;; Nested Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (define (create-records-from-parsed-json)
     (let ((questions (access-list-from-dto-question-record-list
-                      (scm->qnr-dto-question-list
+                      (form-parsed-json-into-dto-questions-list
                        (get-parsed-json-from-file path)))))
       (validate-questions questions)
       questions))
@@ -41,6 +41,13 @@ field inside an `qnr-quetsion-dto-list` record."
   (catch MODULE-ERROR-INVALID-JSON
     create-records-from-parsed-json
     handle-failure-to-parse-json))
+
+(define (form-parsed-json-into-dto-questions-list parsed-json)
+  (with-exception-handler
+      (lambda (exc)
+        (throw 'qnr-error-parsed-quiz-dto-wrong-type)
+        #f)
+    (lambda () (scm->qnr-dto-question-list parsed-json))))
 
 (define (get-parsed-json-from-file path)
   ;; Nested Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
