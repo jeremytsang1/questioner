@@ -56,26 +56,22 @@
   "Name one of the two longest rivers in the United Stated."
   (qnr-dto-question-query
    (car
-    (qnr-dto-question-list-questions
-     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
+    (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
 
 (test-equal "access choices of valid json"
   #(#("Missouri" "Missouri River") #("Mississippi" "Mississippi River"))
   (qnr-dto-question-choices
    (car
-    (qnr-dto-question-list-questions
-     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
+    (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
 
 (test-equal "access expected response count of valid json"
   1
   (qnr-dto-question-expected-response-count
    (car
-    (qnr-dto-question-list-questions
-     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY)))))
+    (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
 
 (test-assert "empty quiz"
   (null?
-   (qnr-dto-question-list-questions
-    (qnr-load-quiz-file "./tests/input-files/valid-empty-questions-array.json"))))
+   (qnr-load-quiz-file "./tests/input-files/valid-empty-questions-array.json")))
 
 (test-end TEST-SUITE-NAME)
