@@ -32,9 +32,9 @@
 (define PATH-VALID-SINGLE-QUERY
   (construct-path PREFIX "valid-single-question.json"))
 (define PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD
-  (construct-path PREFIX "invalid-deserialized-missing-top-level-record-field.json"))
+  (construct-path PREFIX "invalid-parsed-missing-top-level-record-field.json"))
 (define PATH-INVALID-NO-QUESTIONS
-  (construct-path PREFIX "invalid-deserialized-empty-questions-array.json"))
+  (construct-path PREFIX "invalid-parsed-empty-questions-array.json"))
 
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -74,12 +74,12 @@
    (car
     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
 
-(qnr-test-error "invalid deserialized: missing top level record field"
-                'qnr-error-no-top-level-record-field
+(qnr-test-error "invalid parsed: missing top level record field"
+                QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
                 (lambda () (qnr-load-quiz-file PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD)))
 
 (qnr-test-error "empty quiz"
-                'qnr-error-no-questions-in-json
+                QNR-ERROR-PARSED-EMPTY-QUESTIONS
                 (lambda () (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
 
 (test-end TEST-SUITE-NAME)

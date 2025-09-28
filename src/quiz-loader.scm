@@ -2,6 +2,8 @@
   #:use-module (json)
   #:export (QNR-ERROR-FILE-NOT-FOUND
             QNR-ERROR-JSON-PARSING
+            QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
+            QNR-ERROR-PARSED-EMPTY-QUESTIONS
             qnr-load-quiz-file
             ;; Accessors
             qnr-dto-question-query
@@ -15,6 +17,10 @@
 
 (define QNR-ERROR-FILE-NOT-FOUND 'qnr-error-file-not-found)
 (define QNR-ERROR-JSON-PARSING 'qnr-error-invalid-json)
+(define QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
+  'qnr-error-no-top-level-record-field)
+(define QNR-ERROR-PARSED-EMPTY-QUESTIONS
+  'qnr-error-no-questions-in-json)
 (define TOP-LEVEL-KEY-NAME "questions")
 (define TOP-LEVEL-KEY-NAME-AS-SYMBOL 'questions)
 
@@ -72,7 +78,7 @@ field inside an `qnr-quetsion-dto-list` record."
 
 (define (validate-questions questions)
   (when (unspecified? questions)
-    (throw 'qnr-error-no-top-level-record-field))
+    (throw QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD))
 
   (when (null? questions)
-    (throw 'qnr-error-no-questions-in-json)))
+    (throw QNR-ERROR-PARSED-EMPTY-QUESTIONS)))
