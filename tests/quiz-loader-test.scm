@@ -101,27 +101,27 @@
                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-QUERY)))
 
 (qnr-test-error "invalid parsed: wrong type query"
-                QNR-ERROR-PARSED-WWRONG-TYPE-QUERY
+                QNR-ERROR-PARSED-WRONG-TYPE-QUERY
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-WRONG-TYPE-QUERY)))
 
 (qnr-test-error "invalid parsed: missing field choices"
-                'qnr-error-parsed-missing-field-choices
+                QNR-ERROR-PARSED-MISSING-CHOICES
                 (lambda ()
                   (qnr-load-quiz-file "./tests/input-files/invalid-parsed-missing-field-choices.json")))
 
 (qnr-test-error "invalid parsed: wrong type choices outer vector"
-                'qnr-error-parsed-wrong-type-choices
+                QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
                 (lambda ()
                   (qnr-load-quiz-file "./tests/input-files/invalid-parsed-wrong-type-choices-outer-vector.json")))
 
 (qnr-test-error "invalid parsed: missing field expected-response-count"
-                'qnr-error-parsed-missing-field-expected-response-count
+                QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT
                 (lambda ()
                   (qnr-load-quiz-file "./tests/input-files/invalid-parsed-missing-field-expected-response-count.json")))
 
 (qnr-test-error "invalid parsed: wrong type expected-response-count"
-                'qnr-error-parsed-wrong-type-expected-response-count
+                QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
                 (lambda ()
                   (qnr-load-quiz-file "./tests/input-files/invalid-parsed-wrong-type-expected-response-count.json")))
 

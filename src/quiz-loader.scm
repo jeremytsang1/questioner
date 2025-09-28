@@ -6,7 +6,11 @@
             QNR-ERROR-PARSED-EMPTY-QUESTIONS
             QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
             QNR-ERROR-PARSED-MISSING-QUERY
-            QNR-ERROR-PARSED-WWRONG-TYPE-QUERY
+            QNR-ERROR-PARSED-WRONG-TYPE-QUERY
+            QNR-ERROR-PARSED-MISSING-CHOICES
+            QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
+            QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT
+            QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
             qnr-load-quiz-file
             ;; Accessors
             qnr-dto-question-query
@@ -18,6 +22,7 @@
 ;; Dependency Errors
 (define MODULE-ERROR-INVALID-JSON 'json-invalid) ;; Exception from guile-json.
 
+;; Parsing errors
 (define QNR-ERROR-FILE-NOT-FOUND 'qnr-error-file-not-found)
 (define QNR-ERROR-JSON-PARSING 'qnr-error-invalid-json)
 (define QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
@@ -28,8 +33,19 @@
   'qnr-error-parsed-quiz-dto-wrong-type-not-a-json-object)
 (define QNR-ERROR-PARSED-MISSING-QUERY
   'qnr-error-parsed-missing-field-query)
-(define QNR-ERROR-PARSED-WWRONG-TYPE-QUERY
+(define QNR-ERROR-PARSED-WRONG-TYPE-QUERY
   'qnr-error-parsed-wrong-type-query)
+(define QNR-ERROR-PARSED-MISSING-CHOICES
+  'qnr-error-parsed-missing-field-choices)
+(define QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
+  'qnr-error-parsed-wrong-type-choices)
+(define QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT
+  'qnr-error-parsed-missing-expected-response-count)
+(define QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
+  'qnr-error-parsed-wrong-type-expected-response-count)
+
+
+;; Other constants
 (define TOP-LEVEL-KEY-NAME "questions")
 (define TOP-LEVEL-KEY-NAME-AS-SYMBOL 'questions)
 
@@ -107,15 +123,13 @@ Checks to see if the parsed JSON properly conforms to the type
     (when (unspecified? (qnr-dto-question-query question))
       (throw QNR-ERROR-PARSED-MISSING-QUERY))
     (when (unspecified? (qnr-dto-question-choices question))
-      (throw 'qnr-error-parsed-missing-field-choices))
-
+      (throw QNR-ERROR-PARSED-MISSING-CHOICES))
     (when (unspecified? (qnr-dto-question-expected-response-count question))
-      (throw 'qnr-error-parsed-missing-field-expected-response-count))
-    (unless (vector? (qnr-dto-question-choices question))
-      (throw 'qnr-error-parsed-wrong-type-choices))
-
+      (throw QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT))
 
     (unless (string? (qnr-dto-question-query question))
-      (throw QNR-ERROR-PARSED-WWRONG-TYPE-QUERY))
+      (throw QNR-ERROR-PARSED-WRONG-TYPE-QUERY))
+    (unless (vector? (qnr-dto-question-choices question))
+      (throw QNR-ERROR-PARSED-WRONG-TYPE-CHOICES))
     (unless (integer? (qnr-dto-question-expected-response-count question))
-      (throw 'qnr-error-parsed-wrong-type-expected-response-count))))
+      (throw QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT))))
