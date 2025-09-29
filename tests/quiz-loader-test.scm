@@ -103,7 +103,7 @@
                   (qnr-load-quiz-file PATH-INVALID-QUESTION-WRONG-TYPE)))
 
 (qnr-test-error "invalid parsed: missing field query"
-                QNR-ERROR-PARSED-MISSING-QUERY
+                QNR-ERROR-PARSED-MISSING-FIELD
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-QUERY)))
 
@@ -113,7 +113,7 @@
                   (qnr-load-quiz-file PATH-INVALID-WRONG-TYPE-QUERY)))
 
 (qnr-test-error "invalid parsed: missing field choices"
-                QNR-ERROR-PARSED-MISSING-CHOICES
+                QNR-ERROR-PARSED-MISSING-FIELD
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-CHOICES)))
 
@@ -124,7 +124,7 @@
                    PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR)))
 
 (qnr-test-error "invalid parsed: missing field expected-response-count"
-                QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT
+                QNR-ERROR-PARSED-MISSING-FIELD
                 (lambda ()
                   (qnr-load-quiz-file
                    PATH-INVALID-MISSING-FIELD-EXPECTED-RESPONSE-COUNT)))

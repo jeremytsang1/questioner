@@ -5,11 +5,9 @@
             QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
             QNR-ERROR-PARSED-EMPTY-QUESTIONS
             QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
-            QNR-ERROR-PARSED-MISSING-QUERY
+            QNR-ERROR-PARSED-MISSING-FIELD
             QNR-ERROR-PARSED-WRONG-TYPE-QUERY
-            QNR-ERROR-PARSED-MISSING-CHOICES
             QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
-            QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT
             QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
             qnr-load-quiz-file
             ;; Accessors
@@ -23,6 +21,7 @@
 (define MODULE-ERROR-INVALID-JSON 'json-invalid) ;; Exception from guile-json.
 
 ;; Parsing errors
+(define QNR-NO-LOADING-ERROR 'qnr-no-loading-error)
 (define QNR-ERROR-FILE-NOT-FOUND 'qnr-error-file-not-found)
 (define QNR-ERROR-JSON-PARSING 'qnr-error-invalid-json)
 (define QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
@@ -31,16 +30,12 @@
   'qnr-error-no-questions-in-json)
 (define QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
   'qnr-error-parsed-quiz-dto-wrong-type-not-a-json-object)
-(define QNR-ERROR-PARSED-MISSING-QUERY
-  'qnr-error-parsed-missing-field-query)
+(define QNR-ERROR-PARSED-MISSING-FIELD
+  'qnr-error-parsed-missing-field)
 (define QNR-ERROR-PARSED-WRONG-TYPE-QUERY
   'qnr-error-parsed-wrong-type-query)
-(define QNR-ERROR-PARSED-MISSING-CHOICES
-  'qnr-error-parsed-missing-field-choices)
 (define QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
   'qnr-error-parsed-wrong-type-choices)
-(define QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT
-  'qnr-error-parsed-missing-expected-response-count)
 (define QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
   'qnr-error-parsed-wrong-type-expected-response-count)
 
@@ -107,6 +102,9 @@ field inside an `qnr-quetsion-dto-list` record."
   ((record-accessor <qnr-dto-question-list> TOP-LEVEL-KEY-NAME-AS-SYMBOL) record))
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define ACCESSORS (list qnr-dto-question-query
+                        qnr-dto-question-choices
+                        qnr-dto-question-expected-response-count))
 
 (define (validate-questions questions)
   "Validate that records in QUESTIONS are valid.
@@ -120,16 +118,17 @@ Checks to see if the parsed JSON properly conforms to the type
     (throw QNR-ERROR-PARSED-EMPTY-QUESTIONS))
 
   (let ((question (car questions)))
-    (when (unspecified? (qnr-dto-question-query question))
-      (throw QNR-ERROR-PARSED-MISSING-QUERY))
-    (when (unspecified? (qnr-dto-question-choices question))
-      (throw QNR-ERROR-PARSED-MISSING-CHOICES))
-    (when (unspecified? (qnr-dto-question-expected-response-count question))
-      (throw QNR-ERROR-PARSED-MISSING-EXPECTED-RESPONSE-COUNT))
-
+    (validate-field-presence question)
     (unless (string? (qnr-dto-question-query question))
       (throw QNR-ERROR-PARSED-WRONG-TYPE-QUERY))
     (unless (vector? (qnr-dto-question-choices question))
       (throw QNR-ERROR-PARSED-WRONG-TYPE-CHOICES))
     (unless (integer? (qnr-dto-question-expected-response-count question))
       (throw QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT))))
+
+(define (validate-field-presence question)
+  (for-each
+   (lambda (accessor)
+     (when (unspecified? (accessor question))
+       (throw 'qnr-error-parsed-missing-field accessor)))
+   ACCESSORS))
