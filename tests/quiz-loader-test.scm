@@ -112,17 +112,6 @@
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-WRONG-TYPE-QUERY)))
 
-(qnr-test-error "invalid parsed: missing field choices"
-                QNR-ERROR-PARSED-MISSING-FIELD
-                (lambda ()
-                  (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-CHOICES)))
-
-(qnr-test-error "invalid parsed: wrong type choices outer vector"
-                QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
-                (lambda ()
-                  (qnr-load-quiz-file
-                   PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR)))
-
 (qnr-test-error "invalid parsed: missing field expected-response-count"
                 QNR-ERROR-PARSED-MISSING-FIELD
                 (lambda ()
@@ -134,5 +123,16 @@
                 (lambda ()
                   (qnr-load-quiz-file
                    PATH-INVALID-WRONG-TYPE-EXPECTED-RESPONSE-COUNT)))
+
+(qnr-test-error "invalid parsed: missing field choices"
+                QNR-ERROR-PARSED-MISSING-FIELD
+                (lambda ()
+                  (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-CHOICES)))
+
+(qnr-test-error "invalid parsed: wrong type choices outer vector"
+                QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
+                (lambda ()
+                  (qnr-load-quiz-file
+                   PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR)))
 
 (test-end TEST-SUITE-NAME)
