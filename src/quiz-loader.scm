@@ -119,12 +119,9 @@ Checks to see if the parsed JSON properly conforms to the type
 
   (let ((question (car questions)))
     (validate-field-presence question)
-    (unless (string? (qnr-dto-question-query question))
-      (throw QNR-ERROR-PARSED-WRONG-TYPE-QUERY))
-    (unless (vector? (qnr-dto-question-choices question))
-      (throw QNR-ERROR-PARSED-WRONG-TYPE-CHOICES))
-    (unless (integer? (qnr-dto-question-expected-response-count question))
-      (throw QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT))))
+    (validate-query question)
+    (validate-choices question)
+    (validate-expected-response-count question)))
 
 (define (validate-field-presence question)
   (for-each
@@ -132,3 +129,15 @@ Checks to see if the parsed JSON properly conforms to the type
      (when (unspecified? (accessor question))
        (throw 'qnr-error-parsed-missing-field accessor)))
    ACCESSORS))
+
+(define (validate-query question)
+  (unless (string? (qnr-dto-question-query question))
+    (throw QNR-ERROR-PARSED-WRONG-TYPE-QUERY)))
+
+(define (validate-choices question)
+  (unless (vector? (qnr-dto-question-choices question))
+    (throw QNR-ERROR-PARSED-WRONG-TYPE-CHOICES)))
+
+(define (validate-expected-response-count question)
+  (unless (integer? (qnr-dto-question-expected-response-count question))
+    (throw QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT)))
