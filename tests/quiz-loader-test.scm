@@ -137,7 +137,7 @@
                    PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR)))
 
 (qnr-test-error "invalid parsed: choices outer vector empty"
-                'qnr-error-parsed-choices-outer-vector-empty
+                QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY
                 (lambda ()
                   (qnr-load-quiz-file
                    PATH-INVALID-EMPTY-CHOICES-OUTER-VECTOR)))
