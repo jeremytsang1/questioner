@@ -53,6 +53,8 @@
   (construct-path PREFIX "invalid-parsed-choices-outer-vector-empty.json"))
 (define PATH-INVALID-CHOICES-INNER-VECTOR-WRONG-TYPE
   (construct-path PREFIX "invalid-parsed-choices-inner-vector-wrong-type.json"))
+(define PATH-INVALID-MULTIPLE-QUESTIONS-QUERY-WRONG-TYPE
+  (construct-path PREFIX "invalid-parsed-multiple-questions-query-wrong-type.json"))
 
 
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -151,6 +153,12 @@
                 (lambda ()
                   (qnr-load-quiz-file
                    PATH-INVALID-CHOICES-INNER-VECTOR-WRONG-TYPE)))
+
+(qnr-test-error "invalid multiple questions: last question query wrong type"
+                QNR-ERROR-PARSED-WRONG-TYPE-QUERY
+                (lambda ()                  
+                  (qnr-load-quiz-file
+                   PATH-INVALID-MULTIPLE-QUESTIONS-QUERY-WRONG-TYPE)))
 
 
 (test-end TEST-SUITE-NAME)

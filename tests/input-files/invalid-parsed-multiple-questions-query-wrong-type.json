@@ -1,0 +1,43 @@
+{
+  "questions": [
+    {
+      "query": "Name one of the two longest rivers in the United Stated.",
+      "choices": [
+        ["Missouri", "Missouri River"],
+        ["Mississippi", "Mississippi River"]
+      ],
+      "expected-response-count": 1
+    },
+    {
+      "query": "Where is the Statue of Liberty?",
+      "choices": [
+        ["New York (Harbor)", "New York", "New York Harbor"],
+        ["Liberty Island"],
+        ["New Jersey"],
+        ["near New York City"],
+        ["on the Hudson"],
+        ["on the Hudson River"]
+      ],
+      "expected-response-count": 1
+    },
+    {
+      "query": ["foo bar baz bop"],
+      "choices": [
+        ["New Hampshire"],
+        ["Massachusetts"],
+        ["Rhode Island"],
+        ["Connecticut"],
+        ["New York"],
+        ["New Jersey"],
+        ["Pennsylvania"],
+        ["Delaware"],
+        ["Maryland"],
+        ["Virginia"],
+        ["North Carolina"],
+        ["South Carolina"],
+        ["Georgia"]
+      ],
+      "expected-response-count": 3
+    }
+  ]
+}
