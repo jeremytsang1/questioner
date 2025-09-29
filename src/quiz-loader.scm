@@ -1,5 +1,6 @@
 (define-module (src quiz-loader)
   #:use-module (json)
+  #:use-module (srfi srfi-1)
   #:export (QNR-ERROR-FILE-NOT-FOUND
             QNR-ERROR-JSON-PARSING
             QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
@@ -149,7 +150,11 @@ Checks to see if the parsed JSON properly conforms to the type
     (unless (vector? choices)
       (throw-with-query QNR-ERROR-PARSED-WRONG-TYPE-CHOICES question))
     (when (= 0 (vector-length choices))
-      (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY question))))
+      (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY question))
+    (when (find
+           (lambda (choice) (not (vector? choice)))
+           (vector->list choices))
+      (throw-with-query 'qnr-error-parsed-choices-inner-vector-wrong-type question))))
 
 (define (validate-expected-response-count question)
   "Assumes field `query` of QUESTION is already valid."
