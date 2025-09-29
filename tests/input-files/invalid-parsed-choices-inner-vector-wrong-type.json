@@ -1,0 +1,9 @@
+{
+  "questions": [
+    {
+      "query": "Name one of the two longest rivers in the United Stated.",
+      "choices": [["Missouri", "Missouri River"], "Not a vector"],
+      "expected-response-count": 1
+    }
+  ]
+}
