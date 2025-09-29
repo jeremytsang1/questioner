@@ -52,8 +52,8 @@
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-load-quiz-file path)
-  "Read the file given by PATH and return a list of `qnr-dto-question` inside a
-field inside an `qnr-quetsion-dto-list` record."
+  "Read file given by PATH, parse its contents into JSON, and return list of
+`qnr-dto-question` formed from parsed JSON."
   ;; Nested Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (define (create-records-from-parsed-json)
     (let ((questions (access-list-from-dto-question-record-list
@@ -91,12 +91,13 @@ field inside an `qnr-quetsion-dto-list` record."
 
 ;; JSON Records ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-json-type <qnr-dto-question>
-  (query)
-  (choices)
-  (expected-response-count))
+  (query) ;; string
+  (choices) ;; vector of vectors
+  (expected-response-count)) ;; integer
 
 (define-json-type <qnr-dto-question-list>
   ;; WARNING: hardcoded `questions` due to macro
+  ;; field `questions` is list of <qnr-dto-question>
   (questions TOP-LEVEL-KEY-NAME #(<qnr-dto-question>)))
 
 ;; WORKAROUND: Redefine the accessor `qnr-dto-question-list-questions`
@@ -136,6 +137,8 @@ Checks to see if the parsed JSON properly conforms to the type
      (validate-expected-response-count question))
    questions))
 
+;; This validation is necessary because if a field is not present in the JSON
+;; file, `guile-json` will set it to unspecified in the resulting record.
 (define (validate-field-presence question)
   (for-each
    (lambda (accessor)
@@ -158,8 +161,11 @@ Checks to see if the parsed JSON properly conforms to the type
       (throw-with-query QNR-ERROR-PARSED-WRONG-TYPE-CHOICES question))
     (when (= 0 (vector-length choices))
       (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY question))
-    (when (find (lambda (choice) (not (vector? choice))) (vector->list choices))
-      (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE question))))
+    (when (find
+           (lambda (choice) (not (vector? choice)))
+           (vector->list choices))
+      (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE
+                        question))))
 
 (define (validate-expected-response-count question)
   "Assumes field `query` of QUESTION is already valid."
