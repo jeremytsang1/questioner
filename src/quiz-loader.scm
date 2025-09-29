@@ -123,16 +123,18 @@ Checks to see if the parsed JSON properly conforms to the type
   (when (null? questions)
     (throw QNR-ERROR-PARSED-EMPTY-QUESTIONS))
 
-  (let ((question (car questions)))
-    (validate-field-presence question)
-    ;; Check query before any other field so other validators can reference the
-    ;; query to help identify the location of the error in the JSON file. That
-    ;; is the query can be passed as an argument to `throw`. Choose query for
-    ;; this purpose instead of another field because it is more likely to be
-    ;; unique.
-    (validate-query question)
-    (validate-choices question)
-    (validate-expected-response-count question)))
+  (for-each
+   (lambda (question)
+     (validate-field-presence question)
+     ;; Check query before any other field so other validators can reference
+     ;; the query to help identify the location of the error in the JSON
+     ;; file. That is the query can be passed as an argument to `throw`. Choose
+     ;; query for this purpose instead of another field because it is more
+     ;; likely to be unique.
+     (validate-query question)
+     (validate-choices question)
+     (validate-expected-response-count question))
+   questions))
 
 (define (validate-field-presence question)
   (for-each
