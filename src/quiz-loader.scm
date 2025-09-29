@@ -119,6 +119,11 @@ Checks to see if the parsed JSON properly conforms to the type
 
   (let ((question (car questions)))
     (validate-field-presence question)
+    ;; Check query before any other field so other validators can reference the
+    ;; query to help identify the location of the error in the JSON file. That
+    ;; is the query can be passed as an argument to `throw`. Choose query for
+    ;; this purpose instead of another field because it is more likely to be
+    ;; unique.
     (validate-query question)
     (validate-choices question)
     (validate-expected-response-count question)))
@@ -131,13 +136,20 @@ Checks to see if the parsed JSON properly conforms to the type
    ACCESSORS))
 
 (define (validate-query question)
-  (unless (string? (qnr-dto-question-query question))
-    (throw QNR-ERROR-PARSED-WRONG-TYPE-QUERY)))
+  (let ((query (qnr-dto-question-query question)))
+    (unless (string? query)
+      (throw QNR-ERROR-PARSED-WRONG-TYPE-QUERY))))
 
 (define (validate-choices question)
+  "Assumes field query is already valid."
   (unless (vector? (qnr-dto-question-choices question))
-    (throw QNR-ERROR-PARSED-WRONG-TYPE-CHOICES)))
+    (throw-with-query QNR-ERROR-PARSED-WRONG-TYPE-CHOICES question)))
 
 (define (validate-expected-response-count question)
+  "Assumes field query is already valid."
   (unless (integer? (qnr-dto-question-expected-response-count question))
-    (throw QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT)))
+    (throw-with-query QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT question)))
+
+(define (throw-with-query key question)
+  (let ((query (qnr-dto-question-query question)))
+    (throw key query)))
