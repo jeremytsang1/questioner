@@ -148,16 +148,16 @@ Checks to see if the parsed JSON properly conforms to the type
 
 (define (validate-choices question)
   "Assumes field `query` of QUESTION is already valid."
+  ;; Only validate up to inner vector (a specific `choice`) being a vector for
+  ;; the sake of conversion from DTO to model. Let (src choice) validate
+  ;; alternatives.
   (let ((choices (qnr-dto-question-choices question)))
     (unless (vector? choices)
       (throw-with-query QNR-ERROR-PARSED-WRONG-TYPE-CHOICES question))
     (when (= 0 (vector-length choices))
       (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY question))
-    (when (find
-           (lambda (choice) (not (vector? choice)))
-           (vector->list choices))
-      (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE
-                        question))))
+    (when (find (lambda (choice) (not (vector? choice))) (vector->list choices))
+      (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE question))))
 
 (define (validate-expected-response-count question)
   "Assumes field `query` of QUESTION is already valid."
