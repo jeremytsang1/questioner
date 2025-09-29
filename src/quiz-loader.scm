@@ -142,8 +142,11 @@ Checks to see if the parsed JSON properly conforms to the type
 
 (define (validate-choices question)
   "Assumes field query is already valid."
+
   (unless (vector? (qnr-dto-question-choices question))
-    (throw-with-query QNR-ERROR-PARSED-WRONG-TYPE-CHOICES question)))
+    (throw-with-query QNR-ERROR-PARSED-WRONG-TYPE-CHOICES question))
+  (when (= 0 (vector-length (qnr-dto-question-choices question)))
+    (throw-with-query 'qnr-error-parsed-choices-outer-vector-empty question)))
 
 (define (validate-expected-response-count question)
   "Assumes field query is already valid."
