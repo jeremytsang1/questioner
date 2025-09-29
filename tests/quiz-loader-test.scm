@@ -49,8 +49,9 @@
   (construct-path PREFIX "invalid-parsed-missing-field-expected-response-count.json"))
 (define PATH-INVALID-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
   (construct-path PREFIX "invalid-parsed-wrong-type-expected-response-count.json"))
-(define PATH-INVALID-EMPTY-CHOICES-OUTER-VECTOR
-  (construct-path PREFIX "invalid-parsed-empty-choices-outer-vector.json"))
+(define PATH-INVALID-CHOICES-OUTER-VECTOR-EMPTY
+  (construct-path PREFIX "invalid-parsed-choices-outer-vector-empty.json"))
+
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
@@ -140,6 +141,7 @@
                 QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY
                 (lambda ()
                   (qnr-load-quiz-file
-                   PATH-INVALID-EMPTY-CHOICES-OUTER-VECTOR)))
+                   PATH-INVALID-CHOICES-OUTER-VECTOR-EMPTY)))
+
 
 (test-end TEST-SUITE-NAME)
