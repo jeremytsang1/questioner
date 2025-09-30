@@ -30,7 +30,7 @@
                                      CHOICES-VALID-SINGLE
                                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
-    (and (string=? (qnr-query question) QUERY-VALID)
+    (and (string=? (qnr-question-query question) QUERY-VALID)
          (= (qnr-question-number question) QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
 ;; Validation Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

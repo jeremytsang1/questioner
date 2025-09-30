@@ -11,7 +11,7 @@
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
             qnr-make-question
-            qnr-query
+            qnr-question-query
             qnr-solution
             qnr-question-number
             qnr-validate-question))
@@ -42,7 +42,7 @@
 (define-record-type <qnr-question>
   (raw-make-question query solution question-number)
   qnr-question?
-  (query qnr-query)
+  (query qnr-question-query)
   (solution qnr-solution)
   (question-number qnr-question-number))
 
@@ -94,7 +94,7 @@ QUESTION-NUMBER is a positive integer."
   (if (not (qnr-question? question)) QNR-ERROR-NON-QUESTION ""))
 
 (define (validate-query question)
-  (let ((question (qnr-query question)))
+  (let ((question (qnr-question-query question)))
     (cond ((not (string? question)) QNR-ERROR-QUERY-NON-STRING)
           ((string-null? question) QNR-ERROR-QUERY-EMPTY)
           (else QNR-VALID-QUESTION-NO-ERROR))))
