@@ -12,7 +12,7 @@
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
             qnr-make-question
             qnr-question-query
-            qnr-solution
+            qnr-question-solution
             qnr-question-number
             qnr-validate-question))
 
@@ -43,7 +43,7 @@
   (raw-make-question query solution question-number)
   qnr-question?
   (query qnr-question-query)
-  (solution qnr-solution)
+  (solution qnr-question-solution)
   (question-number qnr-question-number))
 
 (define (qnr-make-question query
