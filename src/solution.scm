@@ -25,7 +25,7 @@
    qnr-make-solution
    qnr-solution?
    qnr-solution-choices
-   qnr-expected-response-count
+   qnr-solution-expected-response-count
    qnr-get-primary-correct-answers
    qnr-find-wrong-answers))
 
@@ -62,7 +62,7 @@
   (raw-make-solution choices expected-response-count)
   qnr-solution?
   (choices qnr-solution-choices)
-  (expected-response-count qnr-expected-response-count))
+  (expected-response-count qnr-solution-expected-response-count))
 
 (define (qnr-make-solution list-of-list-of-strings expected-response-count)
   "Create a new <solution> record with choices formed by
@@ -157,7 +157,7 @@ of whitespace. It should have length equal to SOLUTION's field
 `expected-response-count` (and hence be non-empty since that field should never
 be non-positive)."
   (let ((responses (make-responses list-of-strings
-                                   (qnr-expected-response-count solution))))
+                                   (qnr-solution-expected-response-count solution))))
     (collect-wrong-answers (qnr-solution-choices solution) responses)))
 
 (define (collect-wrong-answers choices responses)
