@@ -62,3 +62,6 @@ flycheck_*.el
 .#*.scm
 
 # End of https://www.toptal.com/developers/gitignore/api/scheme,emacs
+
+# Ignore generated test logs
+logs/
