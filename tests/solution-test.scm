@@ -25,7 +25,7 @@
 
 (test-equal "access <solution> expected response count after construction"
   SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT
-  (qnr-expected-response-count
+  (qnr-solution-expected-response-count
    (qnr-make-solution SINGLE-CHOICE-CHOICES
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
