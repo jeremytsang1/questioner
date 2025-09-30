@@ -1,10 +1,10 @@
-;;; (tests answer-test) --- Test for module (src answer).
+;;; (tests answer-test) --- Test for module (src quiz answer).
 ;; Usage: guile -L . tests/answer-test.scm LOG-DIRECTORY # From project root.
 #!/usr/local/bin/guile -s
 !#
 
 (use-modules (srfi srfi-64)
-             (src answer)
+             (src quiz answer)
              (util test))
 
 (define TEST-SUITE-NAME

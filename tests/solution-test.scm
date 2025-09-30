@@ -1,9 +1,9 @@
-;;; (tests solution-test) --- Test for module (src solution)
+;;; (tests solution-test) --- Test for module (src quiz solution)
 ;; Usage: guile -L . tests/answer-test.scm LOG-DIRECTORY # From project root.
 #!/usr/local/bin/guile -s
 !#
 
-(use-modules (srfi srfi-64) (util test) (src solution) (src choice))
+(use-modules (srfi srfi-64) (util test) (src quiz solution) (src quiz choice))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))

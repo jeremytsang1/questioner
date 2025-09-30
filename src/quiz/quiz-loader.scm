@@ -1,4 +1,4 @@
-(define-module (src quiz-loader)
+(define-module (src quiz quiz-loader)
   #:use-module (json)
   #:use-module (srfi srfi-1)
   #:export (QNR-ERROR-FILE-NOT-FOUND
@@ -154,7 +154,7 @@ Checks to see if the parsed JSON properly conforms to the type
 (define (validate-choices question)
   "Assumes field `query` of QUESTION is already valid."
   ;; Only validate up to inner vector (a specific `choice`) being a vector for
-  ;; the sake of conversion from DTO to model. Let (src choice) validate
+  ;; the sake of conversion from DTO to model. Let (src quiz choice) validate
   ;; alternatives.
   (let ((choices (qnr-dto-question-choices question)))
     (unless (vector? choices)

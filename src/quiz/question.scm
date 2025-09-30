@@ -1,7 +1,7 @@
-(define-module (src question)
+(define-module (src quiz question)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
-  #:use-module (src solution)
+  #:use-module (src quiz solution)
   #:export (QNR-ERROR-KEY-QUESTION
             QNR-VALID-QUESTION-NO-ERROR
             QNR-ERROR-NON-QUESTION
@@ -56,8 +56,8 @@ QUERY is a string of text to be shown to users. It represents the question that
 needs to be answered.
 
 CHOICE-LIST is a non-empty list of list of strings. None of the strings
-should be made entirely from whitespace or empty (see (src choice)). They
-should not be duplicates across sublists (see (src solution)).
+should be made entirely from whitespace or empty (see (src quiz choice)). They
+should not be duplicates across sublists (see (src quiz solution)).
 
 EXPECTED-RESPONSE-COUNT is a positive integer that is less than or equal
 to `(length CHOICES)`. This represents the number of answers the user must

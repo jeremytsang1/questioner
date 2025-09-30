@@ -1,4 +1,4 @@
-(define-module (src answer)
+(define-module (src quiz answer)
   #:export (qnr-remove-excess-whitespace
             QNR-EMPTY-STRING
             QNR-SINGLE-SPACE))

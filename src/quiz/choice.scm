@@ -1,12 +1,12 @@
-;;; (src choice)
+;;; (src quiz choice)
 ;; Description: Defines a `choice` in a `<solution>`. A choice represents a set
 ;; of equivalent answers any of which would satisfy a single response to a
 ;; question. Note that the first alternative of a choice is the one that will
 ;; be displayed in the event a user incorrectly answers a question.
-(define-module (src choice)
+(define-module (src quiz choice)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
-  #:use-module (src answer)
+  #:use-module (src quiz answer)
   #:export (QNR-VALID-CHOICE-NO-ERROR
             QNR-ERROR-KEY-CHOICE-CONSTRUCTION
             QNR-ERROR-MSG-CHOICE-WRONG-TYPE

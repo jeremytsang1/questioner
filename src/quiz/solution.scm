@@ -1,14 +1,14 @@
-;;; (src solution)
+;;; (src quiz solution)
 ;; Description: Defines a `<solution>` for a `<qnr-question>`. A `<solution>`
 ;; represents a set of `<choice>`s and the the expected number of responses the
 ;; testee can be expected to respond with for their answer to be considered
 ;; correct.
 
-(define-module (src solution)
+(define-module (src quiz solution)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
-  #:use-module (src choice)
-  #:use-module (src answer)
+  #:use-module (src quiz choice)
+  #:use-module (src quiz answer)
   #:export
   (QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
    QNR-ERROR-KEY-SOLUTION
@@ -70,7 +70,7 @@ LIST-OF-LIST-OF-STRINGS and EXPECTED-RESPONSE-COUNT being the number of choices
 that must answered for the responses to be considered correct.
 
 LIST-OF-LIST-OF-STRINGS should be a list where each element is itself a list of
-strings that conforms to `choice` specification as per module (src choice).
+strings that conforms to `choice` specification as per module (src quiz choice).
 
 EXPECTED-RESPONSE-COUNT should be a positive integer that is less than or equal
 to `(length CHOICES)`. This represents the number of answers the user must
@@ -126,7 +126,7 @@ yellow)."
   "Return #t if there is an alternative which is a member of two or more members
 of CHOICES.
 
-CHOICES is a list of `choice` as defined by (src choice)."
+CHOICES is a list of `choice` as defined by (src quiz choice)."
   (define (has-duplicates? choices-left seen)
     (cond ((null? choices-left) #f)
           ((not (null? (lset-intersection eqv? (car choices-left) seen))) #t)

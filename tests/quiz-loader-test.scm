@@ -1,6 +1,6 @@
 (use-modules (srfi srfi-64)
              (util test)
-             (src quiz-loader))
+             (src quiz quiz-loader))
 
 ;; Test Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (construct-path dirname basename)
