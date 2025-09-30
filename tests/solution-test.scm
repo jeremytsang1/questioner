@@ -20,7 +20,7 @@
 
 (test-equal "access <solution> choices after construction"
   SINGLE-CHOICE-CHOICES
-  (qnr-choices (qnr-make-solution SINGLE-CHOICE-CHOICES
+  (qnr-solution-choices (qnr-make-solution SINGLE-CHOICE-CHOICES
                                   SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 (test-equal "access <solution> expected response count after construction"
@@ -126,14 +126,14 @@
 ;; Formatted Solution ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "whitespace format choices upon <solution> creation"
   '(("foo"))
-  (qnr-choices (qnr-make-solution '(("    foo         "))
+  (qnr-solution-choices (qnr-make-solution '(("    foo         "))
                                   SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 (test-equal "delete duplicates and excess whitespace upon <solution> creation"
   '(("alpha" "beta" "gamma")
     ("a" "b" "c")
     ("alfa" "bravo charlie"))
-  (qnr-choices
+  (qnr-solution-choices
    (qnr-make-solution
     '(("    alpha     " "alpha  " "beta" "gamma")
       ("a" "b" "c" "b" "a")

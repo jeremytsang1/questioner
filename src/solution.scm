@@ -24,7 +24,7 @@
    QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE
    qnr-make-solution
    qnr-solution?
-   qnr-choices
+   qnr-solution-choices
    qnr-expected-response-count
    qnr-get-primary-correct-answers
    qnr-find-wrong-answers))
@@ -61,7 +61,7 @@
 (define-record-type <qnr-solution>
   (raw-make-solution choices expected-response-count)
   qnr-solution?
-  (choices qnr-choices)
+  (choices qnr-solution-choices)
   (expected-response-count qnr-expected-response-count))
 
 (define (qnr-make-solution list-of-list-of-strings expected-response-count)
@@ -145,7 +145,7 @@ as `choices`.
 
 SOLUTION must be a well form <solution>."
   ;; ASSUME: SOLUTION is a valid <solution>
-  (map car (qnr-choices solution)))
+  (map car (qnr-solution-choices solution)))
 
 (define (qnr-find-wrong-answers solution list-of-strings)
   "Return a list of wrong answers in LIST-OF-STRINGS.
@@ -158,7 +158,7 @@ of whitespace. It should have length equal to SOLUTION's field
 be non-positive)."
   (let ((responses (make-responses list-of-strings
                                    (qnr-expected-response-count solution))))
-    (collect-wrong-answers (qnr-choices solution) responses)))
+    (collect-wrong-answers (qnr-solution-choices solution) responses)))
 
 (define (collect-wrong-answers choices responses)
   "Return a subset of RESPONSES that only contains the responses that were not
