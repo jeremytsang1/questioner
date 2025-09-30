@@ -31,7 +31,7 @@
                                      EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                                      QUESTION-NUMBER-VALID-POSITIVE-INTEGER)))
     (and (string=? (qnr-question-query question) QUERY-VALID)
-         (= (qnr-question-number question) QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
+         (= (qnr-question-question-number question) QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
 ;; Validation Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-equal "valid constructing single response <qnr-question> without error"

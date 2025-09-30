@@ -13,7 +13,7 @@
             qnr-make-question
             qnr-question-query
             qnr-question-solution
-            qnr-question-number
+            qnr-question-question-number
             qnr-validate-question))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -44,7 +44,7 @@
   qnr-question?
   (query qnr-question-query)
   (solution qnr-question-solution)
-  (question-number qnr-question-number))
+  (question-number qnr-question-question-number))
 
 (define (qnr-make-question query
                            choices
@@ -100,7 +100,7 @@ QUESTION-NUMBER is a positive integer."
           (else QNR-VALID-QUESTION-NO-ERROR))))
 
 (define (validate-question-number question)
-  (let ((question-number (qnr-question-number question)))
+  (let ((question-number (qnr-question-question-number question)))
     (cond ((not (integer? question-number)) QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE)
           ((= question-number 0) QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
           ((< question-number 0) QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE)
