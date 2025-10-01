@@ -99,4 +99,9 @@
                                 EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                                 QUESTION-NUMBER-INVALID-NEGATIVE))))
 
+;; Tests for Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(test-equal "qnr-nested-vector->nested-list: empty list"
+  '()
+  (qnr-nested-vector->nested-list #()))
+
 (test-end TEST-SUITE-NAME)
