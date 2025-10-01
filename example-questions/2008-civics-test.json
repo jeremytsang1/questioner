@@ -218,7 +218,7 @@
     },
     {
       "query": "We elect a President for how many years?",
-      "choices": ["four (4)", "four", "4"],
+      "choices": [["four (4)", "four", "4"]],
       "expected-response-count": 1
     },
     {
@@ -671,12 +671,12 @@
     },
     {
       "query": "Who was President during World War I?",
-      "choices": ["(Woodrow) Wilson", "Wilson", "Woodrow Wilson"],
+      "choices": [["(Woodrow) Wilson", "Wilson", "Woodrow Wilson"]],
       "expected-response-count": 1
     },
     {
       "query": "Who was President during the Great Depression and World War II?",
-      "choices": ["(Franklin) Roosevelt", "Roosevelt", "Franklin Roosevelt"],
+      "choices": [["(Franklin) Roosevelt", "Roosevelt", "Franklin Roosevelt"]],
       "expected-response-count": 1
     },
     {
@@ -764,7 +764,7 @@
     },
     {
       "query": "What ocean is on the East Coast of the United States?",
-      "choices": ["Atlantic (Ocean)", "Atlantic", "Atlantic Ocean"],
+      "choices": [["Atlantic (Ocean)", "Atlantic", "Atlantic Ocean"]],
       "expected-response-count": 1
     },
     {
