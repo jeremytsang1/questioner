@@ -5,6 +5,8 @@
   #:use-module (src quiz question)
   #:export (qnr-make-quiz
             qnr-quiz-get-next-question
+            qnr-quiz-questions-remaining?
+            qnr-quiz-length
             ;; Helpers
             qnr-number-elements))
 
@@ -36,10 +38,13 @@ takes its question number to be its 1-indexed position in DTO-QUESTIONS."
 
 ;; Methods ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-quiz-questions-remaining? quiz)
-  (q-empty? qnr-quiz-questions-unanswered))
+  (q-empty? (qnr-quiz-questions-unanswered quiz)))
 
 (define (qnr-quiz-get-next-question quiz)
   (deq! (qnr-quiz-questions-unanswered quiz)))
+
+(define (qnr-quiz-length quiz)
+  (q-length (qnr-quiz-questions-unanswered quiz)))
 
 ;; Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-module (src quiz quiz)
