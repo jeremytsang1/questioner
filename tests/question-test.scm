@@ -104,4 +104,9 @@
   '()
   (qnr-nested-vector->nested-list #()))
 
+(test-equal "qnr-nested-vector->nested-list: multiple vectors"
+  '((a b c) (x y z))
+  (qnr-nested-vector->nested-list (vector (vector 'a 'b 'c)
+                                          (vector 'x 'y 'z))))
+
 (test-end TEST-SUITE-NAME)
