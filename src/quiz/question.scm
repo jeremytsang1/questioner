@@ -14,7 +14,8 @@
             qnr-question-query
             qnr-question-solution
             qnr-question-question-number
-            qnr-validate-question))
+            qnr-validate-question
+            qnr-nested-vector->nested-list))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DESIGN CHOICE: Would have preferred to use symbols and exceptions for the
@@ -70,6 +71,8 @@ yellow).
 QUESTION-NUMBER is a positive integer."
   (let* ((solution (qnr-make-solution choices expected-response-count)))
     (raw-make-question query solution question-number)))
+
+(define (qnr-nested-vector->nested-list nested-vector) '())
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
