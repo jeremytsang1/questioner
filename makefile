@@ -3,6 +3,9 @@ DIR_PROJECT_ROOT := .
 DIR_SRC := ./src
 DIR_TESTS := ./tests
 DIR_LOGS := ./logs
+DIR_EXAMPLE := ./example-questions
+EXAMPLE_QUESTIONS_FILE := 2008-civics-test.json
+PATH_QUESTIONS = $(DIR_EXAMPLE)/$(EXAMPLE_QUESTIONS_FILE)
 
 SRCS := $(wildcard $(DIR_SRC)/*.scm)
 
@@ -17,7 +20,7 @@ HORIZONTAL_RULE := \
 "--------------------------------------------------------------------------------"
 
 all:
-	$(CC) -L  $(DIR_PROJECT_ROOT) main.scm
+	$(CC) -L  $(DIR_PROJECT_ROOT) main.scm $(PATH_QUESTIONS)
 
 # Compile Tests ###############################################################
 # Goal of test compilation is to generate test log files.

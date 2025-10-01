@@ -8,8 +8,10 @@ Questioner is an application that reads a list of questions and answers and then
 ** App
 - From the project root run
   #+begin_src shell
-make
+make [PATH_QUESTIONS=/path/to/json-file]
   #+end_src
+
+- If =PATH-QUESTIONS= is not provided the program will fall back to the default example JSON file =./example-questions/2008-civics-test.json=
 ** Tests
 *** All Tests
 - From the project root.
