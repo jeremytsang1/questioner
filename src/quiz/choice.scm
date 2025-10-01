@@ -72,7 +72,11 @@ CHOICE must be a valid choice per qnr-validate-choice."
 (define (qnr-make-choice list-of-strings)
   (let ((error-message (qnr-validate-choice list-of-strings)))
     (unless (string-null? error-message)
-      (throw QNR-ERROR-KEY-CHOICE-CONSTRUCTION error-message))
+      (throw QNR-ERROR-KEY-CHOICE-CONSTRUCTION
+             error-message
+             ;; Report `list-of-strings` too so user can hunt down the
+             ;; offending question instead of just getting a vague error.
+             list-of-strings))
     (qnr-format-choice list-of-strings)))
 
 ;;  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
