@@ -97,7 +97,7 @@
     {
       "query": "What is the \"rule of law\"?",
       "choices": [
-        ["Everyone must follow the law"],
+        ["Everyone must follow the law", "Everybody must follow the law"],
         ["Leaders must obey the law"],
         ["Government must obey the law"],
         ["No one is above the law"]
