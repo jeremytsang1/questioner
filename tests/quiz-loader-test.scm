@@ -149,7 +149,7 @@
                    PATH-INVALID-CHOICES-OUTER-VECTOR-EMPTY)))
 
 (qnr-test-error "invalid parsed: choices innter vector wrong type"
-                QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE
+                QNR-ERROR-PARSED-CHOICES-INNER-VECTOR-WRONG-TYPE
                 (lambda ()
                   (qnr-load-quiz-file
                    PATH-INVALID-CHOICES-INNER-VECTOR-WRONG-TYPE)))

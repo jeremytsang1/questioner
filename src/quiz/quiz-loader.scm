@@ -11,7 +11,7 @@
             QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
             QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
             QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY
-            QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE
+            QNR-ERROR-PARSED-CHOICES-INNER-VECTOR-WRONG-TYPE
             qnr-load-quiz-file
             ;; Accessors
             qnr-dto-question-query
@@ -43,7 +43,7 @@
   'qnr-error-parsed-wrong-type-expected-response-count)
 (define QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY
   'qnr-error-parsed-choices-outer-vector-empty)
-(define QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE
+(define QNR-ERROR-PARSED-CHOICES-INNER-VECTOR-WRONG-TYPE
   'qnr-error-parsed-choices-inner-vector-wrong-type)
 
 ;; Other constants
@@ -164,7 +164,7 @@ Checks to see if the parsed JSON properly conforms to the type
     (when (find
            (lambda (choice) (not (vector? choice)))
            (vector->list choices))
-      (throw-with-query QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-WRONG-TYPE
+      (throw-with-query QNR-ERROR-PARSED-CHOICES-INNER-VECTOR-WRONG-TYPE
                         question))))
 
 (define (validate-expected-response-count question)
