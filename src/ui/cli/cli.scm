@@ -3,6 +3,7 @@
   #:use-module (src quiz quiz)
   #:use-module (src quiz quiz-loader)
   #:use-module (src quiz question)
+  #:use-module (src quiz solution)
   #:export (qnr-run-cli))
 
 (define EXPECTED-ARGUMENT-FOR-JSON-FILE 1)
@@ -10,6 +11,7 @@
 (define HR-CHAR #\-)
 (define MSG-QUESTIONS-REMAINING "Questions remaining: ")
 (define MSG-QUESTION-PROMPT "Question")
+(define INITIAL-RESPONSE-NUMBER 1) ;; Start numbering response from "1".
 
 (define (qnr-run-cli)
   (let* ((path (read-json-file))
@@ -21,7 +23,7 @@
     (display-round-info quiz)
     (let ((question (qnr-quiz-get-next-question quiz)))
       (display-query-to-user question)
-      ;; TODO: Read Examinee's Response
+      (read-examinee-response (qnr-question-solution question))
       ;; TODO: Compare to Solution
       ;; TODO: IF incorrect, re-add the question
       ;; TODO: Re-run the quiz
@@ -47,3 +49,16 @@
 
 (define* (hr #:optional (length HR-LENGTH) (char HR-CHAR))
   (make-string length char))
+
+(define (read-examinee-response solution)
+  (define* (read-single-response
+            #:optional
+            (response-number INITIAL-RESPONSE-NUMBER)
+            (responses '()))
+    (cond ((= (length responses)
+              (qnr-solution-expected-response-count solution))
+           responses)
+          (else (begin (format #t "~a) " response-number)
+                       (read-single-response (1+ response-number)
+                                             (cons (read-line) responses))))))
+  (read-single-response))
