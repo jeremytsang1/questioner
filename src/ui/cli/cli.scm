@@ -21,10 +21,13 @@
 (define (run-quiz quiz)
   (unless (qnr-quiz-questions-remaining? quiz)
     (display-round-info quiz)
-    (let ((question (qnr-quiz-get-next-question quiz)))
+    (let* ((question (qnr-quiz-get-next-question quiz))
+           (solution (qnr-question-solution question)))
       (display-query-to-user question)
-      (read-examinee-response (qnr-question-solution question))
-      ;; TODO: Compare to Solution
+      (let* ((responses (read-examinee-response solution))
+             (wrong-answers (qnr-find-wrong-answers solution responses)))
+        (format #t "wrong-answers:\n")
+        (for-each (lambda (str) (format #t "\"~a\"\n" str)) wrong-answers))
       ;; TODO: IF incorrect, re-add the question
       ;; TODO: Re-run the quiz
       (run-quiz quiz))))
