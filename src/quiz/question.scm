@@ -72,7 +72,13 @@ QUESTION-NUMBER is a positive integer."
   (let* ((solution (qnr-make-solution choices expected-response-count)))
     (raw-make-question query solution question-number)))
 
-(define (qnr-nested-vector->nested-list nested-vector) '())
+(define (qnr-nested-vector->nested-list nested-vector)
+  (cond ((= (vector-length nested-vector) 0) '())
+        (else (map (lambda (element)
+                     (if (vector? element)
+                         (qnr-nested-vector->nested-list element)
+                         element))
+                   (vector->list nested-vector)))))
 
 ;; Validation ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (qnr-validate-question question)
