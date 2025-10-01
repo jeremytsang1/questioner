@@ -183,15 +183,6 @@
     (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 2)
     '("a" "b" "c" "d" "e"))))
 
-(qnr-test-error-message
- "Detect when responses contains empty string"
- QNR-ERROR-KEY-SOLUTION
- QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE
- (lambda ()
-   (qnr-find-wrong-answers
-    (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 3)
-    '("a" "b" ""))))
-
 (test-equal "Find wrong answers: correctly answers 1-reponse 1-choice question"
   '()
   (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '("foo")))

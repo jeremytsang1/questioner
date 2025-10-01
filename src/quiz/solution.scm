@@ -188,7 +188,4 @@ member."
     (when (not (= (length responses) expected-response-count))
       (throw QNR-ERROR-KEY-SOLUTION
              QNR-ERROR-MSG-SOLUTION-RESPONSES-LENGTH-MISMATCH))
-    (when (any string-null? responses)
-      (throw QNR-ERROR-KEY-SOLUTION
-             QNR-ERROR-MSG-SOLUTION-RESPONSE-MADE-OF-WHITESPACE))
     responses))
