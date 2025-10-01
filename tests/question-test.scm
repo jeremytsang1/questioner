@@ -109,4 +109,10 @@
   (qnr-nested-vector->nested-list (vector (vector 'a 'b 'c)
                                           (vector 'x 'y 'z))))
 
+(test-equal "qnr-nested-vector->nested-list: empty sub-vectors"
+  '((a b c) (x y z) ())
+  (qnr-nested-vector->nested-list (vector (vector 'a 'b 'c)
+                                          (vector 'x 'y 'z)
+                                          (vector))))
+
 (test-end TEST-SUITE-NAME)
