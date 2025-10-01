@@ -10,4 +10,12 @@
   '()
   (qnr-number-elements '()))
 
+(test-equal "qnr-number-elements: single element list"
+  '((a . 1))
+  (qnr-number-elements '(a)))
+
+(test-equal "qnr-number-elements: multi element list"
+  '((a . 1) (b . 2) (c . 3) (d . 4))
+  (qnr-number-elements '(a b c d)))
+
 (test-end TEST-SUITE-NAME)
