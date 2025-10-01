@@ -2,6 +2,7 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-9)
   #:use-module (src quiz solution)
+  #:use-module (src quiz quiz-loader)
   #:export (QNR-ERROR-KEY-QUESTION
             QNR-VALID-QUESTION-NO-ERROR
             QNR-ERROR-NON-QUESTION
@@ -10,6 +11,7 @@
             QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
             QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
             QNR-ERROR-QUESTION-NUMBER-NEGATIVE
+            qnr-make-question-from-dto
             qnr-make-question
             qnr-question-query
             qnr-question-solution
@@ -46,6 +48,14 @@
   (query qnr-question-query)
   (solution qnr-question-solution)
   (question-number qnr-question-question-number))
+
+(define (qnr-make-question-from-dto dto-question question-number)
+  (qnr-make-question
+   (qnr-dto-question-query dto-question)
+   (qnr-nested-vector->nested-list
+    (qnr-dto-question-choices dto-question))
+   (qnr-dto-question-expected-response-count dto-question)
+   question-number))
 
 (define (qnr-make-question query
                            choices
