@@ -85,7 +85,10 @@
     {
       "query": "What is freedom of religion?",
       "choices": [
-        ["You can practice any religion, or not practice a religion"]
+        [
+          "You can practice any religion, or not practice a religion.",
+          "You can practice any religion or not practice a religion."
+        ]
       ],
       "expected-response-count": 1
     },
@@ -97,10 +100,10 @@
     {
       "query": "What is the \"rule of law\"?",
       "choices": [
-        ["Everyone must follow the law", "Everybody must follow the law"],
-        ["Leaders must obey the law"],
-        ["Government must obey the law"],
-        ["No one is above the law"]
+        ["Everyone must follow the law.", "Everybody must follow the law."],
+        ["Leaders must obey the law."],
+        ["Government must obey the law."],
+        ["No one is above the law."]
       ],
       "expected-response-count": 1
     },
@@ -376,22 +379,42 @@
           "Citizens eighteen and older",
           "Citizens 18 and older",
           "Citizens eighteen and older can vote",
-          "Citizens 18 and older can vote"
+          "Citizens 18 and older can vote",
+          "citizens eighteen (18) and older (can vote)",
+          "citizens eighteen and older",
+          "citizens 18 and older",
+          "citizens eighteen and older can vote",
+          "citizens 18 and older can vote"
         ],
         [
           "You don't have to pay (a poll tax) to vote",
           "You don't have to pay to vote",
-          "You don't have to pay a poll tax to vote"
+          "You don't have to pay a poll tax to vote",
+          "you don't have to pay (a poll tax) to vote",
+          "you don't have to pay to vote",
+          "you don't have to pay a poll tax to vote"
         ],
         [
           "Any citizen can vote. (Women and men can vote)",
           "Any citizen can vote.",
-          "Any citizen can vote. Women and men can vote"
+          "Any citizen can vote. Women and men can vote",
+          "any citizen can vote. (women and men can vote)",
+          "any citizen can vote.",
+          "any citizen can vote. women and men can vote",
+          "Any citizen can vote (Women and men can vote)",
+          "Any citizen can vote",
+          "Any citizen can vote Women and men can vote",
+          "any citizen can vote (women and men can vote)",
+          "any citizen can vote",
+          "any citizen can vote women and men can vote"
         ],
         [
           "A male citizen of any race (can vote)",
           "A male citizen of any race",
-          "A male citizen of any race can vote"
+          "A male citizen of any race can vote",
+          "a male citizen of any race (can vote)",
+          "a male citizen of any race",
+          "a male citizen of any race can vote"
         ]
       ],
       "expected-response-count": 1
@@ -558,8 +581,8 @@
     {
       "query": "What happened at the Constitutional Convention?",
       "choices": [
-        ["The Constitution was written"],
-        ["The Founding Fathers wrote the Constitution"]
+        ["The Constitution was written."],
+        ["The Founding Fathers wrote the Constitution."]
       ],
       "expected-response-count": 1
     },
@@ -716,7 +739,7 @@
     },
     {
       "query": "What major event happened on September 11, 2001, in the United States?",
-      "choices": [["Terrorists attacked the United States"]],
+      "choices": [["Terrorists attacked the United States."]],
       "expected-response-count": 1
     },
     {
