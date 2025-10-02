@@ -59,8 +59,8 @@ Questioner is an application that reads a list of questions and answers and then
      - The length of the outer array represents how many choices are possible.
      - The inner arrays represents a given choice and equivalent alternatives for that choice.
        - There need not be more than one string per inner array but adding more allows more leniency for the examinee. For example, alternative spellings or choices with varying degrees of specificity (see the third question in the above JSON fragment).
-     - ~"expected-response-count"~: an integer
-       - This represents how many responses the examinee is to provide for the given question. For example a question that says to "Name three X" would set ~"expected-response-count"~ to 3.
+  3) ~"expected-response-count"~: an integer
+     - This represents how many responses the examinee is to provide for the given question. For example a question that says to "Name three X" would set ~"expected-response-count"~ to 3.
 - See the [[file:example-questions/2008-civics-test.json][example quiz]] for a more in depth example.
 ** Taking Quizzes
 - Quizzes will be case sensitive but whitespace insensitive. This design choice was made with the USCIS civics test in mind in that capitalization is an indicator of English Language proficiency.
