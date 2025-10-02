@@ -101,9 +101,7 @@
       (qnr-number-elements (qnr-get-primary-correct-answers solution)))
      "\n"))
 
-
   (let ((correct-answers (qnr-get-primary-correct-answers solution)))
-
     (cond ((null? wrong-answers) (format #t "\n~a\n" MSG-ROUND-CORRECT))
           ((= (length (qnr-solution-choices solution)) 1)
            (format #t
