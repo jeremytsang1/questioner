@@ -1,4 +1,4 @@
-(define-module (util test)
+(define-module (src util test)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-64)
   #:export (qnr-generate-log-file-name

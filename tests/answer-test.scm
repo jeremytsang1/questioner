@@ -5,7 +5,7 @@
 
 (use-modules (srfi srfi-64)
              (src quiz answer)
-             (util test))
+             (src util test))
 
 (define TEST-SUITE-NAME
   ;; Note that this must have the same stem as corresponding `.log` file used

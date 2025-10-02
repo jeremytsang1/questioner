@@ -3,7 +3,7 @@
 #!/usr/local/bin/guile -s
 !#
 
-(use-modules (srfi srfi-64) (util test) (src quiz choice))
+(use-modules (srfi srfi-64) (src util test) (src quiz choice))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define TEST-SUITE-NAME (qnr-generate-log-file-name))

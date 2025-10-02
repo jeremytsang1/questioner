@@ -1,5 +1,5 @@
 (use-modules (srfi srfi-64)
-             (util test)
+             (src util test)
              (src quiz quiz-loader))
 
 ;; Test Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
