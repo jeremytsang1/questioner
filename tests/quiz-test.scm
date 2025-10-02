@@ -28,9 +28,8 @@
     (qnr-make-quiz (qnr-load-quiz-file "./tests/input-files/valid-single-question.json")))))
 
 (test-equal "qnr-quiz: choices single question"
-  ;; Converts to lower case as a solution
-  '(("missouri" "missouri river")
-    ("mississippi" "mississippi river"))
+  '(("Missouri" "Missouri River")
+    ("Mississippi" "Mississippi River"))
   (qnr-solution-choices
    (qnr-question-solution
     (qnr-quiz-get-next-question

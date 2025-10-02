@@ -18,8 +18,6 @@
 (define SPACES "   ")
 (define SINGLE-WORD-ANSWER "foo")
 (define SECOND-WORD "bar")
-(define LOWERCASE-CONVERTED-ANSWER "foo bar baz bop")
-(define MIXED-CASE-ANSWER "Foo BAR baz\t\tbOp")
 
 (test-begin TEST-SUITE-NAME)
 
@@ -55,10 +53,5 @@
    (string-concatenate (list SINGLE-WORD-ANSWER QNR-SINGLE-SPACE SECOND-WORD))
    (qnr-remove-excess-whitespace
     (string-concatenate (list SINGLE-WORD-ANSWER SPACES SECOND-WORD)))))
-
-(test-assert "answer with upper case to lower case"
-  (string=?
-   LOWERCASE-CONVERTED-ANSWER
-   (qnr-remove-excess-whitespace MIXED-CASE-ANSWER)))
 
 (test-end TEST-SUITE-NAME)

@@ -9,12 +9,11 @@
 (define (qnr-remove-excess-whitespace answer)
   "Format ANSWER to be in a more comparable form.
 
-Remove excess internal/external whitespace from ANSWER and convert it entirely
-to lowercase.
+Remove excess internal/external whitespace from ANSWER.
 
 Note if ANSWER is entirely composed of whitespace it is collapsed down to an
 empty string."
-  (string-downcase (remove-excess-whitespace answer)))
+  (remove-excess-whitespace answer))
 
 (define (remove-excess-whitespace answer)
   (string-join
