@@ -16,6 +16,8 @@
 (define INITIAL-RESPONSE-NUMBER 1) ;; Start numbering response from "1".
 (define SEPARATOR-RESPONSE-NUMBER-SINGLE-EXPECTED-RESPONSE-COUNT ">")
 (define SEPARATOR-RESPONSE-NUMBER-MULTI-EXPECTED-RESPONSE-COUNT ")")
+(define SEPARATOR-RESULT-SINGLE-CHOICE "-")
+(define SEPARATOR-RESULT-MULTI-CHOICE ")")
 (define SEPARATOR-SPACING " ")
 
 (define (qnr-run-cli)
@@ -49,8 +51,9 @@
 
 (define (display-query-to-user question)
   (format #t
-          "~a ~a:\n~a\n"
+          "~a~a~a:\n~a\n"
           MSG-QUESTION-PROMPT
+          SEPARATOR-SPACING
           (qnr-question-question-number question)
           (qnr-question-query question)))
 
@@ -84,15 +87,33 @@
   (read-single-response))
 
 (define (display-round-results solution wrong-answers)
-  (define (format-primary-correct-answers)
+  (define (format-multiple-correct-answers)
     (string-join
      (map
       (lambda (pair)
         (let ((answer (car pair)) (answer-number (cdr pair)))
-          (format #f "~a) ~a" answer-number answer)))
+          (format #f
+                  "~a~a~a~a"
+                  answer-number
+                  SEPARATOR-RESPONSE-NUMBER-MULTI-EXPECTED-RESPONSE-COUNT
+                  SEPARATOR-SPACING
+                  answer)))
       (qnr-number-elements (qnr-get-primary-correct-answers solution)))
      "\n"))
 
-  (if (null? wrong-answers)
-      (format #t "\n~a\n" MSG-ROUND-CORRECT)
-      (format #t "\n~a\n~a\n" MSG-ROUND-INCORRECT (format-primary-correct-answers))))
+
+  (let ((correct-answers (qnr-get-primary-correct-answers solution)))
+
+    (cond ((null? wrong-answers) (format #t "\n~a\n" MSG-ROUND-CORRECT))
+          ((= (length (qnr-solution-choices solution)) 1)
+           (format #t
+                   "\n~a\n~a~a~a\n"
+                   MSG-ROUND-INCORRECT
+                   SEPARATOR-RESULT-SINGLE-CHOICE
+                   SEPARATOR-SPACING
+                   (car correct-answers)))
+          (else
+           (format #t
+                   "\n~a\n~a\n"
+                   MSG-ROUND-INCORRECT
+                   (format-multiple-correct-answers))))))
