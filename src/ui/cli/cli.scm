@@ -11,6 +11,8 @@
 (define HR-CHAR #\-)
 (define MSG-QUESTIONS-REMAINING "Questions remaining: ")
 (define MSG-QUESTION-PROMPT "Question")
+(define MSG-ROUND-CORRECT "CORRECT!")
+(define MSG-ROUND-INCORRECT "INCORRECT!")
 (define INITIAL-RESPONSE-NUMBER 1) ;; Start numbering response from "1".
 
 (define (qnr-run-cli)
@@ -26,8 +28,7 @@
       (display-query-to-user question)
       (let* ((responses (read-examinee-response solution))
              (wrong-answers (qnr-find-wrong-answers solution responses)))
-        (format #t "wrong-answers:\n")
-        (for-each (lambda (str) (format #t "\"~a\"\n" str)) wrong-answers))
+        (display-round-results solution wrong-answers))
       ;; TODO: IF incorrect, re-add the question
       ;; TODO: Re-run the quiz
       (run-quiz quiz))))
@@ -65,3 +66,17 @@
                        (read-single-response (1+ response-number)
                                              (cons (read-line) responses))))))
   (read-single-response))
+
+(define (display-round-results solution wrong-answers)
+  (define (format-primary-correct-answers)
+    (string-join
+     (map
+      (lambda (pair)
+        (let ((answer (car pair)) (answer-number (cdr pair)))
+          (format #f "~a) ~a" answer-number answer)))
+      (qnr-number-elements (qnr-get-primary-correct-answers solution)))
+     "\n"))
+
+  (if (null? wrong-answers)
+      (format #t "\n~a\n" MSG-ROUND-CORRECT)
+      (format #t "\n~a\n~a\n" MSG-ROUND-INCORRECT (format-primary-correct-answers))))
