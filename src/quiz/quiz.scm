@@ -3,6 +3,7 @@
   #:use-module (ice-9 q)
   #:use-module (src quiz quiz-loader)
   #:use-module (src quiz question)
+  #:use-module (src util random)
   #:export (qnr-make-quiz
             qnr-quiz-get-next-question
             qnr-quiz-add-question
@@ -26,14 +27,12 @@ takes its question number to be its 1-indexed position in DTO-QUESTIONS."
   (let ((questions-unanswered (make-q))
         (numbered-qnr-dto-questions (qnr-number-elements dto-questions)))
 
-    ;; TODO: shuffle `numbered-qnr-dto-questions`
-
     (for-each
      (lambda (pair)
        (let ((dto (car pair)) (question-number (cdr pair)))
          (enq! questions-unanswered
                (qnr-make-question-from-dto dto question-number))))
-     numbered-qnr-dto-questions)
+     (qnr-shuffle numbered-qnr-dto-questions))
 
     (raw-make-quiz questions-unanswered)))
 
