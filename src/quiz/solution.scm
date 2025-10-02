@@ -152,10 +152,9 @@ SOLUTION must be a well form <solution>."
 
 SOLUTION should be a valid solution.
 
-LIST-OF-STRINGS is a non-empty list of strings that are not completely composed
-of whitespace. It should have length equal to SOLUTION's field
-`expected-response-count` (and hence be non-empty since that field should never
-be non-positive)."
+LIST-OF-STRINGS is a non-empty list of strings. It should have length equal to
+SOLUTION's field `expected-response-count` (and hence be non-empty since that
+field should never be non-positive)."
   (let ((responses (make-responses list-of-strings
                                    (qnr-solution-expected-response-count solution))))
     (collect-wrong-answers (qnr-solution-choices solution) responses)))
