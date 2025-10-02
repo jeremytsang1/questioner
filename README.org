@@ -4,6 +4,67 @@ Questioner is an application that reads a list of questions and answers and then
 * Dependencies
 - GNU ~make~ >= 4.3
 - [[id:][guile-json]] >= 4.7.3
+* Quiz Behavior
+** Writing Quizzes
+- Quizzes should be formatted in JSON files as in the example below
+  #+begin_src json-ts
+{
+  "questions": [
+    {
+      "query": "What is the supreme law of the land?",
+      "choices": [["the Constitution"]],
+      "expected-response-count": 1
+    },
+    {
+      "query": "What are two rights in the Declaration of Independence?",
+      "choices": [["life"], ["liberty"], ["pursuit of happiness"]],
+      "expected-response-count": 2
+    },
+    {
+      "query": "When is the last day you can send in federal income tax forms?",
+      "choices": [["April 15"]],
+      "expected-response-count": 1
+    },
+    {
+      "query": "What did the Declaration of Independence do?",
+      "choices": [
+        [
+          "announced our independence (from Great Britain)",
+          "announced our independence",
+          "announced our independence from Great Britain"
+        ],
+        [
+          "declared our independence (from Great Britain)",
+          "declared our independence",
+          "declared our independence from Great Britain"
+        ],
+        [
+          "said that the United States is free (from Great Britain)",
+          "said that the United States is free",
+          "said that the United States is free from Great Britain"
+        ]
+      ],
+      "expected-response-count": 1
+    }
+  ]
+}
+  #+end_src
+- There should be a top level key name ~"questions"~. It's value should be an array.
+- Said array should contain objects representing individual questions.
+- A given question is expected to have 3 keys
+  1) ~"query"~: a string
+     - Represents the "question" to be shown to the user
+  2) ~"choices"~: a non-empty array of non-empty arrays of non-null strings
+     - These represent the possible answers to the question.
+     - The length of the outer array represents how many choices are possible.
+     - The inner arrays represents a given choice and equivalent alternatives for that choice.
+       - There need not be more than one string per inner array but adding more allows more leniency for the examinee. For example, alternative spellings or choices with varying degrees of specificity (see the third question in the above JSON fragment).
+     - ~"expected-response-count"~: an integer
+       - This represents how many responses the examinee is to provide for the given question. For example a question that says to "Name three X" would set ~"expected-response-count"~ to 3.
+** Taking Quizzes
+- Quizzes will be case sensitive but whitespace insensitive. This design choice was made with the USCIS civics test in mind in that capitalization is an indicator of English Language proficiency.
+
+- Incorrectly answered questions will be added to the back of the quiz and revisited once the user has encountered all other previously unvisited questions. If incorrectly answered again they will kept being added back in until the user correctly answers them.
 * Running
 ** App
 - From the project root run
