@@ -87,6 +87,11 @@
   (read-single-response))
 
 (define (display-round-results solution wrong-answers)
+  (define (format-single-correct-answer)
+    (format #f "~a~a~a"
+            SEPARATOR-RESULT-SINGLE-CHOICE
+            SEPARATOR-SPACING
+            (car (qnr-get-primary-correct-answers solution))))
   (define (format-multiple-correct-answers)
     (string-join
      (map
@@ -100,18 +105,9 @@
                   answer)))
       (qnr-number-elements (qnr-get-primary-correct-answers solution)))
      "\n"))
-
-  (let ((correct-answers (qnr-get-primary-correct-answers solution)))
-    (cond ((null? wrong-answers) (format #t "\n~a\n" MSG-ROUND-CORRECT))
-          ((= (length (qnr-solution-choices solution)) 1)
-           (format #t
-                   "\n~a\n~a~a~a\n"
-                   MSG-ROUND-INCORRECT
-                   SEPARATOR-RESULT-SINGLE-CHOICE
-                   SEPARATOR-SPACING
-                   (car correct-answers)))
-          (else
-           (format #t
-                   "\n~a\n~a\n"
-                   MSG-ROUND-INCORRECT
-                   (format-multiple-correct-answers))))))
+  (if (null? wrong-answers) (format #t "\n~a\n" MSG-ROUND-CORRECT)
+      (format #t "\n~a\n~a\n"
+              MSG-ROUND-INCORRECT
+              (if (= (length (qnr-solution-choices solution)) 1)
+                  (format-single-correct-answer)
+                  (format-multiple-correct-answers)))))
