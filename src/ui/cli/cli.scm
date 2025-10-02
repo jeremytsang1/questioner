@@ -14,6 +14,9 @@
 (define MSG-ROUND-CORRECT "CORRECT!")
 (define MSG-ROUND-INCORRECT "INCORRECT!")
 (define INITIAL-RESPONSE-NUMBER 1) ;; Start numbering response from "1".
+(define SEPARATOR-RESPONSE-NUMBER-SINGLE-EXPECTED-RESPONSE-COUNT ">")
+(define SEPARATOR-RESPONSE-NUMBER-MULTI-EXPECTED-RESPONSE-COUNT ")")
+(define SEPARATOR-SPACING " ")
 
 (define (qnr-run-cli)
   (let* ((path (read-json-file))
@@ -62,9 +65,22 @@
     (cond ((= (length responses)
               (qnr-solution-expected-response-count solution))
            responses)
-          (else (begin (format #t "~a) " response-number)
+          (else (begin (display-prompt response-number)
                        (read-single-response (1+ response-number)
                                              (cons (read-line) responses))))))
+  (define (display-prompt response-number)
+    (let ((prompt
+           ;; Use a different response prompt for single response count
+           ;; (i.e. ECR = 1) than multiresponse count. The latter should
+           ;; include numbers to help examinee keep track of which responses
+           ;; they have previously input.
+           (if (= (qnr-solution-expected-response-count solution) 1)
+               SEPARATOR-RESPONSE-NUMBER-SINGLE-EXPECTED-RESPONSE-COUNT
+               (format #f
+                       "~a~a"
+                       response-number
+                       SEPARATOR-RESPONSE-NUMBER-MULTI-EXPECTED-RESPONSE-COUNT))))
+      (format #t "~a~a" prompt SEPARATOR-SPACING)))
   (read-single-response))
 
 (define (display-round-results solution wrong-answers)
