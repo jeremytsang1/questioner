@@ -28,9 +28,9 @@
       (display-query-to-user question)
       (let* ((responses (read-examinee-response solution))
              (wrong-answers (qnr-find-wrong-answers solution responses)))
-        (display-round-results solution wrong-answers))
-      ;; TODO: IF incorrect, re-add the question
-      ;; TODO: Re-run the quiz
+        (display-round-results solution wrong-answers)
+        (unless (null? wrong-answers)
+          (qnr-quiz-add-question quiz question)))
       (run-quiz quiz))))
 
 (define (read-json-file)
