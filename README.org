@@ -63,6 +63,8 @@ Questioner is an application that reads a list of questions and answers and then
      - This represents how many responses the examinee is to provide for the given question. For example a question that says to "Name three X" would set ~"expected-response-count"~ to 3.
 - See the [[file:example-questions/2008-civics-test.json][example quiz]] for a more in depth example.
 ** Taking Quizzes
+- Questions will be asked in random order.
+
 - Quizzes will be case sensitive but whitespace insensitive. This design choice was made with the USCIS civics test in mind in that capitalization is an indicator of English Language proficiency.
 
 - Incorrectly answered questions will be added to the back of the quiz and revisited once the user has encountered all other previously unvisited questions. If incorrectly answered again they will kept being added back in until the user correctly answers them.
