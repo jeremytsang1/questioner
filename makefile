@@ -7,14 +7,22 @@ DIR_EXAMPLE := ./example-questions
 EXAMPLE_QUESTIONS_FILE := 2008-civics-test.json
 PATH_QUESTIONS = $(DIR_EXAMPLE)/$(EXAMPLE_QUESTIONS_FILE)
 
-SRCS := $(wildcard $(DIR_SRC)/*.scm)
-
-# Match any .scm in the TOP level of the test directory. This simple wildcard
-# matching does not search subdirectories. Use GNU `find` if that is needed.
-TESTS := $(wildcard $(DIR_TESTS)/*.scm)
+# Use `find` (from GNU findutils) due to nested directory structure of source
+# and test file locations. Due to nested nature, simple wildcard won't
+# suffice. Would need more sophisticated technique.
+SRCS := $(shell find $(DIR_SRC) -name '*.scm')
+TESTS := $(shell find $(DIR_TESTS) -name '*.scm')
 
 # ASSUME: There is exactly one log file generated for each test file.
+# ASSUME: Log files are written by test file when test file is given
+# path/file-name to write the log to.
 LOGS := $(patsubst $(DIR_TESTS)/%.scm,$(DIR_LOGS)/%.log,$(TESTS))
+
+# Target-specific variable. This generates variables DIR_CONTAINING_LOG_FILE
+# that varies for each filename in LOGS, for each log file makefile target. It
+# does this by taking the directory name of the file. $@ is an automatic
+# variable.
+$(LOGS): DIR_CONTAINING_LOG_FILE = $(dir $@)
 
 HORIZONTAL_RULE := \
 "--------------------------------------------------------------------------------"
@@ -26,9 +34,9 @@ all:
 # Goal of test compilation is to generate test log files.
 test: $(LOGS)
 
-# Match test log files using "Static Pattern Rule". The first (which can be
-# referenced by `$<`) prerequisite for each log file is its corresponding test
-# file used to generate it as well as all source files.
+# Match test log files using "Static Pattern Rule". The first prerequisite for
+# each log file (which can be referenced by automatic variable `$<`) is its
+# corresponding test file used to generate it as well as all source files.
 
 # ASSUME: Test files are independent from each other. Editing one will not
 # force a recompile of any of the others.
@@ -41,10 +49,10 @@ test: $(LOGS)
 
 $(LOGS): $(DIR_LOGS)/%.log: $(DIR_TESTS)/%.scm $(SRCS)
 	@echo $(HORIZONTAL_RULE)
-	mkdir --parents $(DIR_LOGS)
+	mkdir --parents $(DIR_CONTAINING_LOG_FILE)
 	$(CC) -L $(DIR_PROJECT_ROOT) \
 	$< \
-	$(DIR_LOGS)
+	$(DIR_CONTAINING_LOG_FILE)
 
 #  ############################################################################
 
