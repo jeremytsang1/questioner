@@ -319,8 +319,9 @@
       "expected-response-count": 1
     },
     {
-      "query": "Under our Constitution, some powers belong to the federal government.",
+      "query": "Under our Constitution, some powers belong to the federal government. What is one power of the federal government?",
       "choices": [
+        ["to print money"],
         ["to declare war"],
         ["to create an army"],
         ["to make treaties"]
