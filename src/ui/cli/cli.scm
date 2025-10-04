@@ -4,6 +4,7 @@
   #:use-module (src quiz quiz-loader)
   #:use-module (src quiz question)
   #:use-module (src quiz solution)
+  #:use-module (src util list)
   #:export (qnr-run-cli))
 
 (define EXPECTED-ARGUMENT-FOR-JSON-FILE 1)

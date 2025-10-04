@@ -4,13 +4,12 @@
   #:use-module (src quiz quiz-loader)
   #:use-module (src quiz question)
   #:use-module (src util random)
+  #:use-module (src util list)
   #:export (qnr-make-quiz
             qnr-quiz-get-next-question
             qnr-quiz-add-question
             qnr-quiz-questions-remaining?
-            qnr-quiz-length
-            ;; Helpers
-            qnr-number-elements))
+            qnr-quiz-length))
 
 
 ;; Record Definition ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -48,16 +47,3 @@ takes its question number to be its 1-indexed position in DTO-QUESTIONS."
 
 (define (qnr-quiz-length quiz)
   (q-length (qnr-quiz-questions-unanswered quiz)))
-
-;; Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-module (src quiz quiz)
-  #:export (qnr-number-elements))
-
-(define* (qnr-number-elements lst #:optional (current-number 1))
-  "Return an alist with each key being an element of DTO-QUESTIONS and the value
-its number in the overall list with numbers starting at CURRENT-NUMBER.
-
-When CURRENT-NUMBER is ommitted, counting starts at 1."
-  (cond ((null? lst) '())
-        (else (cons (cons (car lst) current-number)
-                    (qnr-number-elements (cdr lst) (1+ current-number))))))
