@@ -1,6 +1,8 @@
 (define-module (src util random)
   #:export (qnr-shuffle))
 
+(define RANDOM-STATE (random-state-from-platform))
+
 ;; Inspired by https://youtu.be/TGveA1oFhrc?si=uhGdyQxkLGo7abZx&t=387 and
 (define (qnr-shuffle lst)
   "Returns a shuffled copy of LST."
@@ -39,7 +41,7 @@
 (define (merge-random left right) ; assume left and right are sorted ascending
   (cond ((null? left) right)
         ((null? right) left)
-        ((> (random 2 (random-state-from-platform)) 0)
+        ((> (random 2 RANDOM-STATE) 0)
          (cons (car left) (merge-random (cdr left) right)))
         (else
          (cons (car right) (merge-random left (cdr right))))))
