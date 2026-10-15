@@ -1,0 +1,3 @@
+[submodule "srfi-64-utils"]
+	path = srfi-64-utils
+	url = git@github.com:jeremytsang1/srfi-64-utils.git
