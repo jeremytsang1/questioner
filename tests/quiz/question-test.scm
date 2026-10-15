@@ -4,10 +4,10 @@
 !#
 
 (use-modules (srfi srfi-64)
-             (src util test)
+             (srfi-64-utils s64u)
              (src quiz question))
 
-(define TEST-SUITE-NAME (qnr-generate-log-file-name))
+(define TEST-SUITE-NAME (s64u-generate-log-file-name))
 
 (define QUERY-VALID "foo")
 (define QUERY-INVALID-NON-STRING '())
@@ -43,13 +43,13 @@
                        QUESTION-NUMBER-VALID-POSITIVE-INTEGER)
     'completed-without-throwing-any-errors))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "validate an object that is not a <qnr-question>"
  QNR-ERROR-KEY-QUESTION
  QNR-ERROR-NON-QUESTION
  (lambda () (qnr-validate-question '(foo bar baz bop))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "validate <qnr-question> with field `query` that is non-string"
  QNR-ERROR-KEY-QUESTION
  QNR-ERROR-QUERY-NON-STRING
@@ -59,7 +59,7 @@
                                 EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                                 QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "validate <qnr-question> with field `query` that is an empty string"
  QNR-ERROR-KEY-QUESTION
  QNR-ERROR-QUERY-EMPTY
@@ -69,7 +69,7 @@
                                 EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                                 QUESTION-NUMBER-VALID-POSITIVE-INTEGER))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "validate <qnr-question> with field `question-number` that is non-integer"
  QNR-ERROR-KEY-QUESTION
  QNR-ERROR-QUESTION-NUMBER-WRONG-TYPE
@@ -79,7 +79,7 @@
                                 EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                                 QUESTION-NUMBER-INVALID-TYPE))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "validate <qnr-question> with field `question-number` that is 0"
  QNR-ERROR-KEY-QUESTION
  QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE
@@ -89,7 +89,7 @@
                                 EXPECTED-RESPONSE-COUNT-VALID-SINGLE
                                 QUESTION-NUMBER-INVALID-ZERO))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "validate <qnr-question> with field `question-number` that is negative"
  QNR-ERROR-KEY-QUESTION
  QNR-ERROR-QUESTION-NUMBER-NON-POSITIVE

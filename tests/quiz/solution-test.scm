@@ -3,10 +3,10 @@
 #!/usr/local/bin/guile -s
 !#
 
-(use-modules (srfi srfi-64) (src util test) (src quiz solution) (src quiz choice))
+(use-modules (srfi srfi-64) (srfi-64-utils s64u) (src quiz solution) (src quiz choice))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define TEST-SUITE-NAME (qnr-generate-log-file-name))
+(define TEST-SUITE-NAME (s64u-generate-log-file-name))
 
 (define SINGLE-CHOICE-CHOICES '(("blue")))
 (define SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT 1)
@@ -30,7 +30,7 @@
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 ;; Validating choices at the choice level ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> from choices with empty choice"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-MSG-CHOICE-EMPTY
@@ -38,41 +38,41 @@
                                SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 ;; Validating choices at the <solution> level ;;;;;;;;;;;;;;;;;;;;;;;
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type choices: integer"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
  (lambda () (qnr-make-solution 12345 SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type choices: string"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
  (lambda ()
    (qnr-make-solution "hello" SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type choices: symbol"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
  (lambda ()
    (qnr-make-solution 'goodbye SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type choices: character"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-CHOICES-WRONG-TYPE
  (lambda ()
    (qnr-make-solution #\a SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong value choices: empty list"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-CHOICES-EMPTY
  (lambda ()
    (qnr-make-solution '() SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong value choices: duplicates across choices"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-DUPLICATE-CHOICES
@@ -81,43 +81,43 @@
                       SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
 ;; Validating `expected-response-count` ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type expected-response-count: string"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES "foo")))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type expected-response-count: list"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES (list 3 4 6))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type expected-response-count: non-integral number"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 3.14159)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong type expected-response-count: boolean"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-WRONG-TYPE
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES #f)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong value expected-response-count: negative"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES -27)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong value expected-response-count: zero"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-NON-POSITIVE-EXPECTED-RESPONSE-COUNT
  (lambda () (qnr-make-solution SINGLE-CHOICE-CHOICES 0)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct <solution> wrong value expected-response-count: greater than length of choices"
  QNR-ERROR-KEY-SOLUTION-CONSTRUCTION
  QNR-ERROR-MSG-SOLUTION-EXPECTED-RESPONSE-COUNT-EXCEEDS-CHOICES-LENGTH
@@ -159,13 +159,13 @@
       ("alfa" "bravo charlie"))
     SINGLE-RESPONSE-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "Detect when there are no responses"
  QNR-ERROR-KEY-SOLUTION
  QNR-ERROR-MSG-SOLUTION-FIND-WRONG-ANSWERS-FROM-EMPTY-RESPONSE
  (lambda () (qnr-find-wrong-answers (qnr-make-solution '(("foo")) 1) '())))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "Detect when number of responses less than solution's expected response count"
  QNR-ERROR-KEY-SOLUTION
  QNR-ERROR-MSG-SOLUTION-RESPONSES-LENGTH-MISMATCH
@@ -174,7 +174,7 @@
     (qnr-make-solution '(("foo" "bar") ("baz" "bop") ("hello" "world")) 3)
     '("a" "b"))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "Detect when number of responses more than solution's expected response count"
  QNR-ERROR-KEY-SOLUTION
  QNR-ERROR-MSG-SOLUTION-RESPONSES-LENGTH-MISMATCH

@@ -1,5 +1,5 @@
 (use-modules (srfi srfi-64)
-             (src util test)
+             (srfi-64-utils s64u)
              (src quiz quiz-loader))
 
 ;; Test Helpers ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -8,7 +8,7 @@
   (string-concatenate (list dirname basename)))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define TEST-SUITE-NAME (qnr-generate-log-file-name))
+(define TEST-SUITE-NAME (s64u-generate-log-file-name))
 
 (define PROJECT-ROOT ".")
 (define DIR-TEST "tests")
@@ -60,19 +60,19 @@
 ;; Tests ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (test-begin TEST-SUITE-NAME)
 
-(qnr-test-error "open invalid file: non-existent file"
+(s64u-test-error "open invalid file: non-existent file"
                 QNR-ERROR-FILE-NOT-FOUND
                 (lambda () (qnr-load-quiz-file PATH-NON-EXISTENT-FILE)))
 
-(qnr-test-error "open empty invalid JSON: empty file"
+(s64u-test-error "open empty invalid JSON: empty file"
                 QNR-ERROR-JSON-PARSING
                 (lambda () (qnr-load-quiz-file PATH-EMPTY-FILE)))
 
-(qnr-test-error "open empty invalid JSON: lorem ipsum paragraphs"
+(s64u-test-error "open empty invalid JSON: lorem ipsum paragraphs"
                 QNR-ERROR-JSON-PARSING
                 (lambda () (qnr-load-quiz-file PATH-LOREM-IPSUM)))
 
-(qnr-test-error "open empty invalid JSON: missing closing bracket"
+(s64u-test-error "open empty invalid JSON: missing closing bracket"
                 QNR-ERROR-JSON-PARSING
                 (lambda () (qnr-load-quiz-file PATH-MISSING-CLOSING-BRACKET)))
 
@@ -94,71 +94,71 @@
    (car
     (qnr-load-quiz-file PATH-VALID-SINGLE-QUERY))))
 
-(qnr-test-error "invalid parsed: missing top level record field"
+(s64u-test-error "invalid parsed: missing top level record field"
                 QNR-ERROR-PARSED-NO-TOP-LEVEL-FIELD
                 (lambda ()
                   (qnr-load-quiz-file
                    PATH-INVALID-MISSING-TOP-LEVEL-RECORD-FIELD)))
 
-(qnr-test-error "invalid parsed: empty quiz"
+(s64u-test-error "invalid parsed: empty quiz"
                 QNR-ERROR-PARSED-EMPTY-QUESTIONS
                 (lambda () (qnr-load-quiz-file PATH-INVALID-NO-QUESTIONS)))
 
-(qnr-test-error "invalid parsed: question wrong type as string"
+(s64u-test-error "invalid parsed: question wrong type as string"
                 QNR-ERROR-PARSED-QUESTION-NOT-JSON-OBJECT
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-QUESTION-WRONG-TYPE)))
 
-(qnr-test-error "invalid parsed: missing field query"
+(s64u-test-error "invalid parsed: missing field query"
                 QNR-ERROR-PARSED-MISSING-FIELD
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-QUERY)))
 
-(qnr-test-error "invalid parsed: wrong type query"
+(s64u-test-error "invalid parsed: wrong type query"
                 QNR-ERROR-PARSED-WRONG-TYPE-QUERY
                 (lambda ()
                   (qnr-load-quiz-file PATH-INVALID-WRONG-TYPE-QUERY)))
 
-(qnr-test-error "invalid parsed: missing field expected-response-count"
-                QNR-ERROR-PARSED-MISSING-FIELD
-                (lambda ()
-                  (qnr-load-quiz-file
-                   PATH-INVALID-MISSING-FIELD-EXPECTED-RESPONSE-COUNT)))
+(s64u-test-error "invalid parsed: missing field expected-response-count"
+                 QNR-ERROR-PARSED-MISSING-FIELD
+                 (lambda ()
+                   (qnr-load-quiz-file
+                    PATH-INVALID-MISSING-FIELD-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error "invalid parsed: wrong type expected-response-count"
-                QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
-                (lambda ()
-                  (qnr-load-quiz-file
-                   PATH-INVALID-WRONG-TYPE-EXPECTED-RESPONSE-COUNT)))
+(s64u-test-error "invalid parsed: wrong type expected-response-count"
+                 QNR-ERROR-PARSED-WRONG-TYPE-EXPECTED-RESPONSE-COUNT
+                 (lambda ()
+                   (qnr-load-quiz-file
+                    PATH-INVALID-WRONG-TYPE-EXPECTED-RESPONSE-COUNT)))
 
-(qnr-test-error "invalid parsed: missing field choices"
-                QNR-ERROR-PARSED-MISSING-FIELD
-                (lambda ()
-                  (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-CHOICES)))
+(s64u-test-error "invalid parsed: missing field choices"
+                 QNR-ERROR-PARSED-MISSING-FIELD
+                 (lambda ()
+                   (qnr-load-quiz-file PATH-INVALID-MISSING-FIELD-CHOICES)))
 
-(qnr-test-error "invalid parsed: wrong type choices outer vector"
-                QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
-                (lambda ()
-                  (qnr-load-quiz-file
-                   PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR)))
+(s64u-test-error "invalid parsed: wrong type choices outer vector"
+                 QNR-ERROR-PARSED-WRONG-TYPE-CHOICES
+                 (lambda ()
+                   (qnr-load-quiz-file
+                    PATH-INVALID-WRONG-TYPE-CHOICES-OUTER-VECTOR)))
 
-(qnr-test-error "invalid parsed: choices outer vector empty"
-                QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY
-                (lambda ()
-                  (qnr-load-quiz-file
-                   PATH-INVALID-CHOICES-OUTER-VECTOR-EMPTY)))
+(s64u-test-error "invalid parsed: choices outer vector empty"
+                 QNR-ERROR-PARSED-CHOICES-OUTER-VECTOR-EMPTY
+                 (lambda ()
+                   (qnr-load-quiz-file
+                    PATH-INVALID-CHOICES-OUTER-VECTOR-EMPTY)))
 
-(qnr-test-error "invalid parsed: choices innter vector wrong type"
-                QNR-ERROR-PARSED-CHOICES-INNER-VECTOR-WRONG-TYPE
-                (lambda ()
-                  (qnr-load-quiz-file
-                   PATH-INVALID-CHOICES-INNER-VECTOR-WRONG-TYPE)))
+(s64u-test-error "invalid parsed: choices innter vector wrong type"
+                 QNR-ERROR-PARSED-CHOICES-INNER-VECTOR-WRONG-TYPE
+                 (lambda ()
+                   (qnr-load-quiz-file
+                    PATH-INVALID-CHOICES-INNER-VECTOR-WRONG-TYPE)))
 
-(qnr-test-error "invalid multiple questions: last question query wrong type"
-                QNR-ERROR-PARSED-WRONG-TYPE-QUERY
-                (lambda ()                  
-                  (qnr-load-quiz-file
-                   PATH-INVALID-MULTIPLE-QUESTIONS-QUERY-WRONG-TYPE)))
+(s64u-test-error "invalid multiple questions: last question query wrong type"
+                 QNR-ERROR-PARSED-WRONG-TYPE-QUERY
+                 (lambda ()                  
+                   (qnr-load-quiz-file
+                    PATH-INVALID-MULTIPLE-QUESTIONS-QUERY-WRONG-TYPE)))
 
 
 (test-end TEST-SUITE-NAME)

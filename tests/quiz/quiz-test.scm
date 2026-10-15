@@ -1,11 +1,11 @@
 (use-modules (srfi srfi-64)
-             (src util test)
+             (srfi-64-utils s64u)
              (src quiz quiz)
              (src quiz quiz-loader)
              (src quiz question)
              (src quiz solution))
 
-(define TEST-SUITE-NAME (qnr-generate-log-file-name))
+(define TEST-SUITE-NAME (s64u-generate-log-file-name))
 
 (test-begin TEST-SUITE-NAME)
 

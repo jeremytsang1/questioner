@@ -5,14 +5,14 @@
 
 (use-modules (srfi srfi-64)
              (src quiz answer)
-             (src util test))
+             (srfi-64-utils s64u))
 
 (define TEST-SUITE-NAME
   ;; Note that this must have the same stem as corresponding `.log` file used
   ;; as a target in the makefile. In this case "answer-test" is the stem where
   ;; the target will be "answer-test.log" and the prerequisite is
   ;; "answer-test.scm".
-  (qnr-generate-log-file-name))
+  (s64u-generate-log-file-name))
 (define EMPTY-ANSWER "")
 (define EXCLUSIVELY-WHITESPACE "  \n   \t ")
 (define SPACES "   ")

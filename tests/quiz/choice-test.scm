@@ -3,10 +3,10 @@
 #!/usr/local/bin/guile -s
 !#
 
-(use-modules (srfi srfi-64) (src util test) (src quiz choice))
+(use-modules (srfi srfi-64) (srfi-64-utils s64u) (src quiz choice))
 
 ;; Constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define TEST-SUITE-NAME (qnr-generate-log-file-name))
+(define TEST-SUITE-NAME (s64u-generate-log-file-name))
 
 (define CHOICE-VALID-CHOICE-SINGLE-ALTERNATIVES '("hello"))
 (define CHOICE-VALID-CHOICE-MULTIPLE-ALTERNATIVES '("foo" "bar" "baz" "bop"))
@@ -98,37 +98,37 @@
 ;; https://wolfsden.cz/blog/post/state-of-srfi-64.html). It is good enough to
 ;; know when any error is thrown but not a specific error. So here we are using
 ;; the first argument is just a non-functional descriptor.
-(qnr-test-error-message
+(s64u-test-error-message
  "construct choice from wrong value: empty list"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-MSG-CHOICE-EMPTY
  (lambda () (qnr-make-choice '())))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct choice from wrong type: integer"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-MSG-CHOICE-WRONG-TYPE
  (lambda () (qnr-make-choice 1231)))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct choice from wrong type: string"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-MSG-CHOICE-WRONG-TYPE
  (lambda () (qnr-make-choice "foo")))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct choice alternative from wrong type: list"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-MSG-CHOICE-ALTERNATIVE-WRONG-TYPE
  (lambda () (qnr-make-choice '("foo" ("bar")))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct choice alternative from wrong type: integer"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-MSG-CHOICE-ALTERNATIVE-WRONG-TYPE
  (lambda () (qnr-make-choice '("alpha" "beta" 334 "gamma"))))
 
-(qnr-test-error-message
+(s64u-test-error-message
  "construct choice alternative from wrong type: boolean"
  QNR-ERROR-KEY-CHOICE-CONSTRUCTION
  QNR-ERROR-MSG-CHOICE-ALTERNATIVE-WRONG-TYPE

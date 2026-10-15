@@ -1,8 +1,8 @@
 (use-modules (srfi srfi-64)
              (src util list)
-             (src util test))
+             (srfi-64-utils s64u))
 
-(define TEST-SUITE-NAME (qnr-generate-log-file-name))
+(define TEST-SUITE-NAME (s64u-generate-log-file-name))
 
 (test-begin TEST-SUITE-NAME)
 
