@@ -13,8 +13,7 @@ SRCS := $(shell find $(DIR_SRC) -name '*.scm')
 all: $(SRCS)
 	$(CC) -L  $(DIR_PROJECT_ROOT) main.scm $(PATH_QUESTIONS)
 
-# Compile Tests ###############################################################
-# Goal of test compilation is to generate test log files.
+# Tests #######################################################################
 test: FORCE
 	$(MAKE) --file srfi-64-utils/makefile
 
