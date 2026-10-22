@@ -19,3 +19,7 @@ test: FORCE
 	$(MAKE) --file srfi-64-utils/makefile
 
 FORCE:
+
+.PHONY: clean_test
+clean_test:
+	$(MAKE) --file srfi-64-utils/makefile clean
